@@ -7,6 +7,13 @@ body {
     padding: 0px;
 }
 
+#container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
 #header > div{
     display: flex;
     text-align: center;
@@ -24,6 +31,30 @@ body {
     padding: 30px;
     gap: 25px;
     
+}
+
+#footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #393e3e;
+    padding: 10px;
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+}
+
+#footer > p > a {
+    text-decoration: none;
+    color: rgb(0, 170, 170);
+}
+
+#footer > p > a:hover {
+    text-decoration: none;
+    color: rgb(0, 170, 170);
 }
 
 .child {
@@ -45,10 +76,15 @@ body {
     transform: scale(1.1); /* Méretarányos növekedés (nem nyomja el a többit) */
 }
 
-.tic-tac-toe > a {
+.child > a {
     display: flex;
     gap: 10px;
     text-decoration: none;
+}
+
+.child > a > h3 {
+    color: #fff;
+    font-size: 20px
 }
 
 .tic-tac-toe > a > img {
@@ -56,7 +92,7 @@ body {
     margin: 5px;
 }
 
-.tic-tac-toe > a > h3 {
-    color: #fff;
-    font-size: 20px
+.choose-an-username > a > img{
+    width: 115px;
+    margin: 5px;
 }
