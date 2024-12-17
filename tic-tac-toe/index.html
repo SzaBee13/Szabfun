@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <title>Szabfun - Tic-Tac-Toe</title>
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <div class="controls">
+            <button onclick="toggleMode()" id="modeButton">Switch to Player Mode</button>
+            <button onclick="toggleDifficulty()" id="difficultyButton">Switch to Hard Mode</button>
+        </div>
+        <h1>Tic-Tac-Toe</h1>
+        <p>The unbeatable AI (hard mode)</p>
+        <div class="board" id="board"></div>
+        <div class="winner" id="winner"></div>
+        <button onclick="resetGame()">Restart Game</button>
+    </div>
+
+   <script src="./script.js"></script>
+</body>
+</html>

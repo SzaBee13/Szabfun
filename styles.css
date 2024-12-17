@@ -1,0 +1,62 @@
+body {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: gray;
+    font-family:'Courier New', Courier, monospace;
+    margin: 0px;
+    padding: 0px;
+}
+
+#header > div{
+    display: flex;
+    text-align: center;
+}
+
+.header-text {
+    width: 100vw;
+}
+
+#posts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 25px;
+    
+}
+
+.child {
+    flex: 1; /* Az elemek dinamikusan oszlanak el */
+    border: 1px solid;
+    border-color: black;
+    border-radius: 10px;
+    height: 125px;
+    min-width: 300px;
+    max-width: 300px;
+    transition: width 50ms ease-in, height 50ms ease-in;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #393e3e;
+}
+
+.child:hover {
+    flex-grow: 1.001; /* Az elem szélesebb lesz */
+    transform: scale(1.1); /* Méretarányos növekedés (nem nyomja el a többit) */
+}
+
+.tic-tac-toe > a {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.tic-tac-toe > a > img {
+    width: 120px;
+    margin: 5px;
+}
+
+.tic-tac-toe > a > h3 {
+    color: #fff;
+    font-size: 20px
+}
