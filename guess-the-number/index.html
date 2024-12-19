@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="../img/guess-the-number.png" type="image/x-icon">
+    <title>Szabfun - Guess The Number</title>
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <h1>Number Guessing Game</h1>
+        <div class="game">
+            <p>Guess a number between 1 and 100:</p>
+            <input type="number" id="guess" min="1" max="100">
+            <button onclick="checkGuess()">Submit</button>
+            <div>Your guessed numbers right all time: <span id="score">0</span></div>
+            <div class="result" id="result">Make a guess!</div>
+            <button onclick="startGame()" class="but">Reset Number</button>
+        </div>
+        <div id="fullscreen-div">
+            <div>The number is <span id="secret"></span></div>
+            <div class="back-fl"><button onclick="notShowFullScreen()">Back</button></div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>

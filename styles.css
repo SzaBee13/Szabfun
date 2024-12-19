@@ -101,3 +101,8 @@ body {
     width: 115px;
     margin: 5px;
 }
+
+.guess-the-number > a > img {
+    width: 115px;
+    margin: 5px;
+}
