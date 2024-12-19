@@ -1,4 +1,4 @@
-const langSel = document.getElementById("select");
+const langSel = document.getElementById("lang");
 const typeSel = document.getElementById("type");
 const lvlSel = document.getElementById("lvl");
 const resultDiv = document.getElementById("result");
@@ -60,6 +60,7 @@ let lvl = 1;
 
 function setLang() {
     const value = langSel.value;
+    saveSelectedValue(value, "lang")
 
     if (value === "hu") {
         lang = "hu";
@@ -70,6 +71,7 @@ function setLang() {
 
 function setType() {
     const value = typeSel.value;
+    saveSelectedValue(value, "type")
 
     if (value  === "w") {
         type = "w";
@@ -80,13 +82,7 @@ function setType() {
 
 function setLvl() {
     const value = lvlSel.value;
-    if (value == "1") {
-        lvl = 1;
-    } else if (value == "2") {
-        lvl = 2;
-    } else if (value == "3") {
-        lvl = 3;
-    }
+    saveSelectedValue(value, "lvl")
 
     if (value == "1") {
         lvl = 1;
@@ -146,3 +142,22 @@ function genWord() {
     lvlListGen(lang, type)
     resultDiv.innerHTML = `<strong>${randomItemListGen(result)}</strong>`
 }
+
+// Mentés a localStorage-ba
+function saveSelectedValue(value, type) {
+    localStorage.setItem(type, value);
+}
+
+// Betöltés a localStorage-ból
+function loadSelectedValue(item) {
+    const select = document.getElementById(item);
+    const savedValue = localStorage.getItem(item);
+    if (savedValue) {
+        select.value = savedValue;
+    }
+}
+
+// Oldal betöltésekor hívódik meg
+document.addEventListener("DOMContentLoaded", loadSelectedValue("lvl"));
+document.addEventListener("DOMContentLoaded", loadSelectedValue("type"));
+document.addEventListener("DOMContentLoaded", loadSelectedValue("lang"));
