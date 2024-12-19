@@ -1,4 +1,5 @@
 const platforms = ['TikTok', 'YouTube', 'Instagram', 'X (Twitter)'];
+const textInput = document.getElementById('username')
 
 function mockApiResponse(username, platform) {
     // Mockolt logika: minden harmadik hosszra foglaltnak jelöli
@@ -27,5 +28,10 @@ function checkUsername() {
             resultDiv.appendChild(platformDiv);
         });
     }
-
 }
+
+textInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        checkUsername()
+    }
+});
