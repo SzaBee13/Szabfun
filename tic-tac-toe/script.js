@@ -2,12 +2,15 @@ const boardElement = document.getElementById("board");
 const winnerElement = document.getElementById("winner");
 const modeButton = document.getElementById("modeButton");
 const difficultyButton = document.getElementById("difficultyButton");
+const lsHardMode = localStorage.getItem("hardMode")
+const lsAiMode = localStorage.getItem("aiMode")
 
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let gameActive = true;
 let aiMode = true;
 let hardMode = false;
+
 
 const winningCombinations = [
   [0, 1, 2],
@@ -42,9 +45,10 @@ function handleCellClick(event) {
     board[cellIndex] = currentPlayer;
     event.target.textContent = currentPlayer;
     event.target.classList.add("taken");
+    event.target.classList.add(`${currentPlayer.toLowerCase()}-cell`);
 
     if (checkWinner()) {
-        winnerElement.textContent = `${currentPlayer} wins!`;
+        winnerElement.innerHTML = `<span class="${currentPlayer.toLowerCase()}"><strong>${currentPlayer}</strong></span> wins!`;
         gameActive = false;
         return;
     }
@@ -136,9 +140,10 @@ function makeMove(index) {
     const cellElement = boardElement.children[index];
     cellElement.textContent = "O";
     cellElement.classList.add("taken");
+    cellElement.classList.add(`${currentPlayer.toLowerCase()}-cell`);
 
     if (checkWinner()) {
-        winnerElement.textContent = `O wins!`;
+        winnerElement.innerHTML = `<span class="${currentPlayer.toLowerCase()}"><strong>${currentPlayer}</strong></span> wins!`;
         gameActive = false;
         return;
     }
@@ -171,14 +176,16 @@ function resetGame() {
 
 function toggleMode() {
     aiMode = !aiMode;
+    localStorage.setItem("aiMode", String(aiMode));
     modeButton.textContent = aiMode
         ? "Switch to Player Mode"
-        : "Switch to AI Mode";
+        : "Switch to AI Mode"
     resetGame();
 }
 
 function toggleDifficulty() {
     hardMode = !hardMode;
+    localStorage.setItem("hardMode", String(hardMode))
     difficultyButton.textContent = hardMode
         ? "Switch to Easy Mode"
         : "Switch to Hard Mode";
@@ -190,12 +197,36 @@ function toggleDifficulty() {
     resetGame();
 }
 
-createBoard();
-difficultyButton.textContent = hardMode
-    ? "Switch to Easy Mode"
-    : "Switch to Hard Mode";
-difficultyButton.style.backgroundColor = hardMode
-    ? "red"
-    : "green";
-difficultyButton.style.color = "#fff"
-difficultyButton.style.borderColor = "#000"
+function localStorageGet() {
+    //AIMODE
+    if (lsAiMode == "true") {
+        aiMode = true
+    } else {
+        aiMode = false
+    }
+    modeButton.textContent = aiMode
+        ? "Switch to Player Mode"
+        : "Switch to AI Mode"
+    
+    //HARDMODE
+    if (lsHardMode == "true") {
+        hardMode = true
+    } else {
+        hardMode = false
+    }
+    difficultyButton.textContent = hardMode
+        ? "Switch to Easy Mode"
+        : "Switch to Hard Mode";
+    difficultyButton.style.backgroundColor = hardMode
+        ? "red"
+        : "green";
+    difficultyButton.style.color = "#fff"
+    difficultyButton.style.borderColor = "#000"
+}
+
+function init() {
+    localStorageGet();
+    createBoard();
+}
+
+document.addEventListener("DOMContentLoaded", init())
