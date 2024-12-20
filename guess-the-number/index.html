@@ -12,7 +12,12 @@
     <div id="container">
         <h1>Number Guessing Game</h1>
         <div class="game">
-            <p>Guess a number between 1 and 100:</p>
+            <p>Guess a number between
+                <input type="number" name="min" id="min" onchange="updateMinMax('min')">
+                and
+                <input type="number" name="max" id="max" onchange="updateMinMax('max')">
+                :
+            </p>
             <input type="number" id="guess" min="1" max="100">
             <button onclick="checkGuess()">Submit</button>
             <div>Your guessed numbers right all time: <span id="score">0</span></div>

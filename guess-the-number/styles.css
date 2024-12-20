@@ -54,6 +54,17 @@ input[type="number"] {
     border-radius: 5px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+#min, #max {
+    width: 50px;
+    overflow-x: scroll;
+}
+
 button {
     padding: 10px 20px;
     background-color: #007bff;
