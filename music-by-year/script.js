@@ -47,5 +47,6 @@ function applyURLParams() {
 
 function init() {
     applyURLParams();
+    updateURL();
     fetchMusic();
 }
