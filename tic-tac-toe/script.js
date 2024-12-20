@@ -23,6 +23,13 @@ const winningCombinations = [
   [2, 4, 6],
 ];
 
+function updateURL() {
+    const params = new URLSearchParams();
+    params.set('aiMode', aiMode);
+    params.set('hardMode', hardMode);
+    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+}
+
 function createBoard() {
     boardElement.innerHTML = "";
     board.forEach((cell, index) => {
@@ -181,6 +188,7 @@ function toggleMode() {
         ? "Switch to Player Mode"
         : "Switch to AI Mode"
     resetGame();
+    updateURL();
 }
 
 function toggleDifficulty() {
@@ -195,6 +203,7 @@ function toggleDifficulty() {
     difficultyButton.style.color = "#fff"
     difficultyButton.style.borderColor = "#000"
     resetGame();
+    updateURL();
 }
 
 function localStorageGet() {
@@ -224,8 +233,22 @@ function localStorageGet() {
     difficultyButton.style.borderColor = "#000"
 }
 
+function applyURLParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('aiMode')) {
+        aiMode = params.get('aiMode');
+        modeButton.value = aiMode;
+    }
+    if (params.has('hardMode')) {
+        hardMode = params.get('hardMode');
+        difficultyButton.value = hardMode;
+    }
+}
+
 function init() {
     localStorageGet();
+    applyURLParams();
+    updateURL();
     createBoard();
 }
 

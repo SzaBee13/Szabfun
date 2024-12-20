@@ -58,11 +58,20 @@ let lang = "en";
 let type = "w";
 let lvl = 1;
 
+function updateURL() {
+    const params = new URLSearchParams();
+    params.set('lang', lang);
+    params.set('type', type);
+    params.set('lvl', lvl);
+    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+}
+
 function setLang() {
     const value = langSel.value;
     saveSelectedValue(value, "lang")
 
     lang = value
+    updateURL();
 }
 
 function setType() {
@@ -74,6 +83,7 @@ function setType() {
     } else if (value == "s") {
         type = "s";
     }
+    updateURL();
 }
 
 function setLvl() {
@@ -87,6 +97,7 @@ function setLvl() {
     } else if (value == "3") {
         lvl = 3;
     }
+    updateURL();
 }
 
 function lvlListGen(lang, type, lvl) {
@@ -161,11 +172,29 @@ function loadSelectedValue(item) {
     }
 }
 
+function applyURLParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('lang')) {
+        lang = params.get('lang');
+        langSel.value = lang;
+    }
+    if (params.has('type')) {
+        type = params.get('type');
+        typeSel.value = type;
+    }
+    if (params.has('lvl')) {
+        lvl = parseInt(params.get('lvl'), 10);
+        lvlSel.value = lvl;
+    }
+}
+
 function inti() {
     //loadSelectedValue
     loadSelectedValue("lvl")
     loadSelectedValue("type")
     loadSelectedValue("lang")
+    applyURLParams()
+    updateURL()
 }
 
-inti()
+window.onload = inti()

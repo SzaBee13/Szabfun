@@ -16,6 +16,13 @@ let score = 0;
 let minNum = 1;
 let maxNum = 100;
 
+function updateURL() {
+    const params = new URLSearchParams();
+    params.set('min', minNum);
+    params.set('max', maxNum);
+    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+}
+
 function startGame() {
     randomNumber = Math.floor(Math.random() * maxNum) + minNum;
     secret.innerHTML = randomNumber
@@ -58,10 +65,23 @@ function updateMinMax(sel) {
         maxNum = parseInt(value)
         localStorage.setItem("gtn-max", String(value))
     }
+    updateURL()
 }
 
 function notShowFullScreen() {
     fullscreenDiv.style.display = 'none'; // Div megjelenítése
+}
+
+function applyURLParams() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.has('max')) {
+        maxNum = params.get('max');
+        maxNumSpan.value = maxNum;
+    }
+    if (params.has('min')) {
+        minNum = params.get('min');
+        minNumSpan.value = minNum;
+    }
 }
 
 function init() {
@@ -91,6 +111,8 @@ function init() {
         minNumSpan.innerHTML = String(minNum)
     }
 
+    applyURLParams();
+    updateURL();
     startGame();
 }
 
@@ -115,4 +137,4 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
-init()
+window.onload = init()
