@@ -7,7 +7,7 @@ function mockApiResponse(username, platform) {
 }
 
 function checkUsername() {
-    const username = document.getElementById('username').value.trim();
+    const username = textInput.value.trim();
     const resultDiv = document.getElementById('result');
     resultDiv.innerHTML = '';
 
