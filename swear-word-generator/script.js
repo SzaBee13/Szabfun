@@ -62,11 +62,7 @@ function setLang() {
     const value = langSel.value;
     saveSelectedValue(value, "lang")
 
-    if (value === "hu") {
-        lang = "hu";
-    } else if (value === "en") {
-        lang = "en";
-    }
+    lang = value
 }
 
 function setType() {
@@ -93,7 +89,7 @@ function setLvl() {
     }
 }
 
-function lvlListGen(lang, type) {
+function lvlListGen(lang, type, lvl) {
     if (type == "w") {
         if (lang == "en") {
             if (lvl == 1) {
@@ -139,7 +135,7 @@ function randomItemListGen(list) {
 
 function genWord() {
     resultDiv.innerHTML = ""
-    lvlListGen(lang, type)
+    lvlListGen(lang, type, lvl)
     resultDiv.innerHTML = `<strong>${randomItemListGen(result)}</strong>`
 }
 
@@ -155,9 +151,21 @@ function loadSelectedValue(item) {
     if (savedValue) {
         select.value = savedValue;
     }
+    if (item == "lvl") {
+        lvl = savedValue
+    } else if (item == "type") {
+        type = savedValue
+    }
+    else if (item == "lang") {
+        lang = savedValue
+    }
 }
 
-// Oldal betöltésekor hívódik meg
-document.addEventListener("DOMContentLoaded", loadSelectedValue("lvl"));
-document.addEventListener("DOMContentLoaded", loadSelectedValue("type"));
-document.addEventListener("DOMContentLoaded", loadSelectedValue("lang"));
+function inti() {
+    //loadSelectedValue
+    loadSelectedValue("lvl")
+    loadSelectedValue("type")
+    loadSelectedValue("lang")
+}
+
+inti()
