@@ -1,4 +1,4 @@
-const platforms = ['TikTok', 'YouTube', 'Instagram', 'X (Twitter)'];
+const platforms = ['TikTok', 'YouTube', 'Instagram', 'X (Twitter)', 'Discord'];
 const textInput = document.getElementById('username')
 
 function mockApiResponse(username, platform) {
