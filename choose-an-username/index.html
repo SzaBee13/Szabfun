@@ -13,7 +13,7 @@
     <div id="container">
         <h1>Choose an Username</h1>
         <p>Enter a username and let's see if it's allowed:</p>
-        <input type="text" id="username" placeholder="Username...">
+        <input type="text" id="username" placeholder="Username..." onchange="updateURL()">
         <button onclick="checkUsername()">Check</button>
 
         <div class="result" id="result"></div>
