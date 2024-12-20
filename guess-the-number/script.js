@@ -21,26 +21,26 @@ function updateURL() {
     params.set('min', minNum);
     params.set('max', maxNum);
     window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    startGame() // Update the secret number
 }
 
 function startGame() {
-    randomNumber = Math.floor(Math.random() * maxNum) + minNum;
+    randomNumber = Math.floor(Math.random() * (maxNum - minNum + 1)) + minNum;
     secret.innerHTML = randomNumber
+    document.getElementById('result').innerText = 'Make a guess!';
+    document.getElementById('guess').value = '';
     console.log("game started")
 }
 
 function checkGuess() {
-    const userGuess = parseInt(userInput.value);
+    const userGuess = parseInt(document.getElementById('guess').value);
     const resultElement = document.getElementById("result");
 
-    if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
-        resultElement.innerText = "Please enter a valid number between 1 and 100.";
-        return;
-    }
-
-    if (userGuess === randomNumber) {
+    if (isNaN(userGuess) || userGuess < minNum || userGuess > maxNum) {
+        resultElement.innerText = `Please enter a valid number between ${minNum} and ${maxNum}.`;
+    } else if (userGuess === randomNumber) {
         resultElement.innerText = "Congratulations! You guessed the number!";
-        addScore()
+        addScore();
     } else if (userGuess < randomNumber) {
         resultElement.innerText = "Too low! Try again.";
     } else {
@@ -51,21 +51,18 @@ function checkGuess() {
 function addScore() {
     score++;
     localStorage.setItem("gtn-score", String(score));
-    scoreSpan.innerHTML = score
-    console.log("score added")
+    document.getElementById('score').innerHTML = score;
+    console.log("score added");
 }
 
-function updateMinMax(sel) {
-    if (sel == 'min') {
-        const value = minNumSpan.value
-        minNum = parseInt(value)
-        localStorage.setItem("gtn-min", String(value))
-    } else if (sel == 'max') {
-        const value = maxNumSpan.value
-        maxNum = parseInt(value)
-        localStorage.setItem("gtn-max", String(value))
+function updateMinMax(type) {
+    if (type === 'min') {
+        minNum = parseInt(document.getElementById('min').value);
+    } else if (type === 'max') {
+        maxNum = parseInt(document.getElementById('max').value);
     }
-    updateURL()
+    updateURL();
+    startGame();
 }
 
 function notShowFullScreen() {
@@ -75,18 +72,18 @@ function notShowFullScreen() {
 function applyURLParams() {
     const params = new URLSearchParams(window.location.search);
     if (params.has('max')) {
-        maxNum = params.get('max');
+        maxNum = parseInt(params.get('max'));
         maxNumSpan.value = maxNum;
     }
     if (params.has('min')) {
-        minNum = params.get('min');
+        minNum = parseInt(params.get('min'));
         minNumSpan.value = minNum;
     }
 }
 
 function init() {
     if (lsScore) {
-        scoreSpan.innerHTML = lsScore;
+        document.getElementById('score').innerHTML = lsScore;
         score = parseInt(lsScore);
     } else {
         score = 0;
@@ -94,21 +91,21 @@ function init() {
     }
 
     if (lsMax) {
-        maxNumSpan.value = parseInt(lsMax);
         maxNum = parseInt(lsMax);
+        maxNumSpan.value = maxNum;
     } else {
         maxNum = 100;
         localStorage.setItem("gtn-max", String(maxNum));
-        maxNumSpan.innerHTML = String(maxNum);
+        maxNumSpan.value = maxNum;
     }
 
     if (lsMin) {
-        minNumSpan.value = parseInt(lsMin);
         minNum = parseInt(lsMin);
+        minNumSpan.value = minNum;
     } else {
         minNum = 1;
         localStorage.setItem("gtn-min", String(minNum));
-        minNumSpan.innerHTML = String(minNum)
+        minNumSpan.value = minNum;
     }
 
     applyURLParams();
@@ -124,12 +121,10 @@ document.addEventListener('keydown', (event) => {
             clearTimeout(resetTimeout);
         }
 
-
         if (lPressCount === 5) {
             fullscreenDiv.style.display = 'flex'; // Div megjelenítése
             lPressCount = 0;
         }
-
 
         resetTimeout = setTimeout(() => {
             lPressCount = 0;
