@@ -45,6 +45,7 @@ function applyURLParams() {
     if (params.has('username')) {
         globalUsername = params.get('username');
         textInput.value = globalUsername;
+        checkUsername();
     }
 }
 
