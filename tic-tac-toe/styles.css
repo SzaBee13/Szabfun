@@ -48,15 +48,27 @@
     background-color: #fff;
 }
 
-button {
+button, input {
     margin-top: 20px;
     padding: 10px 20px;
     font-size: 1rem;
-    cursor: pointer;
     border: 1px solid;
     border-radius: 10px;
 }
 
+button {
+    cursor: pointer;
+}
+
 .controls {
     margin-top: 20px;
+}
+
+#currentPlayer, #goBack{
+    margin-top: 20px;
+}
+
+button > a {
+    text-decoration: none;
+    color: #000;
 }
