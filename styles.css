@@ -111,3 +111,8 @@ body {
     width: 115px;
     margin: 5px;
 }
+
+.watch-some-youtube > a > img {
+    width: 115px;
+    margin: 5px;
+}
