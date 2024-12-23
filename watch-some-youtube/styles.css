@@ -28,3 +28,9 @@ button {
 button:hover {
     background-color: #0056b3;
 }
+
+@media screen and ((max-width: 1000px) or (max-height: 800px)) {
+    iframe {
+        width: 60vw;
+    } 
+}
