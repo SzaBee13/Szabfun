@@ -7,7 +7,10 @@ const videoIds = [
     "VLP_tnnDGSQ", "n6R38pxcfdE", "dpKAnAO6vqw", "Fr0n1AHq0YA", "htlhY5BgrKU",
     "qvLjA1tytxo", "TqHqTFtH_pw", "1gFpXr5_eyM", "QSkAOTz-VAc", "L6ZkEWHoAPA",
     "M1lJwVMsi_Y", "uvvsvkHhE3M", "ull5YaEHvw0", "bN2rUoX7540", "ci6ZtPAN0PM",
-    "kn271kr_ks0", "0YRTwHe4GsE", "8pq2AERG7dU", "dxrPgoBEXPA"
+    "kn271kr_ks0", "0YRTwHe4GsE", "8pq2AERG7dU", "dxrPgoBEXPA", "qP-7GNoDJ5c",
+    "c3b6O8SmTpE", "BvwxPnHgV3Y", "At8v_Yc044Y", "UtF6Jej8yb4", "6dMjCa0nqK0",
+    "dQw4w9WgXcQ", "AKNUORtuOnk", "ekr2nIex040", "sr-_Pfw-Hnc", "QURWqh0nt_A",
+    "hjQCSLb9OXU", "_N_jY5ReQIU", "ViVIUjn54IA", "7dPc-6Ewhac", "7d0vfCThzYs"
 ]; // List of video IDs
 let currentVideoId = ""; // Id of the current video
 
