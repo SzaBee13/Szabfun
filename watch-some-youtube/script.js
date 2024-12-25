@@ -84,7 +84,7 @@ function applyURLParams() {
 
 function init() {
     applyURLParams();
-    loadLocalStorage();
+    selectOption("all");
     if (currentVideoId) {
         setVideo(currentVideoId);
     } else {
