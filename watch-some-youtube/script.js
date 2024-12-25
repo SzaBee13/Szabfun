@@ -42,16 +42,12 @@ function selectOption(optionId) {
 
     if (optionId === "all") {
         videoIds = allVideoIds;
-        localStorage.setItem('type', 'all');
     } else if (optionId === "music") {
         videoIds = musicVideoIds;
-        localStorage.setItem('type', 'music');
     } else if (optionId === "meme") {    
         videoIds = memeVideoIds;
-        localStorage.setItem('type', 'meme');
     } else if (optionId === "top5") {
         videoIds = topVideoIds;
-        localStorage.setItem('type', 'top5');
     }
 
     return optionId;
@@ -88,9 +84,6 @@ function applyURLParams() {
 
 function init() {
     applyURLParams();
-    if (localStorage.getItem('type')) {
-        selectOption(localStorage.getItem('type'));
-    }
     loadLocalStorage();
     if (currentVideoId) {
         setVideo(currentVideoId);
