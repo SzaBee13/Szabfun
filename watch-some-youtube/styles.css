@@ -46,11 +46,15 @@ button:hover {
 
 .slider h3 {
     margin: 0;
-    cursor: pointer;
     color: white;
     background-color: #022850;
     padding: 5px 10px;
     border-radius: 5px;
+}
+
+.slider h3:hover {
+    background-color: #0056b3;
+    cursor: pointer;
 }
 
 .slider h3.active {
