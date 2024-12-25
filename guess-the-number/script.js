@@ -132,4 +132,10 @@ document.addEventListener('keydown', (event) => {
     }
 });
 
+userInput.addEventListener('keydown', (event) => {
+    if (event.key === 'Enter') {
+        checkGuess();
+    }
+});
+
 window.onload = init()
