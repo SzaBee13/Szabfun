@@ -53,6 +53,8 @@ function selectOption(optionId) {
         videoIds = topVideoIds;
         localStorage.setItem('type', 'top5');
     }
+
+    return optionId;
 }
 
 function loadRandomVideo() {
@@ -78,6 +80,9 @@ function applyURLParams() {
     const params = new URLSearchParams(window.location.search);
     if (params.has('videoId')) {
         currentVideoId = params.get('videoId');
+    }
+    if (params.has('type')) {
+        selectOption(params.get('type'));
     }
 }
 
