@@ -88,18 +88,14 @@ function applyURLParams() {
 
 function init() {
     applyURLParams();
+    if (localStorage.getItem('type')) {
+        selectOption(localStorage.getItem('type'));
+    }
     loadLocalStorage();
     if (currentVideoId) {
         setVideo(currentVideoId);
     } else {
         loadRandomVideo();
-    }
-}
-
-function loadLocalStorage() {
-    const type = localStorage.getItem('type');
-    if (type) {
-        selectOption(type);
     }
 }
 
