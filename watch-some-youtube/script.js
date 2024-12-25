@@ -1,19 +1,59 @@
-const videoIds = [
-    "3JZ_D3ELwOQ", "E7wJTI-1dvQ", "hY7m5jjJ9mM", "4eXtG3JhjIk", "iPNNc4O8N1E",
-    "9bZkp7q19f0", "60ItHLz5WEA", "F6va6tg62qg", "9cPxh2DikIA", "lL9LcfSlPfA",
-    "adQPOa5YQK4", "jNQXAC9IVRw", "PvB0kWs2IPQ", "3dgQcSn9wAs", "7e0-puVc3Qw",
-    "nOJd3xoKMyI", "HtTUsOKjWyQ", "fcJAhAqhRww", "H10xp3u5AxE", "Eez7qWEQ2Ww",
-    "frjtW6QY_mY", "mCh6VpxLubc", "do7psVA1K3g", "DUGN-12HHwQ", "FD8SgayyCv8",
-    "VLP_tnnDGSQ", "n6R38pxcfdE", "dpKAnAO6vqw", "Fr0n1AHq0YA", "htlhY5BgrKU",
-    "qvLjA1tytxo", "TqHqTFtH_pw", "1gFpXr5_eyM", "QSkAOTz-VAc", "L6ZkEWHoAPA",
-    "M1lJwVMsi_Y", "uvvsvkHhE3M", "ull5YaEHvw0", "bN2rUoX7540", "ci6ZtPAN0PM",
-    "kn271kr_ks0", "0YRTwHe4GsE", "8pq2AERG7dU", "dxrPgoBEXPA", "qP-7GNoDJ5c",
-    "c3b6O8SmTpE", "BvwxPnHgV3Y", "At8v_Yc044Y", "UtF6Jej8yb4", "6dMjCa0nqK0",
-    "dQw4w9WgXcQ", "AKNUORtuOnk", "ekr2nIex040", "sr-_Pfw-Hnc", "QURWqh0nt_A",
-    "hjQCSLb9OXU", "_N_jY5ReQIU", "ViVIUjn54IA", "7dPc-6Ewhac", "7d0vfCThzYs",
-    "xobNmldbWpo", "O2PXIRDwFxk", "2ApG8TOJOl0", "zDjEw_VULDM", "8hLQxph3cbM"
-]; // List of video IDs
+const musicVideoIds = [
+    "9bZkp7q19f0", "60ItHLz5WEA", "F6va6tg62qg", "7e0-puVc3Qw", "n6R38pxcfdE",
+    "dpKAnAO6vqw", "L6ZkEWHoAPA", "qP-7GNoDJ5c", "c3b6O8SmTpE", "BvwxPnHgV3Y",
+    "At8v_Yc044Y", "UtF6Jej8yb4", "dQw4w9WgXcQ", "AKNUORtuOnk", "ekr2nIex040",
+    "sr-_Pfw-Hnc", "QURWqh0nt_A", "2ApG8TOJOl0", "zDjEw_VULDM", "0sLEmLVRB4c",
+];
+
+const memeVideoIds = [
+    "3JZ_D3ELwOQ", "hY7m5jjJ9mM", "4eXtG3JhjIk", "iPNNc4O8N1E", "9cPxh2DikIA",
+    "adQPOa5YQK4", "jNQXAC9IVRw", "PvB0kWs2IPQ", "3dgQcSn9wAs", "nOJd3xoKMyI",
+    "HtTUsOKjWyQ", "fcJAhAqhRww", "H10xp3u5AxE", "Eez7qWEQ2Ww", "frjtW6QY_mY",
+    "do7psVA1K3g", "DUGN-12HHwQ", "FD8SgayyCv8", "VLP_tnnDGSQ", "Fr0n1AHq0YA",
+    "htlhY5BgrKU", "qvLjA1tytxo", "TqHqTFtH_pw", "QSkAOTz-VAc", "M1lJwVMsi_Y",
+    "uvvsvkHhE3M", "ull5YaEHvw0", "bN2rUoX7540", "ci6ZtPAN0PM", "kn271kr_ks0",
+    "0YRTwHe4GsE", "8pq2AERG7dU", "dxrPgoBEXPA", "6dMjCa0nqK0", "hjQCSLb9OXU",
+    "_N_jY5ReQIU", "ViVIUjn54IA", "7dPc-6Ewhac", "7d0vfCThzYs", "xobNmldbWpo",
+    "O2PXIRDwFxk", "ZA4m25i43Bw", "aS7qiu8T-4Q", "90O5JJgzu6E", "MnIRAGodAXA"
+];
+
+const topVideoIds = [
+    "lL9LcfSlPfA", "mCh6VpxLubc", "1gFpXr5_eyM", "sUItmkUY-hY", "YoHj4v_P8V8",
+    "tOOaPvEHIIw", "If-qOb4e2mU", "vTlyMLnUJHo", "qmxE9vOmSK4", "ccgepjmiNgA",
+    "hkBnFAfgMuI", "1gFpXr5_eyM", "KemgZl9kHIs", "NvGweo5zICM", "SJrwc7QpE9s",
+];
+
+const allVideoIds = musicVideoIds.concat(memeVideoIds).concat(topVideoIds);
+
+let videoIds = allVideoIds;
+
+// List of video IDs
 let currentVideoId = ""; // Id of the current video
+
+function selectOption(optionId) {
+    // Remove the "active" class from all options
+    document.querySelectorAll('.slider h3').forEach(option => {
+        option.classList.remove('active');
+    });
+
+    // Add the "active" class to the clicked option
+    const selectedOption = document.getElementById(optionId);
+    selectedOption.classList.add('active');
+
+    if (optionId === "all") {
+        videoIds = allVideoIds;
+        localStorage.setItem('type', 'all');
+    } else if (optionId === "music") {
+        videoIds = musicVideoIds;
+        localStorage.setItem('type', 'music');
+    } else if (optionId === "meme") {    
+        videoIds = memeVideoIds;
+        localStorage.setItem('type', 'meme');
+    } else if (optionId === "top5") {
+        videoIds = topVideoIds;
+        localStorage.setItem('type', 'top5');
+    }
+}
 
 function loadRandomVideo() {
     const randomIndex = Math.floor(Math.random() * videoIds.length);
@@ -43,10 +83,18 @@ function applyURLParams() {
 
 function init() {
     applyURLParams();
+    loadLocalStorage();
     if (currentVideoId) {
         setVideo(currentVideoId);
     } else {
         loadRandomVideo();
+    }
+}
+
+function loadLocalStorage() {
+    const type = localStorage.getItem('type');
+    if (type) {
+        selectOption(type);
     }
 }
 

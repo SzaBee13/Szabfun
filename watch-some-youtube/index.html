@@ -19,6 +19,12 @@
     <div id="container">
         <iframe id="youtube-video" src="" allow="autoplay" allowfullscreen></iframe>
         <button onclick="loadRandomVideo()">Reset</button>
+        <div class="slider">
+            <h3 id="all" class="active" onclick="selectOption('all')">All</h3>
+            <h3 id="music" onclick="selectOption('music')">Music</h3>
+            <h3 id="meme" onclick="selectOption('meme')">Meme</h3>
+            <h3 id="top5" onclick="selectOption('top5')">Top5</h3>
+        </div>
     </div>
 
     <script src="./script.js"></script>
