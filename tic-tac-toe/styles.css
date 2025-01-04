@@ -1,0 +1,74 @@
+#container {
+    text-align: center;
+    padding: 20px
+}
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 100px);
+    grid-gap: 5px;
+    justify-content: center;
+    margin: 50px auto;
+}
+
+.cell {
+    width: 100px;
+    height: 100px;
+    background-color: #f0f0f0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.cell.taken {
+    pointer-events: none;
+}
+
+.winner {
+    margin-top: 20px;
+    font-size: 1.5rem;
+}
+
+.x, .x-cell {
+    color: red;
+}
+
+.o, .o-cell {
+    color: blue;
+}
+
+.o, .x {
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #f0f0f0;
+    background-color: #fff;
+}
+
+button, input {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 1px solid;
+    border-radius: 10px;
+}
+
+button {
+    cursor: pointer;
+}
+
+.controls {
+    margin-top: 20px;
+}
+
+#currentPlayer, #goBack{
+    margin-top: 20px;
+}
+
+button > a {
+    text-decoration: none;
+    color: #000;
+}
