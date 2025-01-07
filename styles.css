@@ -7,6 +7,15 @@ body {
     padding: 0px;
 }
 
+body {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: gray;
+    font-family:'Courier New', Courier, monospace;
+    margin: 0px;
+    padding: 0px;
+}
+
 button {
     margin-top: 20px;
     padding: 10px 20px;

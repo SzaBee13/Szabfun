@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 body {
     overflow-y: scroll;
 }
@@ -76,83 +75,4 @@ button:hover {
         height: 500px;
         width: 60vw;
     }
-=======
-body {
-    overflow-y: scroll;
-}
-
-#container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    margin: 25px;
-}
-
-iframe {
-    width: 80vw;
-    aspect-ratio: 16 / 9;
-    border: none;
-    border-radius: 8px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-}
-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    font-size: 25px;
-    background-color: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-button:hover {
-    background-color: #0056b3;
-}
-
-.slider {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 20px;
-    margin: 25px auto;
-    border: 2px solid #ccc;
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.slider h3 {
-    margin: 0;
-    color: white;
-    background-color: #022850;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-.slider h3:hover {
-    background-color: #0056b3;
-    cursor: pointer;
-}
-
-.slider h3.active {
-    color: white;
-    background-color: #007BFF;
-    padding: 5px 10px;
-    border-radius: 5px;
-}
-
-@media screen and ((max-width: 1000px) or (max-height: 800px)) {
-    iframe {
-        width: 60vw;
-    } 
-}
-
-@media  screen and (max-width: 680px) {
-    iframe {
-        height: 500px;
-        width: 60vw;
-    }
->>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 }
