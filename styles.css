@@ -7,6 +7,27 @@ body {
     padding: 0px;
 }
 
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 25px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button > a {
+    color: white;
+    text-decoration: none;
+}
+
 #container {
     width: 100vw;
     min-height: 100vh;
