@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -43,4 +44,51 @@
 
     <script src="./script.js"></script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/guess-the-number.png" type="image/x-icon">
+    <title>Szabfun - Guess The Number</title>
+    <!-- Open Graph meta tag-ek -->
+    <meta property="og:title" content="Szabfun - Guerss The Number">
+    <meta property="og:description" content="Guess a number between two numbers">
+    <meta property="og:url" content="https://szabfun.pages.dev/guess-the-number">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/guess-the-number.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="Guess a number between two numbers">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, guess, number">
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <h1>Guess The Number</h1>
+        <div class="game">
+            <p>Guess a number between
+                <input type="number" name="min" id="min" onchange="updateMinMax('min')">
+                and
+                <input type="number" name="max" id="max" onchange="updateMinMax('max')">
+                :
+            </p>
+            <input type="number" id="guess" placeholder="Your guess...">
+            <button onclick="checkGuess()">Submit</button>
+            <div>Your guessed numbers right all time: <span id="score">0</span></div>
+            <div class="result" id="result">Make a guess!</div>
+            <button onclick="startGame()" class="but">Reset Number</button>
+        </div>
+    </div>
+    <div id="fullscreen-div">
+        <div>The number is <span id="secret"></span></div>
+        <div class="back-fl"><button onclick="notShowFullScreen()">Back</button></div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 </html>

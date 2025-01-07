@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     font-family:'Courier New', Courier, monospace;
     height: 100vh;
@@ -38,4 +39,46 @@ body {
     #container {
         top: 50px;
     }
+=======
+body {
+    font-family:'Courier New', Courier, monospace;
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    background-color: gray;
+}
+
+#container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    top: 0;
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.back {
+    position: fixed;
+    top: 20px;
+    left: 20px;
+    text-decoration: none;
+    z-index: 1;
+}
+
+.back > h1 {
+    margin: 0;
+    color: blue;
+}
+
+.back > h1:hover {
+    cursor: pointer;
+    color: darkblue;
+}
+
+@media screen and (max-width: 800px) {
+    #container {
+        top: 50px;
+    }
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 }

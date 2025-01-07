@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #container {
     display: flex;
     position: relative;
@@ -52,4 +53,60 @@ a:hover {
 
 .github > img {
     height: 3rem;
+=======
+#container {
+    display: flex;
+    position: relative;
+    top: 50px;
+    padding-left: 20px;
+    padding-right: 20px;
+    flex-wrap: wrap;
+}
+
+.creator {
+    border: 1px solid black;
+    border-radius: 10px;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #0056b3;
+    color: white;
+    align-items: center;
+}
+
+.creator > div {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.creator > div > a {
+    font-size: 2rem;
+}
+
+h1 {
+    margin: 0;
+}
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+a:hover {
+    color: rgb(150, 150, 150);
+}
+
+.youtube > img {
+    height: 3rem;
+}
+
+.discord > img {
+    height: 3rem;
+}
+
+.github > img {
+    height: 3rem;
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 }

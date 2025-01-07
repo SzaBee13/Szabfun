@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,3 +35,41 @@
     <script src="./script.js"></script>
 </body>
 </html>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/watch-some-youtube.png" type="image/x-icon">
+    <title>Szabfun - Watch Some Youtube</title>
+    <!-- Open Graph meta tag-ek -->
+    <meta property="og:title" content="Szabfun - Watch Some Youtube">
+    <meta property="og:description" content="It gets a random video from youtube">
+    <meta property="og:url" content="https://szabfun.pages.dev/watch-some-youtube">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/watch-some-youtube.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="Give you a random youtube video">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, youtube">
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <iframe id="youtube-video" src="" allow="autoplay" allowfullscreen></iframe>
+        <button onclick="loadRandomVideo()">Reset</button>
+        <div class="slider">
+            <h3 id="all" class="active" onclick="selectOption('all')">All</h3>
+            <h3 id="music" onclick="selectOption('music')">Music</h3>
+            <h3 id="meme" onclick="selectOption('meme')">Meme</h3>
+            <h3 id="top5" onclick="selectOption('top5')">Top5</h3>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+</html>
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044

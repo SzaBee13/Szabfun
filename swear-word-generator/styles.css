@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #container {
     text-align: center;
     padding: 20px
@@ -26,4 +27,34 @@ button:active {
 
 #result {
     margin: 10px;
+=======
+#container {
+    text-align: center;
+    padding: 20px
+}
+
+h1 {
+    color: #333;
+}
+
+button, select {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: black;
+}
+
+button:hover {
+    background-color: darkgrey;
+}
+
+button:active {
+    background-color: gray;
+}
+
+#result {
+    margin: 10px;
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 }

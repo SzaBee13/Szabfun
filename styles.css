@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 body {
     width: 100vw;
     min-height: 100vh;
@@ -136,4 +137,123 @@ button > a {
 .watch-some-youtube > a > img {
     width: 115px;
     margin: 5px;
+=======
+body {
+    width: 100vw;
+    min-height: 100vh;
+    background-color: gray;
+    font-family:'Courier New', Courier, monospace;
+    margin: 0px;
+    padding: 0px;
+}
+
+#container {
+    width: 100vw;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+#header > div{
+    display: flex;
+    text-align: center;
+}
+
+.header-text {
+    width: 100vw;
+}
+
+#posts {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    padding: 30px;
+    gap: 25px;
+    
+}
+
+#footer {
+    position: relative;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #393e3e;
+    padding: 10px;
+    margin-top: auto;
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+    color: #fff;
+}
+
+#footer > p > a {
+    text-decoration: none;
+    color: rgb(0, 170, 170);
+}
+
+#footer > p > a:hover {
+    text-decoration: none;
+    color: rgb(0, 170, 170);
+}
+
+.child {
+    flex: 1; /* Az elemek dinamikusan oszlanak el */
+    border: 1px solid;
+    border-color: black;
+    border-radius: 10px;
+    height: 125px;
+    min-width: 300px;
+    max-width: 300px;
+    transition: width 50ms ease-in, height 50ms ease-in;
+    cursor: pointer;
+    overflow: hidden;
+    background-color: #393e3e;
+}
+
+.child:hover {
+    flex-grow: 1.001; /* Az elem szélesebb lesz */
+    transform: scale(1.1); /* Méretarányos növekedés (nem nyomja el a többit) */
+}
+
+.child > a {
+    display: flex;
+    gap: 10px;
+    text-decoration: none;
+}
+
+.child > a > h3 {
+    color: #fff;
+    font-size: 20px
+}
+
+.tic-tac-toe > a > img {
+    width: 120px;
+    margin: 5px;
+}
+
+.choose-an-username > a > img{
+    width: 115px;
+    margin: 5px;
+}
+
+.swear-word-generator > a > img {
+    width: 115px;
+    margin: 5px;
+}
+
+.guess-the-number > a > img {
+    width: 115px;
+    margin: 5px;
+}
+
+.music-by-year > a > img {
+    width: 115px;
+    margin: 5px;
+}
+
+.watch-some-youtube > a > img {
+    width: 115px;
+    margin: 5px;
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 }

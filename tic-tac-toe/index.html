@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,4 +35,42 @@
 
    <script src="./script.js"></script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/tictactoe.png" type="image/x-icon">
+    <title>Szabfun - Tic-Tac-Toe</title>
+    <!-- Open Graph meta tag-ek -->
+    <meta property="og:title" content="Szabfun - Tic-tac-toe">
+    <meta property="og:description" content="Play tic-tac-toe against an unbeatable AI or a friend">
+    <meta property="og:url" content="https://szabfun.pages.dev/tic-tac-toe">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/tic-tac-toe.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="Play tic-tac-toe against an unbeatable AI or a friend locally">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, tic-tac-toe, ai">
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <div class="controls">
+            <button onclick="toggleMode()" id="modeButton">Switch to Player Mode</button>
+            <button onclick="toggleDifficulty()" id="difficultyButton">Switch to Hard Mode</button>
+        </div>
+        <h1>Tic-Tac-Toe</h1>
+        <p>The unbeatable AI (hard mode)</p>
+        <div class="board" id="board"></div>
+        <div class="winner" id="winner"></div>
+        <button onclick="resetGame()">Restart Game</button>
+    </div>
+
+   <script src="./script.js"></script>
+</body>
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 </html>

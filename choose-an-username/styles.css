@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #container {
     text-align: center;
     padding: 20px
@@ -47,4 +48,55 @@ button:hover {
 
 .taken {
     color: red;
+=======
+#container {
+    text-align: center;
+    padding: 20px
+}
+
+h1 {
+    color: #333;
+}
+
+input, button {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: black;
+}
+
+input {
+    width: 80%;
+    max-width: 300px;
+}
+
+button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+.result {
+    margin-top: 20px;
+}
+
+.platform {
+    margin: 10px auto;
+    font-size: 18px;
+}
+
+.available {
+    color: green;
+}
+
+.taken {
+    color: red;
+>>>>>>> 587b721ec588131d50c5a3750d3ffb446e468044
 }

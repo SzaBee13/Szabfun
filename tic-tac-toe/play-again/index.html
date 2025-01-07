@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../../basicgamestile.css">
+    <link rel="icon" href="../../img/tictactoe.png" type="image/x-icon">
+    <title>Szabfun - Tic-Tac-Toe</title>
+</head>
+<body>
+    <a href="../../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <h1>Tic-Tac-Toe</h1>
+        <div class="board" id="board"></div>
+        <div class="winner" id="winner"></div>
+        <button onclick="resetGame()">Restart Game</button>
+        <div id="currentPlayer"></div>
+        <div id="goBack"><button><a href="../index.html">Go back</a></button></div>
+        <div>
+            <input type="text" id="gameId" placeholder="Enter 6-digit game ID">
+            <button onclick="createGame()">Create Game</button>
+            <button onclick="joinGame()">Join Game</button>
+        </div>
+    </div>
+
+   <script src="https://cdn.socket.io/4.0.0/socket.io.min.js"></script>
+   <script src="./play-again.js"></script>
+</body>
+</html>
