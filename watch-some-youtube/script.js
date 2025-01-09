@@ -1,31 +1,34 @@
-const musicVideoIds = [
-    "9bZkp7q19f0", "60ItHLz5WEA", "F6va6tg62qg", "7e0-puVc3Qw", "n6R38pxcfdE",
-    "dpKAnAO6vqw", "L6ZkEWHoAPA", "qP-7GNoDJ5c", "c3b6O8SmTpE", "BvwxPnHgV3Y",
-    "At8v_Yc044Y", "UtF6Jej8yb4", "dQw4w9WgXcQ", "AKNUORtuOnk", "ekr2nIex040",
-    "sr-_Pfw-Hnc", "QURWqh0nt_A", "2ApG8TOJOl0", "zDjEw_VULDM", "0sLEmLVRB4c",
-];
+let api = {};
 
-const memeVideoIds = [
-    "3JZ_D3ELwOQ", "hY7m5jjJ9mM", "4eXtG3JhjIk", "iPNNc4O8N1E", "9cPxh2DikIA",
-    "adQPOa5YQK4", "jNQXAC9IVRw", "PvB0kWs2IPQ", "3dgQcSn9wAs", "nOJd3xoKMyI",
-    "HtTUsOKjWyQ", "fcJAhAqhRww", "H10xp3u5AxE", "Eez7qWEQ2Ww", "frjtW6QY_mY",
-    "do7psVA1K3g", "DUGN-12HHwQ", "FD8SgayyCv8", "VLP_tnnDGSQ", "Fr0n1AHq0YA",
-    "htlhY5BgrKU", "qvLjA1tytxo", "TqHqTFtH_pw", "QSkAOTz-VAc", "M1lJwVMsi_Y",
-    "uvvsvkHhE3M", "ull5YaEHvw0", "bN2rUoX7540", "ci6ZtPAN0PM", "kn271kr_ks0",
-    "0YRTwHe4GsE", "8pq2AERG7dU", "dxrPgoBEXPA", "6dMjCa0nqK0", "hjQCSLb9OXU",
-    "_N_jY5ReQIU", "ViVIUjn54IA", "7dPc-6Ewhac", "7d0vfCThzYs", "xobNmldbWpo",
-    "O2PXIRDwFxk", "ZA4m25i43Bw", "aS7qiu8T-4Q", "90O5JJgzu6E", "MnIRAGodAXA"
-];
+async function loadJSON(file) {
+    const response = await fetch(`./${file}.json`);
+    api = await response.json();
+}
+  
+let musicVideoIds;
 
-const topVideoIds = [
-    "lL9LcfSlPfA", "mCh6VpxLubc", "1gFpXr5_eyM", "sUItmkUY-hY", "YoHj4v_P8V8",
-    "tOOaPvEHIIw", "If-qOb4e2mU", "vTlyMLnUJHo", "qmxE9vOmSK4", "ccgepjmiNgA",
-    "hkBnFAfgMuI", "1gFpXr5_eyM", "KemgZl9kHIs", "NvGweo5zICM", "SJrwc7QpE9s",
-];
+let memeVideoIds;
 
-const allVideoIds = musicVideoIds.concat(memeVideoIds).concat(topVideoIds);
+let topVideoIds;
 
-let videoIds = allVideoIds;
+let allVideoIds;
+
+let videoIds
+
+(async () => {
+    await loadJSON("api");
+
+    musicVideoIds = api.musicVideoIds;
+
+    memeVideoIds = api.memeVideoIds;
+
+    topVideoIds = api.topVideoIds;
+
+    allVideoIds = musicVideoIds.concat(memeVideoIds).concat(topVideoIds);
+
+    videoIds = allVideoIds;
+})();
+
 
 // List of video IDs
 let currentVideoId = ""; // Id of the current video

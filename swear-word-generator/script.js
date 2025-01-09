@@ -3,55 +3,45 @@ const typeSel = document.getElementById("type");
 const lvlSel = document.getElementById("lvl");
 const resultDiv = document.getElementById("result");
 
-const huWord1 = ["bazdmeg", "pöcs", "fing", "farok", "segg", "bunkó"];
-const huWord2 = ["buzi", "feka", "náci", "dagadék", "kurva", "seggfej"];
-const huWord3 = ["fasz", "fasszopó", "kurva anyád", "szopógép", "szex", "dug", "basz", "kúrás"];
-const enWord1 = ["jerk", "butt", "idiot", "fucking", "fuck", "penis"];
-const enWord2 = ["gay", "asshole", "bitch", "nigger", "lump", "black", "nazi"];
-const enWord3 = ["dick", "dickhead", "pussy", "sucking", "sex", "curing"];
+let api = {};
 
-const huSentence1 = [
-    "Bazdmeg te kis pöcs!",
-    "Mikor mutatod meg a farkadat?",
-    "Ki fingott?",
-    "Te bunkó pöcs!",
-    "Seggfej aki mondja.",
-    "Mivan ráléptél a farkadra"
-]
-const huSentence2 = [
-    "Te buzi seggfej.",
-    "Mivan várod Hitlert te náci!?",
-    "Nézd ott egy kibaszot feka!",
-    "Te kurva dagadék.",
-    "A te anyád egy kurva!"
-]
-const huSentence3 = [
-    "Te fasszopó, nincs kit szopj?",
-    "Kurva anyáddal kurtam este!",
-    "Mivan, nincs kedved szexelni? Te vagy a nő én a férfi.",
-    "Szopogép most már nem csak szop, mér dug is!"
-]
-const enSentence1 = [
-    "Fuck you little dick!",
-    "When are you going to show your dick?",
-    "Who farted?",
-    "You jerk!",
-    "An asshole who says.",
-    "Why did you step on your tail"
-]
-const enSentence2 = [
-    "You gay ass.",
-    "What are you waiting for Hitler, you Nazi!?",
-    "Look at that fucking nigger!",
-    "You fucking lump.",
-    "Your mother is a whore!"
-]
-const enSentence3 = [
-    "You cocksucker, don't you have someone to suck?",
-    "I fucked your mother in the evening!",
-    "What, you don't feel like having sex? You're the woman and I'm the man.",
-    "The suction machine no longer just sucks, it also sucks!"
-]
+async function loadJSON(file) {
+    const response = await fetch(`./${file}.json`);
+    api = await response.json();
+}
+  
+let huWord1;
+let huWord2;
+let huWord3;
+let enWord1;
+let enWord2;
+let enWord3;
+
+let huSentence1;
+let huSentence2;
+let huSentence3;
+let enSentence1;
+let enSentence2;
+let enSentence3;
+
+(async () => {
+    await loadJSON("api");
+
+    huWord1 = api.hu.lvl1.word;
+    huWord2 = api.hu.lvl2.word;
+    huWord3 = api.hu.lvl3.word;
+    enWord1 = api.en.lvl1.word;
+    enWord2 = api.en.lvl2.word;
+    enWord3 = api.en.lvl3.word;
+
+    huSentence1 = api.hu.lvl1.sentence;
+    huSentence2 = api.hu.lvl2.sentence;
+    huSentence3 = api.hu.lvl3.sentence;
+    enSentence1 = api.en.lvl1.sentence;
+    enSentence2 = api.en.lvl2.sentence;
+    enSentence3 = api.en.lvl3.sentence;
+})();
+
 
 let result = []
 let lang = "en";

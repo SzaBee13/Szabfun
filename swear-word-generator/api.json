@@ -1,0 +1,66 @@
+{
+    "hu": {
+        "lvl1": {
+            "word": ["bazdmeg", "pöcs", "fing", "farok", "segg", "bunkó"],
+            "sentence": [
+                "Bazdmeg te kis pöcs!",
+                "Mikor mutatod meg a farkadat?",
+                "Ki fingott?",
+                "Te bunkó pöcs!",
+                "Seggfej aki mondja.",
+                "Mivan ráléptél a farkadra"
+            ]
+        },
+        "lvl2": {
+            "word": ["buzi", "feka", "náci", "dagadék", "kurva", "seggfej"],
+            "sentence": [
+                "Te buzi seggfej.",
+                "Mivan várod Hitlert te náci!?",
+                "Nézd ott egy kibaszot feka!",
+                "Te kurva dagadék.",
+                "A te anyád egy kurva!"
+            ]
+        },
+        "lvl3": {
+            "word": ["fasz", "fasszopó", "kurva anyád", "szopógép", "szex", "dug", "basz", "kúrás"],
+            "sentence": [
+                "Te fasszopó, nincs kit szopj?",
+                "Kurva anyáddal kurtam este!",
+                "Mivan, nincs kedved szexelni? Te vagy a nő én a férfi.",
+                "Szopogép most már nem csak szop, mér dug is!"
+            ]
+        }
+    },
+    "en": {
+        "lvl1": {
+            "word": ["jerk", "butt", "idiot", "fucking", "fuck", "penis"],
+            "sentence": [
+                "Fuck you little dick!",
+                "When are you going to show your dick?",
+                "Who farted?",
+                "You jerk!",
+                "An asshole who says.",
+                "Why did you step on your tail"
+            ]
+        },
+        "lvl2": {
+            "word": ["gay", "asshole", "bitch", "nigger", "lump", "black", "nazi"],
+            "sentence": [
+                "You gay ass.",
+                "What are you waiting for Hitler, you Nazi!?",
+                "Look at that fucking nigger!",
+                "You fucking lump.",
+                "Your mother is a whore!"
+            ]
+        },
+        "lvl3": {
+            "word": ["dick", "dickhead", "pussy", "sucking", "sex", "curing"],
+            "sentence": [
+                "You cocksucker, don't you have someone to suck?",
+                "I fucked your mother in the evening!",
+                "What, you don't feel like having sex? You're the woman and I'm the man.",
+                "The suction machine no longer just sucks, it also sucks!"
+            ]
+        }
+    }
+}
