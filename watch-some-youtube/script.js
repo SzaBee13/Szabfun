@@ -15,6 +15,16 @@ let allVideoIds;
 
 let videoIds
 
+function init() {
+    applyURLParams();
+    selectOption("all");
+    if (currentVideoId) {
+        setVideo(currentVideoId);
+    } else {
+        loadRandomVideo();
+    }
+}
+
 (async () => {
     await loadJSON("api");
 
@@ -27,6 +37,8 @@ let videoIds
     allVideoIds = musicVideoIds.concat(memeVideoIds).concat(topVideoIds);
 
     videoIds = allVideoIds;
+
+    init()
 })();
 
 
@@ -84,16 +96,3 @@ function applyURLParams() {
         selectOption(params.get('type'));
     }
 }
-
-function init() {
-    applyURLParams();
-    selectOption("all");
-    if (currentVideoId) {
-        setVideo(currentVideoId);
-    } else {
-        loadRandomVideo();
-    }
-}
-
-// Load a random video on initial page load
-window.onload = init;
