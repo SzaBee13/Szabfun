@@ -3,7 +3,8 @@ const lsLoses = localStorage.getItem('loses');
 const winsElement = document.getElementById('eg-wins');
 const losesElement = document.getElementById('eg-loses');
 const container = document.getElementById('container');
-const doorOpen = new Audio('./assets/door.mp3');
+const doorOpen = new Audio('./assets/open-door.mp3');
+const tryOpenDoor = new Audio('./assets/try-open-door.mp3');
 
 let loses = 0;
 let wins = 0;
@@ -49,6 +50,25 @@ async function win() {
     document.getElementById('newRoom').onclick = newRoom;
 }
 
+async function lose() {
+    loses++;
+    localStorage.setItem('eg-loses', loses);
+    container.innerHTML = `
+    <h1 class="type">You lost!</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You lost!</h1>
+    <h1 class="type">You have won ${wins} times and lost ${loses} times.</h1>
+    <div class="buttons">
+        <button id="newRoom">Play Again</button>
+        <button id="back"><a href="../index.html" style="text-decoration: none; color: #fff;">Back</a></button>
+    </div>
+    `;
+    document.getElementById('newRoom').onclick = newRoom;
+}
+
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
@@ -76,10 +96,13 @@ function addItem(key, value) {
     inv[key] = value;
 }
 
+function randint(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
 async function room1() {
     doorOpen.play();
     await sleep(1000);
-    console.log('You are in room 1');
     container.innerHTML = `
     <h1 class="type">You are in room 1</h1>
     `;
@@ -102,7 +125,7 @@ async function room1() {
     `;
 
     document.getElementById('leave').onclick = newRoom;
-    document.getElementById('search').onclick = () => async; {
+    document.getElementById('search').onclick = async function() {
         container.innerHTML = `
         <h1 class="type">You turn on the light and see a key on the table.</h1>
         `;
@@ -118,7 +141,55 @@ async function room1() {
     }
 }
 
-async function room2() {}
+async function room2() {
+    doorOpen.play();
+    await sleep(1000); 
+    container.innerHTML = `
+    <h1 class="type">You are in room 2</h1>
+    `;
+    await sleep(2000)
+
+    container.innerHTML = `
+    <h1>You are in room 2</h1>
+    <h1 class="type">There is a table and a dead body on the chair.</h1>
+    `;
+    await sleep(3000)
+
+    container.innerHTML = `
+    <h1>You are in room 2</h1>
+    <h1>There is a table and a dead body on the chair.</h1>
+    <h1 class="type">Leave room or search the body?</h1>
+    <div class="buttons">
+        <button id="leave">Leave</button>
+        <button id="search">Search</button>
+    </div>
+    `
+
+    document.getElementById('leave').onclick = newRoom;
+    document.getElementById('search').onclick = async function() {
+        const code = randint(1000, 9999);
+        container.innerHTML = `
+        <h1 class="type">You find a note in the pocket of the dead body.</h1>
+        `;
+        await sleep(3000);
+
+        container.innerHTML = `
+        <h1>You find a note in the pocket of the dead body.</h1>
+        <h1 class="type">It says 'The code is ${code}'.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You find a note in the pocket of the dead body.</h1>
+        <h1>It says 'The code is ${code}'.</h1>
+        <h1 class="type">You take the note. What is that mean? (Note added to inventory)</h1>
+        <button id="leave">Leave</button>
+        `;
+        addItem('note', code);
+        document.getElementById('leave').onclick = newRoom;
+    }
+}
+
 async function room3() {}
 async function room4() {}
 async function room5() {}
