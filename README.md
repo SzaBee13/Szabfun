@@ -11,6 +11,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 3. If you want be swear this is the perfect site for you.
 4. Guess the number that's all.
 5. It generate a youtube video from my api.
+6. Escape game.
 
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
 - 8 commits
@@ -70,3 +71,9 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
   - Music
   - Top 5...
 - Query string support
+
+## [Escape Game](https://szabfun.pages.dev/escape-game/)
+- 1 commit
+- 0 versions
+- RPG
+- Local Storage

@@ -146,3 +146,8 @@ button > a {
     width: 115px;
     margin: 5px;
 }
+
+.escape-game > a > img {
+    width: 115px;
+    margin: 5px;
+}
