@@ -79,7 +79,7 @@ body.black-background {
 }
 
 @media screen and (max-width: 800px) {
-    #container > h1 {
+    #container > h1.type {
         white-space: wrap;
     }
 }

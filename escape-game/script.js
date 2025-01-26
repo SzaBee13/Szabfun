@@ -452,10 +452,91 @@ async function room6() {
 }
 
 async function room7() {
-    
+    container.innerHTML = ``;
+    doorOpen.play();
+    await sleep(1000);
+
+    container.innerHTML = `
+    <h1 class="type">You are in room 7</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 7</h1>
+    <h1 class="type">There is a table in the room.</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 7</h1>
+    <h1>There is a table in the room.</h1>
+    <h1 class="type">You see a note on the table.</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 7</h1>
+    <h1>There is a table in the room.</h1>
+    <h1>You see a note on the table.</h1>
+    <h1 class="type">It says 'If you want to escape, Go to room 6 and use the key, that you found somewhere else'.</h1>
+    <button id="leave">Leave</button>
+    `;
+    document.getElementById('leave').onclick = newRoom;
 }
 
-async function room8() {}
+async function room8() {
+    container.innerHTML = ``;
+    doorOpen.play();
+    await sleep(1000);
+
+    container.innerHTML = `
+    <h1 class="type">You are in room 8</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 8</h1>
+    <h1 class="type">There is a alcoholic person in the room.</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 8</h1>
+    <h1>There is a alcoholic person in the room.</h1>
+    <h1 class="type">He is going to attack you.</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 8</h1>
+    <h1>There is a alcoholic person in the room.</h1>
+    <h1>He is going to attack you.</h1>
+    <h1 class="type">You have to fight him.</h1>
+    `;
+    await sleep(2000);
+
+    if ("gun" in inv) {
+        container.innerHTML = `
+        <h1 class="type">You remember the gun you found in room 3.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the gun you found in room 3.</h1>
+        <h1 class="type">You take the gun and shoot.</h1>
+        `;
+        gunShoot.play();
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the gun you found in room 3.</h1>
+        <h1>You take the gun and shoot.</h1>
+        <h1 class="type">The alcoholic person is dead.</h1>
+        <button id="leave">Leave</button>
+        `;
+        document.getElementById('leave').onclick = newRoom;
+    }
+}
 
 function newRoom() {
     container.innerHTML = `
