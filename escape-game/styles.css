@@ -82,4 +82,8 @@ body.black-background {
     #container > h1.type {
         white-space: wrap;
     }
+
+    #container {
+        top: 0;
+    }
 }

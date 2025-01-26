@@ -74,7 +74,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## [Escape Game](https://szabfun.pages.dev/escape-game/)
 - 8 Rooms
-- 7 commit
-- 1 versions
+- 8 commit
+- 2 versions
 - RPG
 - Local Storage
