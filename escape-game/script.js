@@ -261,7 +261,97 @@ async function room3() {
 }
 
 async function room4() {
-    
+    container.innerHTML = ``;
+    doorOpen.play();
+    await sleep(1000);
+
+    container.innerHTML = `
+    <h1 class="type">You are in room 4</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 4</h1>
+    <h1 class="type">There is a lion in the room.</h1>
+    `;
+    await sleep(2000);
+
+    let time = 5;
+    container.innerHTML = `
+    <h1>You are in room 4</h1>
+    <h1>There is a lion in the room.</h1>
+    <h1 class="type">The lion is see you and attack in 5s. What will you do? leave or fight?</h1>
+    `;
+    await sleep(3000);
+
+    if ("gun" in inv) {
+        container.innerHTML = `
+        <h1 class="type">You remember the gun you found in room 3.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the gun you found in room 3.</h1>
+        <h1 class="type">You take the gun and shoot the lion.</h1>
+        `;
+        gunShoot.play();
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the gun you found in room 3.</h1>
+        <h1>You take the gun and shoot the lion.</h1>
+        <h1 class="type">The lion is dead.</h1>
+        <button id="leave">Leave</button>
+        `;
+
+        document.getElementById('leave').onclick = newRoom;
+    } else if ("food" in inv) {
+        container.innerHTML = `
+        <h1 class="type">You remember the food you found in room 5.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the food you found in room 5.</h1>
+        <h1 class="type">You grab the food and throw it to the lion.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the food you found in room 5.</h1>
+        <h1>You grab the food and throw it to the lion.</h1>
+        <h1 class="type">The lion is eating the food. (You are safe now)</h1>
+        <button id="leave">Leave</button>
+        `;
+
+        document.getElementById('leave').onclick = newRoom;
+    } else {
+        for (let i = time; i > 0; i--) {
+            container.innerHTML = `
+            <h1>You are in room 4</h1>
+            <h1>There is a lion in the room.</h1>
+            <h1>The lion is see you and attack in ${i}s. What will you do? leave or fight?</h1>
+            <div class="buttons">
+                <button id="leave">Leave</button>
+                <button id="fight">Fight</button>
+            </div>
+            `;
+            document.getElementById('leave').onclick = newRoom;
+            document.getElementById('fight').onclick = async function() {
+                container.innerHTML = `
+                <h1 class="type">You jump on the lion and try to fight.</h1>
+                `;
+                await sleep(2000);
+                
+                container.innerHTML = `
+                <h1>You jump on the lion and try to fight.</h1>
+                <h1 class="type">...</h1>
+                `;
+            };
+            await sleep(1000);
+        }
+        lose();
+    }
 }
 
 async function room5() {}
@@ -294,7 +384,6 @@ function newRoom() {
     document.getElementById('room7').onclick = room7;
     document.getElementById('room8').onclick = room8;
 }
-
 
 function init() {
     if (lsWins) {
