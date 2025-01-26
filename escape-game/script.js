@@ -5,6 +5,8 @@ const losesElement = document.getElementById('eg-loses');
 const container = document.getElementById('container');
 const doorOpen = new Audio('./assets/open-door.mp3');
 const tryOpenDoor = new Audio('./assets/try-open-door.mp3');
+const safeOpen = new Audio('./assets/safe-open.mp3');
+const gunShoot = new Audio('./assets/gun-shoot.mp3');
 
 let loses = 0;
 let wins = 0;
@@ -101,6 +103,7 @@ function randint(min, max) {
 }
 
 async function room1() {
+    container.innerHTML = ``;
     doorOpen.play();
     await sleep(1000);
     container.innerHTML = `
@@ -142,6 +145,7 @@ async function room1() {
 }
 
 async function room2() {
+container.innerHTML = ``;
     doorOpen.play();
     await sleep(1000); 
     container.innerHTML = `
@@ -190,8 +194,76 @@ async function room2() {
     }
 }
 
-async function room3() {}
-async function room4() {}
+async function room3() {
+    container.innerHTML = ``;
+    doorOpen.play();
+    await sleep(1000);
+
+    container.innerHTML = `
+    <h1 class="type">You are in room 3</h1>
+    `;
+    await sleep(2000);
+
+    container.innerHTML = `
+    <h1>You are in room 3</h1>
+    <h1 class="type">There is a safe in the room.</h1>
+    `;
+    await sleep(2000);
+
+    if ("note" in inv) {
+        container.innerHTML = `
+        <h1 class="type">You remember the note you found in room 2.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the note you found in room 2.</h1>
+        <h1 class="type">You try to open the safe with the code ${inv["note"]}.</h1>
+        `;
+        safeOpen.play();
+        await sleep(3000);
+
+        container.innerHTML = `
+        <h1>You remember the note you found in room 2.</h1>
+        <h1>You try to open the safe with the code ${inv["note"]}.</h1>
+        <h1 class="type">The safe opens and you find a gun.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the note you found in room 2.</h1>
+        <h1>You try to open the safe with the code ${inv["note"]}.</h1>
+        <h1>The safe opens and you find a gun.</h1>
+        <h1 class="type">Take the gun or leave it?</h1>
+        <div class="buttons">
+            <button id="take">Take</button>
+            <button id="leave">Leave</button>
+        `;
+
+        document.getElementById('leave').onclick = newRoom;
+        document.getElementById('take').onclick = async function() {
+            container.innerHTML = `
+            <h1 class="type">You take the gun. It might be useful. (Gun added to inventory)</h1>
+            <button id="leave">Leave</button>
+            `;
+
+            addItem('gun', 'gun');
+            document.getElementById('leave').onclick = newRoom;
+        };
+    } else {
+        container.innerHTML = `
+        <h1 class="type">You don't have the code to open the safe. Try to find it.</h1>
+        <button id="leave">Leave</button>
+        `;
+
+        document.getElementById('leave').onclick = newRoom;
+    }
+}
+
+async function room4() {
+    
+}
+
 async function room5() {}
 async function room6() {}
 async function room7() {}
