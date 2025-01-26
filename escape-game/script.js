@@ -354,8 +354,75 @@ async function room4() {
     }
 }
 
-async function room5() {}
-async function room6() {}
+async function room5() {
+    container.innerHTML = ``;
+    tryOpenDoor.play();
+    await sleep(7000);
+
+    if ("key" in inv) {
+        container.innerHTML = `
+        <h1 class="type">You remember the key you found in room 1.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the key you found in room 1.</h1>
+        <h1 class="type">You use the key to open the door.</h1>
+        `;
+        doorOpen.play();
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the key you found in room 1.</h1>
+        <h1>You use the key to open the door.</h1>
+        <h1 class="type">The door is open and you go inside.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1 class="type">You are in room 5.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You are in room 5.</h1>
+        <h1 class="type">There is a lot of food in the room and the key to freedom.</h1>
+        `;
+        await sleep(3000);
+
+        container.innerHTML = `
+        <h1>You are in room 5.</h1>
+        <h1>There is a lot of food in the room and the key to freedom.</h1>
+        <h1 class="type">You just have to found the room for the freedom.</h1>
+        `;
+        await sleep(3000);
+
+        container.innerHTML = `
+        <h1>You are in room 5.</h1>
+        <h1>There is a lot of food in the room and the key to freedom.</h1>
+        <h1>You just have to found the room for the freedom.</h1>
+        <h1 class="type">You take the key and the food. (Key and food added to inventory)</h1>
+        <button id="leave">Leave</button>
+        `;
+
+        addItem("key-free", "free");
+        addItem("food", "food");
+        document.getElementById('leave').onclick = newRoom;
+    } else {
+        container.innerHTML = `
+        <h1 class="type">You need a key to open the door. Try to find it.</h1>
+        <button id="leave">Leave</button>
+        `;
+        document.getElementById('leave').onclick = newRoom;
+    }
+}
+
+async function room6() {
+    container.innerHTML = ``;
+    tryOpenDoor.play();
+    await sleep(7000);
+}
+
 async function room7() {}
 async function room8() {}
 
