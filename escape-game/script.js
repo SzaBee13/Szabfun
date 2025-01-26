@@ -1,7 +1,7 @@
-const lsWins = localStorage.getItem('wins');
-const lsLoses = localStorage.getItem('loses');
-const winsElement = document.getElementById('eg-wins');
-const losesElement = document.getElementById('eg-loses');
+const lsWins = localStorage.getItem('eg-wins');
+const lsLoses = localStorage.getItem('eg-loses');
+const winsElement = document.getElementById('wins');
+const losesElement = document.getElementById('loses');
 const container = document.getElementById('container');
 const doorOpen = new Audio('./assets/open-door.mp3');
 const tryOpenDoor = new Audio('./assets/try-open-door.mp3');
@@ -37,12 +37,12 @@ async function win() {
     wins++;
     localStorage.setItem('eg-wins', wins);
     container.innerHTML = `
-    <h1 class="type">You escaped!</h1>
+    <h1 class="type">Congratulations! You escaped!</h1>
     `;
     await sleep(2000);
 
     container.innerHTML = `
-    <h1>You escaped!</h1>
+    <h1>Congratulations! You escaped!</h1>
     <h1 class="type">You have won ${wins} times and lost ${loses} times.</h1>
     <div class="buttons">
         <button id="newRoom">Play Again</button>
@@ -421,9 +421,40 @@ async function room6() {
     container.innerHTML = ``;
     tryOpenDoor.play();
     await sleep(7000);
+
+    if ("key-free" in inv) {
+        container.innerHTML = `
+        <h1 class="type">You remember the key you found in room 5.</h1>
+        `;
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the key you found in room 5.</h1>
+        <h1 class="type">You use the key to open the door.</h1>
+        `;
+        doorOpen.play();
+        await sleep(2000);
+
+        container.innerHTML = `
+        <h1>You remember the key you found in room 5.</h1>
+        <h1>You use the key to open the door.</h1>
+        <h1 class="type">The door is open and you go inside.</h1>
+        `;
+
+        win();
+    } else {
+        container.innerHTML = `
+        <h1 class="type">You need a key to open the door. Try to find it.</h1>
+        <button id="leave">Leave</button>
+        `;
+        document.getElementById('leave').onclick = newRoom;
+    }
 }
 
-async function room7() {}
+async function room7() {
+    
+}
+
 async function room8() {}
 
 function newRoom() {
@@ -462,3 +493,5 @@ function init() {
         losesElement.innerText = loses;
     }
 }
+
+window.onload = init;
