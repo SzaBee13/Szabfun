@@ -151,3 +151,8 @@ button > a {
     width: 115px;
     margin: 5px;
 }
+
+.chat > a > img {
+    width: 115px;
+    margin: 5px;
+}
