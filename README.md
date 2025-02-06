@@ -12,13 +12,14 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 4. Guess the number that's all.
 5. It generate a youtube video from my api.
 6. Escape game.
+7. Chat
 
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
 - 8 commits
 - 3 versions
 - AI mode
   - Hard mode
-  - Eazy mode   
+  - Easy mode   
 - Query string support
   - Hard mode
   - AI mode
@@ -78,3 +79,11 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - 2 versions
 - RPG
 - Local Storage
+
+## [Chat](https://szabfun.pages.dev/chat/)
+- 2 commits
+- 1 version
+- backend
+- chat
+- Local Storage:
+  - Author / Sender
