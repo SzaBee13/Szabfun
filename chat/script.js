@@ -7,8 +7,8 @@ const answerDiv = document.getElementById("anwser");
 const lsUsername = localStorage.getItem("username");
 const lsNickname = localStorage.getItem("nickname");
 
-const socket = new WebSocket("http://192.168.126.1:3000");
-// const socket = new WebSocket("https://my-first-backend-production.up.railway.app");
+// const socket = new WebSocket("http://192.168.126.1:3000");
+const socket = new WebSocket("https://my-first-backend-production.up.railway.app");
 
 let username;
 let nickname;
