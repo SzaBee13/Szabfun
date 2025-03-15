@@ -13,7 +13,7 @@ let topVideoIds;
 
 let allVideoIds;
 
-let videoIds
+let videoIds;
 
 function init() {
     applyURLParams();
@@ -69,8 +69,13 @@ function selectOption(optionId) {
 }
 
 function loadRandomVideo() {
-    const randomIndex = Math.floor(Math.random() * videoIds.length);
-    const videoId = videoIds[randomIndex];
+    // Filter out the current video ID from the list of available video IDs
+    const availableVideoIds = videoIds.filter(id => id !== currentVideoId);
+    
+    // Select a random video ID from the filtered list
+    const randomIndex = Math.floor(Math.random() * availableVideoIds.length);
+    const videoId = availableVideoIds[randomIndex];
+    
     currentVideoId = videoId;
     setVideo(videoId); // Set the video to the iframe
 }
