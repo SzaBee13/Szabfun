@@ -5,29 +5,30 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../basicgamestile.css">
     <link rel="stylesheet" href="./styles.css">
-    <link rel="icon" href="../img/escape-game.png" type="image/x-icon">
+    <link rel="icon" href="../img/" type="image/x-icon">
     <title>Szabfun - Escape Game</title>
     <!-- Open Graph meta tag -->
     <meta property="og:title" content="Szabfun">
     <meta property="og:description" content="Try to escape from the game">
-    <meta property="og:url" content="https://szabfun.pages.dev/escape-game">
-    <meta property="og:image" content="https://szabfun.pages.dev/img/escape-game.png">
+    <meta property="og:url" content="https://szabfun.pages.dev/enter-password">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/enter-password.png">
     <meta property="og:type" content="website">
     <!--Google-->
     <meta name="description" content="Try to escape from the game!">
     <meta name="author" content="Szabfun">
-    <meta name="keywords" content="escape, SzaBee13, WizardGuruYT, games, horror">
+    <meta name="keywords" content="SzaBee13, WizardGuruYT, games, password">
 </head>
 <body>
     <a href="../index.html" class="back"><h1 id="back">Szabfun</h1></a>
     <div id="container">
-        <div id="startButton">
-            <button onclick="start()">Start Game</button>
-            <h3>Wins: <span id="wins">0</span></h3>
-            <h3>Loses: <span id="loses">0</span></h3>
+        <div class="game-container" id="game-container">
+            <h1>Enter password</h1>
+            <input type="text" id="passwordInput" placeholder="" autofocus autocomplete="off" autocapitalize="off"/>
+            <button onclick="checkPassword()">Submit</button>
+            <p id="message"></p>
         </div>
     </div>
 
-    <script src="./script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>

@@ -156,3 +156,8 @@ button > a {
     width: 115px;
     margin: 5px;
 }
+
+.enter-password > a > img {
+    width: 115px;
+    margin: 5px;
+}
