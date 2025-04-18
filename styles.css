@@ -161,3 +161,8 @@ button > a {
     width: 115px;
     margin: 5px;
 }
+
+.sus-link > a > img {
+    width: 90px;
+    margin: 5px;
+}

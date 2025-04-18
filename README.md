@@ -7,12 +7,13 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## Games
 1. The first game is the tic-tac-toe. It's a very simple game with some AI inside.
-2. I want to get a username so I created this webside, called choose an username.
+2. I want to get a username so I created this website, called choose an username.
 3. If you want be swear this is the perfect site for you.
 4. Guess the number that's all.
 5. It generate a youtube video from my api.
 6. Escape game.
 7. Chat
+8. Sus link is a link, but you don't know where you end.
 
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
 - 8 commits
@@ -93,3 +94,11 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - 1 commit
 - 1 version
 - meme
+
+## [Sus Link](https://szabfun.pages.dev/sus-link)
+- 1 commit
+- 1 version
+- very sus..
+- Query string support
+  - Link
+  - Target
