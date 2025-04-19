@@ -1,3 +1,4 @@
+/* Table Styles */
 table {
     border-collapse: collapse;
     margin: 25px 0;
@@ -9,8 +10,11 @@ table {
     box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
+table thead {
+    background-color: #009879; /* Ensure the background color applies to the entire thead */
+}
+
 table thead tr {
-    background-color: #009879;
     color: #ffffff;
     text-align: left;
     font-weight: bold;
@@ -33,12 +37,60 @@ table tbody tr:hover {
     cursor: pointer;
 }
 
+/* Button Styles */
+button {
+    padding: 10px 15px;
+    font-size: 16px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button:active {
+    background-color: #003f7f;
+}
+
+.link-cell {
+    display: flex;
+    gap: 10px;
+}
+
+/* Link Styles */
 a {
     text-decoration: none;
-    color: inherit; /* Inherits the color from the parent element */
+    color: inherit;
 }
 
 a:hover {
-    color: #007BFF; /* Optional: Add a hover effect */
-    text-decoration: underline; /* Optional: Add underline on hover */
+    color: #007BFF;
+    text-decoration: underline;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px;
+    }
+
+    table th, table td {
+        padding: 8px 10px;
+    }
+
+    button {
+        padding: 8px 10px;
+        font-size: 14px;
+    }
+
+    .link-cell {
+        flex-direction: column;
+        gap: 5px;
+    }
 }

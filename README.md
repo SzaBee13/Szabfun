@@ -96,7 +96,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - meme
 
 ## [Sus Link](https://szabfun.pages.dev/sus-link)
-- 2 commit
+- 3 commit
 - 1 version
 - very sus..
 - Query string support
