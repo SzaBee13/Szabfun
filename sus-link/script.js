@@ -39,6 +39,46 @@ const linkList = {
         randomName: "YGCXPMAX",
         title: "ValkonClient" 
     },
+    "sus": {
+        url: "https://www.youtube.com/shorts/vdu8Jeu2IS0",
+        randomName: "AChUi5ut",
+        title: "among us imposter sound effect"
+    },
+    "english-or-spanish": {
+        url: "https://www.youtube.com/watch?v=gQk8SrLjqvg",
+        randomName: "7fCNGW6U",
+        title: "English or Spanish?"
+    },
+    "learn": {
+        url: "https://www.duolingo.com/learn",
+        randomName: "qkJ9LwGd",
+        title: "Duolingo"
+    },
+    "corn": {
+        url: "https://cornhub.website",
+        randomName: "0DjDqKRg",
+        title: "CornHub",
+    },
+    "x": {
+        url: "https://x.com",
+        randomName: "MSC3ktz8",
+        title: "X (Twitter)"
+    },
+    "technoblade": {
+        url: "https://www.youtube.com/watch?v=R_fZjGm2OrM",
+        randomName: "yN4BgDaG",
+        title: "Technoblade Never Dies"
+    },
+    "i-am-not-a-robot": {
+        url: "https://www.youtube.com/watch?v=j8BjGMt2IgQ",
+        randomName: "gMCSaeYk",
+        title: "Hmmmmmm........."
+    },
+    "search": {
+        url: "https://www.google.com",
+        randomName: "20zjkeSQ",
+        title: "Google"
+    }
 };
 
 // Get the query parameter from the URL
@@ -71,7 +111,7 @@ Object.entries(linkList).forEach(([key, { url, randomName, title }]) => {
     const row = document.createElement("tr");
     row.innerHTML = `
         <td>${key}</td>
-        <td><a href=${url}>${title}</a></td>
+        <td><a href=${url} target="_blank">${title}</a></td>
         <td class="link-cell">
             <button class="copy-link" data-link="https://szabfun.pages.dev/sus-link?l=${key}">Copy Normal</button>
             <button class="copy-link" data-link="https://szabfun.pages.dev/sus-link?l=${randomName}">Copy Random</button>
