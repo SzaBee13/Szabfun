@@ -29,11 +29,34 @@
                     <tr>
                         <th>Shorted Version</th>
                         <th>Endpoint</th>
-                        <th>Copy link</th>
+                        <th>Copy Link</th>
                     </tr>
                 </thead>
                 <tbody id="table-body">
                     
+                </tbody>
+            </table>
+
+            <h2>Custom links</h2>
+            <p>Create your custom sus link</p>
+            <form id="custom-link-form">
+                <input type="text" id="custom-link" placeholder="Enter your custom link name/title" required>
+                <input type="text" id="custom-link-endpoint" placeholder="Enter your custom link endpoint" required>
+                <input type="text" id="custom-link-author" placeholder="Enter your custom link author" required>
+                <button type="submit">Add</button>
+            </form>
+            <p>Sus link list:</p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th> <!-- inside a <a> endpoint -->
+                        <th>Short Random Version</th>
+                        <th>Author</th>
+                        <th>Copy Random</th>
+                    </tr>
+                </thead>
+                <tbody id="custom-link-table-body">
+                    <!-- Custom links will be added here -->
                 </tbody>
             </table>
         </div>

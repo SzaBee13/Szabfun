@@ -96,9 +96,11 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - meme
 
 ## [Sus Link](https://szabfun.pages.dev/sus-link)
-- 4 commit
-- 1 version
+- 5 commit
+- 2 version
 - very sus..
 - Query string support
   - Link
   - Target
+- Custom Link
+- backend

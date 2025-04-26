@@ -81,32 +81,50 @@ const linkList = {
     }
 };
 
+const apiUrl = "https://szabfun-backend-production.up.railway.app/sus-link"; // Update this to your API URL if needed
+const tableBody = document.getElementById("table-body");
+const customLinkTableBody = document.getElementById("custom-link-table-body");
+const customLinkForm = document.getElementById("custom-link-form");
+
+// Store custom links fetched from the backend
+let customLinks;
+
 // Get the query parameter from the URL
 const params = new URLSearchParams(window.location.search);
 const linkKey = params.get("l");
 const target = params.get("target") || "_self"; // Default to _self if target is not provided
-const tableBody = document.getElementById("table-body");
 
-// Check if the key exists in the linkList
-if (linkKey) {
-    // Check if the linkKey matches a normal key
-    if (linkList[linkKey]) {
-        // Redirect to the corresponding URL
-        window.open(linkList[linkKey].url, target);
-    } else {
-        // Check if the linkKey matches a randomName
-        const matchingEntry = Object.values(linkList).find(entry => entry.randomName === linkKey);
-        if (matchingEntry) {
-            // Redirect to the corresponding URL for the randomName
-            window.open(matchingEntry.url, target);
-        } else {
-            // If no match is found, handle the error
-            alert("Invalid link key!");
+async function handleLinkRedirection() {
+    const params = new URLSearchParams(window.location.search);
+    const linkKey = params.get("l");
+    const target = params.get("target") || "_self"; // Default to _self if target is not provided
+
+    if (!linkKey) return; // Exit if no 'l' parameter is provided
+
+    // Check predefined links in linkList by key or randomName
+    const predefinedLink = Object.values(linkList).find(
+        link => link.randomName === linkKey || Object.keys(linkList).includes(linkKey)
+    );
+
+    if (predefinedLink) {
+        const url = predefinedLink.url || linkList[linkKey].url;
+        window.open(url, target);
+        return;
+    }
+
+    // Check custom links from the already fetched customLinks variable
+    if (customLinks) {
+        const customLink = customLinks.find(link => link.randomShortVersion === linkKey);
+        if (customLink) {
+            window.open(customLink.endpoint, target);
+            return;
         }
     }
+
+    console.error("Link not found for the provided key.");
 }
 
-// Populate the table with links
+// Populate the table with predefined links
 Object.entries(linkList).forEach(([key, { url, randomName, title }]) => {
     const row = document.createElement("tr");
     row.innerHTML = `
@@ -124,6 +142,64 @@ Object.entries(linkList).forEach(([key, { url, randomName, title }]) => {
     }
 });
 
+// Fetch custom links from the server on page load
+async function fetchCustomLinks() {
+    try {
+        const response = await fetch(`${apiUrl}/get-custom`);
+        if (!response.ok) {
+            throw new Error("Failed to fetch custom links from the server.");
+        }
+        customLinks = await response.json();
+        populateCustomTable(customLinks);
+    } catch (error) {
+        console.error("Error fetching custom links:", error.message);
+    }
+}
+
+// Populate the custom links table
+function populateCustomTable(customLinks) {
+    customLinkTableBody.innerHTML = ""; // Clear existing rows
+    customLinks.forEach(({ randomShortVersion, endpoint, name, author }) => {
+        const row = document.createElement("tr");
+        row.innerHTML = `
+            <td><a href="${endpoint}" target="_blank">${name}</a></td>
+            <td>${randomShortVersion}</td>
+            <td>${author}</td>
+            <td class="link-cell">
+                <button class="copy-link" data-link="https://szabfun.pages.dev/sus-link?l=${randomShortVersion}">Copy Short</button>
+            </td>
+        `;
+        customLinkTableBody.appendChild(row);
+    });
+}
+
+// Handle form submission to create a custom link
+customLinkForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+    const name = document.getElementById("custom-link").value;
+    const endpoint = document.getElementById("custom-link-endpoint").value;
+    const author = document.getElementById("custom-link-author").value;
+
+    try {
+        const response = await fetch(`${apiUrl}/create-custom-link`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ name, endpoint, author }),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert(`Custom link created successfully! Random Short Version: ${result.randomShortVersion}`);
+            fetchCustomLinks(); // Refresh the custom links table
+        } else {
+            alert(`Error: ${result.error}`);
+        }
+    } catch (error) {
+        console.error("Error creating custom link:", error.message);
+        alert("Failed to create custom link. Please try again.");
+    }
+});
+
 // Add event listener to copy the link when a button is clicked
 document.addEventListener("click", (event) => {
     if (event.target.classList.contains("copy-link")) {
@@ -132,8 +208,7 @@ document.addEventListener("click", (event) => {
 
         if (navigator.clipboard && navigator.clipboard.writeText) {
             // Use Clipboard API if available
-            navigator.clipboard.writeText(link).then(() => {
-            }).catch((err) => {
+            navigator.clipboard.writeText(link).catch((err) => {
                 console.error("Failed to copy text: ", err);
             });
         } else {
@@ -151,3 +226,8 @@ document.addEventListener("click", (event) => {
         }
     }
 });
+
+(async function initialize() {
+    await fetchCustomLinks(); // Wait for custom links to be fetched
+    await handleLinkRedirection(); // Call redirection after fetching is complete
+})();
