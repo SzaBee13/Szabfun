@@ -101,14 +101,17 @@ async function handleLinkRedirection() {
 
     if (!linkKey) return; // Exit if no 'l' parameter is provided
 
-    // Check predefined links in linkList by key or randomName
-    const predefinedLink = Object.values(linkList).find(
-        link => link.randomName === linkKey || Object.keys(linkList).includes(linkKey)
-    );
-
-    if (predefinedLink) {
-        const url = predefinedLink.url || linkList[linkKey].url;
+    // Check if the linkKey matches a key in linkList
+    if (linkList[linkKey]) {
+        const url = linkList[linkKey].url;
         window.open(url, target);
+        return;
+    }
+
+    // Check if the linkKey matches a randomName in linkList
+    const predefinedLink = Object.values(linkList).find(link => link.randomName === linkKey);
+    if (predefinedLink) {
+        window.open(predefinedLink.url, target);
         return;
     }
 
@@ -123,7 +126,6 @@ async function handleLinkRedirection() {
 
     console.error("Link not found for the provided key.");
 }
-
 // Populate the table with predefined links
 Object.entries(linkList).forEach(([key, { url, randomName, title }]) => {
     const row = document.createElement("tr");
