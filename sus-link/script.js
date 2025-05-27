@@ -81,7 +81,7 @@ const linkList = {
     }
 };
 
-const apiUrl = "https://szabfun-backend-production.up.railway.app/sus-link"; // Update this to your API URL if needed
+const apiUrl = "https://szb.pagekite.me"; // Update this to your API URL if needed
 const tableBody = document.getElementById("table-body");
 const customLinkTableBody = document.getElementById("custom-link-table-body");
 const customLinkForm = document.getElementById("custom-link-form");
