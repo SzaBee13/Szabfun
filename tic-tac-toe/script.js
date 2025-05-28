@@ -5,12 +5,18 @@ const difficultyButton = document.getElementById("difficultyButton");
 const lsHardMode = localStorage.getItem("hardMode")
 const lsAiMode = localStorage.getItem("aiMode")
 
+const apiUrl = "https://szb.pagekite.me/tic-tac-toe"; // Update this to your API URL if needed
+
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
 let gameActive = true;
 let aiMode = true;
 let hardMode = false;
-
+let socket;
+let room;
+let multiplayerMode = false;
+let multiplayerSymbol;
+let myTurn = false;
 
 const winningCombinations = [
   [0, 1, 2],
@@ -22,6 +28,41 @@ const winningCombinations = [
   [0, 4, 8],
   [2, 4, 6],
 ];
+
+function joinQueue() {
+    aiMode = false;
+    multiplayerMode = true;
+    resetGame();
+
+    socket = io("https://szb.pagekite.me", {
+        path: "/tic-tac-toe/socket.io"
+    });
+
+    socket.on("startGame", (data) => {
+        multiplayerSymbol = data.symbol;
+        room = data.room;
+        myTurn = (multiplayerSymbol === "X");
+        winnerElement.textContent = myTurn ? "Your turn!" : "Opponent's turn...";
+        board = ["", "", "", "", "", "", "", "", ""];
+        createBoard();
+    });
+
+    socket.on("updateBoard", (updatedBoard) => {
+        board = updatedBoard;
+        createBoard();
+        myTurn = true;
+        winnerElement.textContent = "Your turn!";
+    });
+
+    socket.on("gameOver", ({ winner }) => {
+        gameActive = false;
+        if (winner) {
+            winnerElement.innerHTML = `<span class="${winner.toLowerCase()}"><strong>${winner}</strong></span> wins!`;
+        } else {
+            winnerElement.textContent = "It's a draw!";
+        }
+    });
+}
 
 function updateURL() {
     const params = new URLSearchParams();
@@ -37,6 +78,8 @@ function createBoard() {
         cellElement.classList.add("cell");
         cellElement.dataset.index = index;
         cellElement.textContent = cell;
+        if (cell === "X") cellElement.classList.add("taken", "x-cell");
+        if (cell === "O") cellElement.classList.add("taken", "o-cell");
         cellElement.addEventListener("click", handleCellClick);
         boardElement.appendChild(cellElement);
     });
@@ -45,31 +88,46 @@ function createBoard() {
 function handleCellClick(event) {
     const cellIndex = event.target.dataset.index;
 
-    if (board[cellIndex] !== "" || !gameActive) {
-        return;
-    }
+    if (board[cellIndex] !== "" || !gameActive) return;
 
-    board[cellIndex] = currentPlayer;
-    event.target.textContent = currentPlayer;
-    event.target.classList.add("taken");
-    event.target.classList.add(`${currentPlayer.toLowerCase()}-cell`);
+    if (multiplayerMode) {
+        if (!myTurn) return;
+        board[cellIndex] = multiplayerSymbol;
+        myTurn = false;
+        winnerElement.textContent = "Opponent's turn...";
+        socket.emit("move", { room, board });
+        createBoard();
 
-    if (checkWinner()) {
-        winnerElement.innerHTML = `<span class="${currentPlayer.toLowerCase()}"><strong>${currentPlayer}</strong></span> wins!`;
-        gameActive = false;
-        return;
-    }
+        // Check for winner after move
+        if (checkWinner()) {
+            winnerElement.innerHTML = `<span class="${multiplayerSymbol.toLowerCase()}"><strong>${multiplayerSymbol}</strong></span> wins!`;
+            gameActive = false;
+            // Send winner to server
+            socket.emit("gameOver", { room, winner: multiplayerSymbol });
+            return;
+        }
+    } else {
+        board[cellIndex] = currentPlayer;
+        event.target.textContent = currentPlayer;
+        event.target.classList.add("taken", `${currentPlayer.toLowerCase()}-cell`);
 
-    if (board.every((cell) => cell !== "")) {
-        winnerElement.textContent = "It's a draw!";
-        gameActive = false;
-        return;
-    }
+        if (checkWinner()) {
+            winnerElement.innerHTML = `<span class="${currentPlayer.toLowerCase()}"><strong>${currentPlayer}</strong></span> wins!`;
+            gameActive = false;
+            return;
+        }
 
-    currentPlayer = currentPlayer === "X" ? "O" : "X";
+        if (board.every((cell) => cell !== "")) {
+            winnerElement.textContent = "It's a draw!";
+            gameActive = false;
+            return;
+        }
 
-    if (aiMode && currentPlayer === "O" && gameActive) {
-        hardMode ? aiMoveHard() : aiMoveEasy();
+        currentPlayer = currentPlayer === "X" ? "O" : "X";
+
+        if (aiMode && currentPlayer === "O" && gameActive) {
+            hardMode ? aiMoveHard() : aiMoveEasy();
+        }
     }
 }
 

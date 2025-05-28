@@ -43,7 +43,7 @@ let enSentence3;
 })();
 
 
-let result = []
+let result = enWord1; // Default value
 let lang = "en";
 let type = "w";
 let lvl = 1;
