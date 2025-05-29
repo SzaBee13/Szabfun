@@ -39,8 +39,9 @@ function checkGuess() {
     if (isNaN(userGuess) || userGuess < minNum || userGuess > maxNum) {
         resultElement.innerText = `Please enter a valid number between ${minNum} and ${maxNum}.`;
     } else if (userGuess === randomNumber) {
-        resultElement.innerText = "Congratulations! You guessed the number!";
+        resultElement.innerText = "Congratulations! You guessed the number! - Number was: " + randomNumber;
         addScore();
+        startGame(); // Restart the game after a correct guess
     } else if (userGuess < randomNumber) {
         resultElement.innerText = "Too low! Try again.";
     } else {
@@ -139,3 +140,15 @@ userInput.addEventListener('keydown', (event) => {
 });
 
 window.onload = init()
+
+document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && fullscreenDiv.style.display === 'flex') {
+        notShowFullScreen();
+    }
+});
+
+fullscreenDiv.addEventListener('click', (event) => {
+    if (event.target === fullscreenDiv) {
+        notShowFullScreen();
+    }
+});
