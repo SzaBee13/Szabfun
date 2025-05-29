@@ -2,10 +2,14 @@ const boardElement = document.getElementById("board");
 const winnerElement = document.getElementById("winner");
 const modeButton = document.getElementById("modeButton");
 const difficultyButton = document.getElementById("difficultyButton");
-const lsHardMode = localStorage.getItem("hardMode")
-const lsAiMode = localStorage.getItem("aiMode")
+const partyCodeDiv = document.getElementById("partyCode");
+const lsHardMode = localStorage.getItem("hardMode");
+const lsAiMode = localStorage.getItem("aiMode");
+const partyCodeInput = document.getElementById("partyCodeInput");
+const joinPartyButton = document.getElementById("joinPartyButton");
 
-const apiUrl = "https://szb.pagekite.me/tic-tac-toe"; // Update this to your API URL if needed
+const socketUrl = "https://szb.pagekite.me";
+// const socketUrl = "http://localhost:3000";
 
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
@@ -19,30 +23,36 @@ let multiplayerSymbol;
 let myTurn = false;
 
 const winningCombinations = [
-  [0, 1, 2],
-  [3, 4, 5],
-  [6, 7, 8],
-  [0, 3, 6],
-  [1, 4, 7],
-  [2, 5, 8],
-  [0, 4, 8],
-  [2, 4, 6],
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6],
 ];
 
-function joinQueue() {
+function joinQueueWithCode(code) {
     aiMode = false;
     multiplayerMode = true;
     resetGame();
 
-    socket = io("https://szb.pagekite.me", {
-        path: "/tic-tac-toe/socket.io"
+    socket = io(socketUrl, {
+        path: "/tic-tac-toe/socket.io",
     });
+    winnerElement.textContent = "Joining party...";
+
+    socket.emit("joinRoom", code);
 
     socket.on("startGame", (data) => {
+        partyCodeDiv.innerHTML = ``;
         multiplayerSymbol = data.symbol;
         room = data.room;
-        myTurn = (multiplayerSymbol === "X");
-        winnerElement.textContent = myTurn ? "Your turn!" : "Opponent's turn...";
+        myTurn = multiplayerSymbol === "X"; // <-- Always X starts!
+        winnerElement.textContent = myTurn
+            ? "Your turn!"
+            : "Opponent's turn...";
         board = ["", "", "", "", "", "", "", "", ""];
         createBoard();
     });
@@ -50,8 +60,102 @@ function joinQueue() {
     socket.on("updateBoard", (updatedBoard) => {
         board = updatedBoard;
         createBoard();
-        myTurn = true;
-        winnerElement.textContent = "Your turn!";
+
+        // Count X and O
+        const xCount = board.filter(cell => cell === "X").length;
+        const oCount = board.filter(cell => cell === "O").length;
+
+        if (multiplayerSymbol === "X") {
+            myTurn = xCount === oCount; // X's turn if equal
+        } else {
+            myTurn = xCount > oCount;   // O's turn if more X than O
+        }
+
+        winnerElement.textContent = myTurn
+            ? "Your turn!"
+            : "Opponent's turn...";
+    });
+
+    socket.on("gameOver", ({ winner }) => {
+        gameActive = false;
+        if (winner) {
+            winnerElement.innerHTML = `<span class="${winner.toLowerCase()}"><strong>${winner}</strong></span> wins!`;
+        } else {
+            winnerElement.textContent = "It's a draw!";
+        }
+    });
+
+    // ...other socket event handlers...
+}
+
+function generateRoomCode() {
+    return Math.random().toString(36).substr(2, 8).toUpperCase();
+}
+
+function joinQueue() {
+    aiMode = false;
+    multiplayerMode = true;
+    resetGame();
+
+    if (!room) {
+        room = generateRoomCode();
+    }
+
+    socket = io(socketUrl, {
+        path: "/tic-tac-toe/socket.io",
+    });
+    winnerElement.textContent = "Waiting for opponent...";
+
+    const shareUrl = `${window.location.origin}${
+        window.location.pathname
+    }?s=${encodeURIComponent(room)}`;
+    partyCodeDiv.innerHTML = `
+                <strong>Party Code:</strong> <span id="partyCodeValue">${room}</span>
+                <button id="copyPartyCode">Copy Code</button>
+                <br>
+                <strong>Share Link:</strong> <a href="${shareUrl}" target="_blank">${shareUrl}</a>
+                <button id="copyShareLink">Copy Link</button>
+            `;
+    document.getElementById("copyPartyCode").onclick = () => {
+        navigator.clipboard.writeText(room);
+    };
+    document.getElementById("copyShareLink").onclick = () => {
+        navigator.clipboard.writeText(shareUrl);
+    };
+
+    socket.on("waitingForOpponent", ({ room }) => {
+        winnerElement.textContent = "Waiting for opponent to join...";
+    });
+
+    socket.on("startGame", (data) => {
+        partyCodeDiv.innerHTML = ``;
+        multiplayerSymbol = data.symbol;
+        room = data.room;
+        myTurn = multiplayerSymbol === "X"; // <-- Add this line!
+        winnerElement.textContent = myTurn
+            ? "Your turn!"
+            : "Opponent's turn...";
+        board = ["", "", "", "", "", "", "", "", ""];
+        createBoard();
+    });
+
+    socket.on("updateBoard", (updatedBoard) => {
+        board = updatedBoard;
+        createBoard();
+
+        // Count X and O
+        const xCount = board.filter(cell => cell === "X").length;
+        const oCount = board.filter(cell => cell === "O").length;
+
+        if (multiplayerSymbol === "X") {
+            myTurn = xCount === oCount; // X's turn if equal
+        } else {
+            myTurn = xCount > oCount;   // O's turn if more X than O
+        }
+
+        winnerElement.textContent = myTurn
+            ? "Your turn!"
+            : "Opponent's turn...";
     });
 
     socket.on("gameOver", ({ winner }) => {
@@ -66,9 +170,13 @@ function joinQueue() {
 
 function updateURL() {
     const params = new URLSearchParams();
-    params.set('aiMode', aiMode);
-    params.set('hardMode', hardMode);
-    window.history.replaceState({}, '', `${window.location.pathname}?${params.toString()}`);
+    params.set("aiMode", aiMode);
+    params.set("hardMode", hardMode);
+    window.history.replaceState(
+        {},
+        "",
+        `${window.location.pathname}?${params.toString()}`
+    );
 }
 
 function createBoard() {
@@ -99,17 +207,20 @@ function handleCellClick(event) {
         createBoard();
 
         // Check for winner after move
-        if (checkWinner()) {
+        if (checkWinner(multiplayerSymbol)) {
             winnerElement.innerHTML = `<span class="${multiplayerSymbol.toLowerCase()}"><strong>${multiplayerSymbol}</strong></span> wins!`;
             gameActive = false;
-            // Send winner to server
             socket.emit("gameOver", { room, winner: multiplayerSymbol });
             return;
         }
+        // ...draw check if needed...
     } else {
         board[cellIndex] = currentPlayer;
         event.target.textContent = currentPlayer;
-        event.target.classList.add("taken", `${currentPlayer.toLowerCase()}-cell`);
+        event.target.classList.add(
+            "taken",
+            `${currentPlayer.toLowerCase()}-cell`
+        );
 
         if (checkWinner()) {
             winnerElement.innerHTML = `<span class="${currentPlayer.toLowerCase()}"><strong>${currentPlayer}</strong></span> wins!`;
@@ -135,8 +246,9 @@ function aiMoveEasy() {
     const emptyCells = board
         .map((cell, index) => (cell === "" ? index : null))
         .filter((index) => index !== null);
-    const randomIndex = emptyCells[Math.floor(Math.random() * emptyCells.length)];
-    let moveIndex = randomIndex
+    const randomIndex =
+        emptyCells[Math.floor(Math.random() * emptyCells.length)];
+    let moveIndex = randomIndex;
 
     for (let combo of winningCombinations) {
         const [a, b, c] = combo;
@@ -158,13 +270,13 @@ function aiMoveHard() {
     for (let combo of winningCombinations) {
         const [a, b, c] = combo;
         if (board[a] === "O" && board[b] === "O" && board[c] === "") {
-        return makeMove(c);
+            return makeMove(c);
         }
         if (board[a] === "O" && board[c] === "O" && board[b] === "") {
-        return makeMove(b);
+            return makeMove(b);
         }
         if (board[b] === "O" && board[c] === "O" && board[a] === "") {
-        return makeMove(a);
+            return makeMove(a);
         }
     }
 
@@ -172,13 +284,13 @@ function aiMoveHard() {
     for (let combo of winningCombinations) {
         const [a, b, c] = combo;
         if (board[a] === "X" && board[b] === "X" && board[c] === "") {
-        return makeMove(c);
+            return makeMove(c);
         }
         if (board[a] === "X" && board[c] === "X" && board[b] === "") {
-        return makeMove(b);
+            return makeMove(b);
         }
         if (board[b] === "X" && board[c] === "X" && board[a] === "") {
-        return makeMove(a);
+            return makeMove(a);
         }
     }
 
@@ -192,7 +304,7 @@ function aiMoveHard() {
     const emptyCorners = corners.filter((index) => board[index] === "");
     if (emptyCorners.length > 0) {
         const randomCorner =
-        emptyCorners[Math.floor(Math.random() * emptyCorners.length)];
+            emptyCorners[Math.floor(Math.random() * emptyCorners.length)];
         return makeMove(randomCorner);
     }
 
@@ -222,9 +334,9 @@ function makeMove(index) {
     currentPlayer = "X";
 }
 
-function checkWinner() {
+function checkWinner(symbol = currentPlayer) {
     return winningCombinations.some((combination) => {
-        return combination.every((index) => board[index] === currentPlayer);
+        return combination.every((index) => board[index] === symbol);
     });
 }
 
@@ -244,22 +356,20 @@ function toggleMode() {
     localStorage.setItem("aiMode", String(aiMode));
     modeButton.textContent = aiMode
         ? "Switch to Player Mode"
-        : "Switch to AI Mode"
+        : "Switch to AI Mode";
     resetGame();
     updateURL();
 }
 
 function toggleDifficulty() {
     hardMode = !hardMode;
-    localStorage.setItem("hardMode", String(hardMode))
+    localStorage.setItem("hardMode", String(hardMode));
     difficultyButton.textContent = hardMode
         ? "Switch to Easy Mode"
         : "Switch to Hard Mode";
-    difficultyButton.style.backgroundColor = hardMode
-        ? "red"
-        : "green";
-    difficultyButton.style.color = "#fff"
-    difficultyButton.style.borderColor = "#000"
+    difficultyButton.style.backgroundColor = hardMode ? "red" : "green";
+    difficultyButton.style.color = "#fff";
+    difficultyButton.style.borderColor = "#000";
     resetGame();
     updateURL();
 }
@@ -267,39 +377,43 @@ function toggleDifficulty() {
 function localStorageGet() {
     //AIMODE
     if (lsAiMode == "true") {
-        aiMode = true
+        aiMode = true;
     } else {
-        aiMode = false
+        aiMode = false;
     }
     modeButton.textContent = aiMode
         ? "Switch to Player Mode"
-        : "Switch to AI Mode"
-    
+        : "Switch to AI Mode";
+
     //HARDMODE
     if (lsHardMode == "true") {
-        hardMode = true
+        hardMode = true;
     } else {
-        hardMode = false
+        hardMode = false;
     }
     difficultyButton.textContent = hardMode
         ? "Switch to Easy Mode"
         : "Switch to Hard Mode";
-    difficultyButton.style.backgroundColor = hardMode
-        ? "red"
-        : "green";
-    difficultyButton.style.color = "#fff"
-    difficultyButton.style.borderColor = "#000"
+    difficultyButton.style.backgroundColor = hardMode ? "red" : "green";
+    difficultyButton.style.color = "#fff";
+    difficultyButton.style.borderColor = "#000";
 }
 
 function applyURLParams() {
     const params = new URLSearchParams(window.location.search);
-    if (params.has('aiMode')) {
-        aiMode = params.get('aiMode');
+    if (params.has("aiMode")) {
+        aiMode = params.get("aiMode");
         modeButton.value = aiMode;
     }
-    if (params.has('hardMode')) {
-        hardMode = params.get('hardMode');
+    if (params.has("hardMode")) {
+        hardMode = params.get("hardMode");
         difficultyButton.value = hardMode;
+    }
+    if (params.has("s")) {
+        const code = params.get("s");
+        if (code) {
+            joinQueueWithCode(code); // Only this, and only once!
+        }
     }
 }
 
@@ -310,4 +424,4 @@ function init() {
     createBoard();
 }
 
-document.addEventListener("DOMContentLoaded", init())
+document.addEventListener("DOMContentLoaded", init);
