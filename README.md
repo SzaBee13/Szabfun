@@ -17,13 +17,14 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
 - 8 commits
-- 3 versions
+- 4 versions
 - AI mode
   - Hard mode
   - Easy mode   
 - Query string support
   - Hard mode
   - AI mode
+- Multiplayer with backend
 
 ## [Choose An Username](https://szabfun.pages.dev/choose-an-username/)
 - 5 commits
@@ -56,7 +57,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
   - Lvl
 
 ## [Guess The Number](https://szabfun.pages.dev/guess-the-number/)
-- 4 commits
+- 5 commits
 - 3 versions
 - Min and Max number
 - Query string support
@@ -76,7 +77,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## [Escape Game](https://szabfun.pages.dev/escape-game/)
 - 8 Rooms
-- 8 commit
+- 9 commit
 - 2 versions
 - RPG
 - Local Storage
@@ -96,11 +97,10 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - meme
 
 ## [Sus Link](https://szabfun.pages.dev/sus-link)
-- 7 commit
+- 8 commit
 - 2 version
 - very sus..
 - Query string support
   - Link
   - Target
-- Custom Link
-- backend
+- Custom Link with Backend

@@ -61,7 +61,6 @@ function getInv(t) {
 async function win() {
     const congratsYouEscaped = new Audio('./assets/win/c-u-es.mp3');
     const youHaveWon = new Audio('./assets/win/w-and-l.mp3');
-    const invSound = new Audio('./assets/inv.mp3');
 
     wins++;
     localStorage.setItem('eg-wins', wins);
@@ -78,7 +77,6 @@ async function win() {
     `;
     await sleep(3000);
 
-    invSound.play();
     container.innerHTML = `
     <h1>Congratulations! You escaped!</h1>
     <h1>You have won ${wins} times and lost ${loses} times.</h1>
@@ -94,7 +92,6 @@ async function win() {
 async function lose() {
     const youLost = new Audio('./assets/lose/u-lost.mp3');
     const youHaveWon = new Audio('./assets/lose/w-and-l.mp3');
-    const invSound = new Audio('./assets/inv.mp3');
 
     loses++;
     localStorage.setItem('eg-loses', loses);
@@ -111,7 +108,6 @@ async function lose() {
     `;
     await sleep(3000);
 
-    invSound.play();
     container.innerHTML = `
     <h1>You lost!</h1>
     <h1>You have won ${wins} times and lost ${loses} times.</h1>
@@ -423,17 +419,19 @@ async function room4() {
 
         document.getElementById('leave').onclick = newRoom;
     } else {
+        let gi;
         for (let i = time; i > 0; i--) {
+            gi = i;
             container.innerHTML = `
             <h1>You are in room 4</h1>
             <h1>There is a lion in the room.</h1>
-            <h1>The lion is see you and attack in ${i}s. What will you do? leave or fight?</h1>
+            <h1>The lion is see you and attack in ${i}s. What will you do? Leave or fight?</h1>
             <div class="buttons">
                 <button id="leave">Leave</button>
                 <button id="fight">Fight</button>
             </div>
             `;
-            document.getElementById('leave').onclick = newRoom;
+            document.getElementById('leave').onclick = () => { newRoom(); i = 9999; };
             document.getElementById('fight').onclick = async function() {
                 tryToFight.play();
                 container.innerHTML = `
@@ -448,7 +446,9 @@ async function room4() {
             };
             await sleep(1000);
         }
-        lose();
+        if (gi !== 9999) {
+            lose();
+        }
     }
 }
 
@@ -712,7 +712,7 @@ function newRoom() {
         <button id="getInv">Inventory</button>
     </div>
     `;
-    document.getElementById('getInv').onclick = () => { getInv("display"); }
+    document.getElementById('getInv').onclick = () => { getInv("display"); };
     document.getElementById('room1').onclick = room1;
     document.getElementById('room2').onclick = room2;
     document.getElementById('room3').onclick = room3;
