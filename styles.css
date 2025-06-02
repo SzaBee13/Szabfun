@@ -166,3 +166,8 @@ button > a {
     width: 90px;
     margin: 5px;
 }
+
+.math > a > img {
+    width: 115px;
+    margin: 5px;
+}

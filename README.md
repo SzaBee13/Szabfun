@@ -65,8 +65,8 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
   - Max number
 
 ## [Watch Some Youtube](https://szabfun.pages.dev/watch-some-youtube/)
-- 14 commit
-- 4 version
+- 14 commits
+- 4 versions
 - Api
 - Type:
   - All
@@ -77,14 +77,14 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## [Escape Game](https://szabfun.pages.dev/escape-game/)
 - 8 Rooms
-- 9 commit
+- 9 commits
 - 2 versions
 - RPG
 - Local Storage
 
 ## [Chat](https://szabfun.pages.dev/chat/)
 - 4 commits
-- 2 version
+- 2 versions
 - backend
 - chat
 - Local Storage:
@@ -97,10 +97,17 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - meme
 
 ## [Sus Link](https://szabfun.pages.dev/sus-link)
-- 8 commit
-- 2 version
+- 8 commits
+- 2 versions
 - very sus..
 - Query string support
   - Link
   - Target
 - Custom Link with Backend
+
+## [Math](https://szabfun.pages.dev)
+- 1 commit
+- 1 version
+- ai trained by [Chatbase.co](https://chatbase.co)
+- not a right math ai
+- train [doc](./math/math.ai.txt)
