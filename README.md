@@ -106,7 +106,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - Custom Link with Backend
 
 ## [Math](https://szabfun.pages.dev)
-- 1 commit
+- 2 commit
 - 1 version
 - ai trained by [Chatbase.co](https://chatbase.co)
 - not a right math ai
