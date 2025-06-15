@@ -9,16 +9,22 @@
 </head>
 
 <body>
+  <button class="hamburger" id="hamburger" aria-label="Open sidebar">
+    <span></span>
+    <span></span>
+    <span></span>
+  </button>
+
   <div class="container">
-    <aside class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <h2><a href="./index.html">📚 Docs</a></h2>
 
       <div class="dropdown">
         <a class="dropbtn" href="sus-link.html">🔗 Sus Link</a>
         <div class="dropdown-content">
-          <a href="#post-create">POST /create-custom-link</a>
-          <a href="#get-custom">GET /get-custom</a>
-          <a href="#search-link">GET /search</a>
+          <a href="sus-link.html#post-create">POST /create-custom-link</a>
+          <a href="sus-link.html#get-custom">GET /get-custom</a>
+          <a href="sus-link.html#search-link">GET /search</a>
         </div>
       </div>
 
@@ -126,6 +132,7 @@
     </main>
   </div>
 
+  <div class="sidebar-overlay" id="sidebarOverlay"></div>
   <script src="script.js"></script>
 </body>
 

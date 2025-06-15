@@ -190,3 +190,81 @@ a:hover {
     gap: 10px;
     margin-top: 10px;
 }
+
+/* Mobile styles */
+.hamburger {
+    display: none;
+    position: fixed;
+    top: 18px;
+    left: 18px;
+    z-index: 1101;
+    width: 40px;
+    height: 40px;
+    background: none;
+    border: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+}
+.hamburger span {
+    display: block;
+    width: 28px;
+    height: 4px;
+    background: #00e0ff;
+    border-radius: 2px;
+    transition: 0.3s;
+}
+
+/* Overlay for sidebar */
+.sidebar-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.5);
+    z-index: 1100;
+}
+
+/* Responsive styles */
+@media (max-width: 800px) {
+    .sidebar {
+        position: fixed;
+        left: -270px;
+        top: 0;
+        height: 100vh;
+        width: 260px;
+        z-index: 1200;
+        transition: left 0.3s;
+    }
+    .sidebar.open {
+        left: 0;
+    }
+    .container {
+        flex-direction: column;
+        margin-left: 0px;
+    }
+    .content {
+        padding: 20px 10px;
+    }
+    .content h1 {
+        font-size: 1.8rem;
+        margin-bottom: 0.5rem;
+        margin-left: 50px;
+    }
+    .hamburger {
+        display: flex;
+    }
+    .sidebar-overlay.active {
+        display: block;
+    }
+
+    ul {
+        margin-left: 20px;
+    }
+}
+
+/* Prevent scrolling when sidebar is open on mobile */
+body.sidebar-open {
+    overflow: hidden;
+}
