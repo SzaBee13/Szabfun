@@ -15,6 +15,11 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 7. Chat
 8. Sus link is a link, but you don't know where you end.
 
+## [Api Docs](https://szabfun.pages.dev/docs/)
+- docks for backend
+- 1 version
+- 2 commits
+
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
 - 8 commits
 - 4 versions
