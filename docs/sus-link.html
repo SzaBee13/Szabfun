@@ -25,9 +25,10 @@
             <div class="dropdown">
                 <a class="dropbtn" href="tic-tac-toe.html">🎮 Tic Tac Toe</a>
                 <div class="dropdown-content">
-                    <a href="tic-tac-toe.html#start">Start Game</a>
-                    <a href="tic-tac-toe.html#move">Send Move</a>
-                    <a href="tic-tac-toe.html#gameover">Game Over</a>
+                    <a href="tic-tac-toe.html#connect">Connect</a>
+                    <a href="tic-tac-toe.html#events">Events</a>
+                    <a href="tic-tac-toe.html#client-events">Client Events</a>
+                    <a href="tic-tac-toe.html#flow">Game Flow</a>
                 </div>
             </div>
 
@@ -46,58 +47,80 @@
         <main class="content">
             <h1>🔗 Sus Link Endpoints</h1>
             <p><strong>Base URL:</strong> <code>https://szb.pagekite.me/sus-link</code></p>
-            <p>Express.js</p>
+            <p>This app use <a href="https://expressjs.com/">Express.js</a> for routing and handling requests.</p>
 
             <section id="post-create">
                 <h2>POST /create-custom-link</h2>
-                <p><strong>Request:</strong> <code>{ "url": "https://example.com" }</code></p>
+                <p><strong>Request:</strong>
+                    <code>{ "name": "rickroll", "endpoint": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "author": "ur name" }</code>
+                </p>
                 <p><strong>Response:</strong></p>
                 <ul class="response-list">
                     <li>
                         <span class="status success">200 OK</span> – Link created!
-                        <code>{ "short": "https://szb.pagekite.me/abc123" }</code>
+                        <code>{ "name": "rickroll", "endpoint": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "author": "ur name", "randomShortVersion": "abc123" }</code>
                     </li>
                     <li>
-                        <span class="status client-error">400 Bad Request</span> – Missing URL 💀
-                        <code>{ "error": "Missing required field: url" }</code>
+                        <span class="status client-error">400 Bad Request</span> – Missing endpoint, author or name 💀
+                        <code>{ "error": "Name, endpoint, and author are required." }</code>
+                    </li>
+                    <li>
+                        <span class="status server-error">500 Internal Server Error</span> – Something went wrong on the
+                        server 💀
+                        <code>{ "Error creating custom link:", error }</code>
                     </li>
                 </ul>
             </section>
 
             <section id="get-custom">
                 <h2>GET /get-custom</h2>
-                <p><strong>Request:</strong> <code>?id=abc123</code></p>
+                <p><strong>Request:</strong> <code>{ }</code></p>
                 <p><strong>Response:</strong></p>
                 <ul class="response-list">
                     <li>
-                        <span class="status success">200 OK</span> – Found it!
-                        <code>{ "url": "https://example.com" }</code>
+                        <span class="status success">200 OK</span> – All links are retrieved!
+                        <code>{
+                "randomShortVersion": "abc123",
+                "endpoint": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+                "name": "rickroll",
+                "author": "ur name",
+            }</code>
                     </li>
                     <li>
-                        <span class="status not-found">404 Not Found</span> – That ID ain't real 😢
-                        <code>{ "error": "Custom link not found" }</code>
+                        <span class="status server-error">500 Internal Server Error</span> – Something went wrong on
+                        server 💀
+                        <code>{ "Error retrieving custom links:", error }</code>
                     </li>
                 </ul>
             </section>
 
             <section id="search-link">
                 <h2>GET /search</h2>
-                <p><strong>Request:</strong> <code>?query=example</code></p>
+                <p><strong>Request:</strong> <code>?l=abc123</code></p>
                 <p><strong>Response:</strong></p>
                 <ul class="response-list">
                     <li>
-                        <span class="status success">200 OK</span> – Results found
-                        <code>[ "https://example.com", "https://example2.com" ]</code>
+                        <span class="status success">200 OK</span> – Results found 😏
+                        <code>{ "url": "https://youtube.com/watch?v=dQw4w9WgXcQ" }</code>
                     </li>
                     <li>
                         <span class="status client-error">400 Bad Request</span> – Missing query param 💀
-                        <code>{ "error": "Query parameter 'query' is required" }</code>
+                        <code>{ "error": "Query parameter 'l' is required" }</code>
+                    </li>
+                    <li>
+                        <span class="status not-found">404 Not Found</span> – That ID ain't real 😢
+                        <code>{ "error": "Link not found." }</code>
+                    </li>
+                    <li>
+                        <span class="status server-error">500 Internal Server Error</span> – Something went wrong on
+                        server 💀
+                        <code>{ "error": "Failed to search for link." }</code>
                     </li>
                 </ul>
             </section>
         </main>
     </div>
-    
+
     <script src="script.js"></script>
 </body>
 
