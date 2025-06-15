@@ -34,7 +34,9 @@ function init() {
 
     topVideoIds = api.topVideoIds;
 
-    allVideoIds = musicVideoIds.concat(memeVideoIds).concat(topVideoIds);
+    allVideoIds = Array.from(new Set(
+        musicVideoIds.concat(memeVideoIds).concat(topVideoIds)
+    ));
 
     videoIds = allVideoIds;
 
