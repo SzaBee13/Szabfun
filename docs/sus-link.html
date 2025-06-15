@@ -1,0 +1,105 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Szabfun - Docs - Sus Link</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>📚 Docs</h2>
+            <a class="home-btn" href="index.html">🏠 Home</a>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="sus-link.html">🔗 Sus Link</a>
+                <div class="dropdown-content">
+                    <a href="#post-create">POST /create-custom-link</a>
+                    <a href="#get-custom">GET /get-custom</a>
+                    <a href="#search-link">GET /search</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="tic-tac-toe.html">🎮 Tic Tac Toe</a>
+                <div class="dropdown-content">
+                    <a href="tic-tac-toe.html#start">Start Game</a>
+                    <a href="tic-tac-toe.html#move">Send Move</a>
+                    <a href="tic-tac-toe.html#gameover">Game Over</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="chat.html">💬 Chat</a>
+                <div class="dropdown-content">
+                    <a href="chat.html#register">Register User</a>
+                    <a href="chat.html#send-message">Send Message</a>
+                    <a href="chat.html#online-count">Online Count</a>
+                </div>
+            </div>
+
+            <a class="home-btn" href="../index.html">🏠 Main Page</a>
+        </aside>
+
+        <main class="content">
+            <h1>🔗 Sus Link Endpoints</h1>
+            <p><strong>Base URL:</strong> <code>https://szb.pagekite.me/sus-link</code></p>
+            <p>Express.js</p>
+
+            <section id="post-create">
+                <h2>POST /create-custom-link</h2>
+                <p><strong>Request:</strong> <code>{ "url": "https://example.com" }</code></p>
+                <p><strong>Response:</strong></p>
+                <ul class="response-list">
+                    <li>
+                        <span class="status success">200 OK</span> – Link created!
+                        <code>{ "short": "https://szb.pagekite.me/abc123" }</code>
+                    </li>
+                    <li>
+                        <span class="status client-error">400 Bad Request</span> – Missing URL 💀
+                        <code>{ "error": "Missing required field: url" }</code>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="get-custom">
+                <h2>GET /get-custom</h2>
+                <p><strong>Request:</strong> <code>?id=abc123</code></p>
+                <p><strong>Response:</strong></p>
+                <ul class="response-list">
+                    <li>
+                        <span class="status success">200 OK</span> – Found it!
+                        <code>{ "url": "https://example.com" }</code>
+                    </li>
+                    <li>
+                        <span class="status not-found">404 Not Found</span> – That ID ain't real 😢
+                        <code>{ "error": "Custom link not found" }</code>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="search-link">
+                <h2>GET /search</h2>
+                <p><strong>Request:</strong> <code>?query=example</code></p>
+                <p><strong>Response:</strong></p>
+                <ul class="response-list">
+                    <li>
+                        <span class="status success">200 OK</span> – Results found
+                        <code>[ "https://example.com", "https://example2.com" ]</code>
+                    </li>
+                    <li>
+                        <span class="status client-error">400 Bad Request</span> – Missing query param 💀
+                        <code>{ "error": "Query parameter 'query' is required" }</code>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+
+</html>

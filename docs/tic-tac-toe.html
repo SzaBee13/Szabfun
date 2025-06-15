@@ -1,0 +1,105 @@
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Szabfun - Docs - Tic-Tac-Toe</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="icon" href="../img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+  <div class="container">
+    <aside class="sidebar">
+      <h2>📚 Docs</h2>
+      <a class="home-btn" href="index.html">🏠 Home</a>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="sus-link.html">🔗 Sus Link</a>
+        <div class="dropdown-content">
+          <a href="#post-create">POST /create-custom-link</a>
+          <a href="#get-custom">GET /get-custom</a>
+          <a href="#search-link">GET /search</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="tic-tac-toe.html">🎮 Tic Tac Toe</a>
+        <div class="dropdown-content">
+          <a href="tic-tac-toe.html#start">Start Game</a>
+          <a href="tic-tac-toe.html#move">Send Move</a>
+          <a href="tic-tac-toe.html#gameover">Game Over</a>
+        </div>
+      </div>
+
+      <div class="dropdown">
+        <a class="dropbtn" href="chat.html">💬 Chat</a>
+        <div class="dropdown-content">
+          <a href="chat.html#register">Register User</a>
+          <a href="chat.html#send-message">Send Message</a>
+          <a href="chat.html#online-count">Online Count</a>
+        </div>
+      </div>
+
+      <a class="home-btn" href="../index.html">🏠 Main Page</a>
+    </aside>
+
+    <main class="content">
+      <h1>🎮 Tic Tac Toe Endpoints</h1>
+      <p><strong>Base URL:</strong> <code>https://szb.pagekite.me/tic-tac-toe</code></p>
+      <p>Socket.IO</p>
+
+      <section id="start">
+        <h2>POST /start</h2>
+        <p><strong>Request:</strong> <code>{ "playerX": "id1", "playerO": "id2" }</code></p>
+        <p><strong>Response:</strong></p>
+        <ul class="response-list">
+          <li>
+            <span class="status success">200 OK</span> – Game started!
+            <code>{ "gameId": "abc123" }</code>
+          </li>
+          <li>
+            <span class="status client-error">400 Bad Request</span> – Missing player info 💀
+            <code>{ "error": "Both playerX and playerO fields are required" }</code>
+          </li>
+        </ul>
+      </section>
+
+      <section id="move">
+        <h2>POST /move</h2>
+        <p><strong>Request:</strong> <code>{ "gameId": "abc123", "player": "id1", "pos": [0,1] }</code></p>
+        <p><strong>Response:</strong></p>
+        <ul class="response-list">
+          <li>
+            <span class="status success">200 OK</span> – Move accepted
+            <code>{ "status": "ok", "board": [["X","", ""], ["", "O", ""], ["", "", ""]] }</code>
+          </li>
+          <li>
+            <span class="status client-error">400 Bad Request</span> – Invalid move 💀
+            <code>{ "error": "Invalid move: position already taken or out of range" }</code>
+          </li>
+        </ul>
+      </section>
+
+      <section id="gameover">
+        <h2>GET /game-over</h2>
+        <p><strong>Request:</strong> <code>?gameId=abc123</code></p>
+        <p><strong>Response:</strong></p>
+        <ul class="response-list">
+          <li>
+            <span class="status success">200 OK</span> – Game over
+            <code>{ "winner": "id1" }</code>
+          </li>
+          <li>
+            <span class="status not-found">404 Not Found</span> – No such game 😢
+            <code>{ "error": "Game not found" }</code>
+          </li>
+        </ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

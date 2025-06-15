@@ -1,0 +1,177 @@
+/* Reset & basics */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Segoe UI", sans-serif;
+}
+
+body {
+    background-color: #121212;
+    color: #eeeeee;
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    overflow-y: scroll;
+}
+
+.container {
+    display: flex;
+    height: 100vh; /* Make container fill viewport */
+    min-height: 0; /* Prevent flexbox overflow issues */
+}
+
+/* Sidebar styles */
+.sidebar {
+    background-color: #1e1e1e;
+    width: 260px;
+    padding: 20px;
+    border-right: 2px solid #333;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    flex-shrink: 0;
+}
+
+.sidebar h2 {
+    font-size: 1.6rem;
+    margin-bottom: 20px;
+    color: #00e0ff;
+}
+
+.sidebar a {
+    color: #ccc;
+    text-decoration: none;
+    display: block;
+    margin: 8px 0;
+    padding: 4px 0;
+    transition: color 0.3s ease;
+}
+
+.sidebar a:hover {
+    color: #ffffff;
+}
+
+/* Dropdowns */
+.dropdown {
+    margin-bottom: 20px;
+}
+
+.dropbtn {
+    background-color: #2a2a2a;
+    color: #00e0ff;
+    padding: 10px;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.dropbtn:hover {
+    background-color: #333;
+}
+
+.dropdown-content {
+    display: none;
+    flex-direction: column;
+    background-color: #2e2e2e;
+    border: 1px solid #444;
+    padding: 8px;
+    margin-top: 5px;
+}
+
+.dropdown:hover .dropdown-content {
+    display: flex;
+}
+
+/* Sidebar link base */
+.sidebar .dropbtn {
+    display: block;
+    padding: 10px 15px;
+    color: #ddd;
+    text-decoration: none;
+    font-weight: 600;
+    border-left: 4px solid transparent;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+/* Highlight the current page */
+.sidebar .dropbtn.current {
+    background-color: #4caf50; /* chill green highlight */
+    color: white;
+    border-left-color: #2e7d32;
+    font-weight: 700;
+}
+
+/* Hover effect for others */
+.sidebar .dropbtn:not(.current):hover {
+    background-color: #333;
+    color: #fff;
+}
+
+/* Content styles */
+.content {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+    height: 100vh;
+    min-width: 0;
+}
+
+.content h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: #00e0ff;
+}
+
+.content code {
+    display: block;
+    background-color: #222;
+    padding: 10px;
+    border-radius: 8px;
+    margin: 10px 0;
+    font-family: "Courier New", monospace;
+    color: #00ff99;
+}
+
+/* Status code styles */
+.status {
+    font-weight: bold;
+    padding: 4px 10px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    margin-right: 10px;
+}
+
+.status.success {
+    background-color: #1b5e20;
+    color: #a5d6a7;
+}
+
+.status.client-error {
+    background-color: #b71c1c;
+    color: #ef9a9a;
+}
+
+.status.not-found {
+    background-color: #880e4f;
+    color: #f48fb1;
+}
+
+.status.server-error {
+    background-color: #4a148c;
+    color: #ce93d8;
+}
+
+.response-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 10px;
+}

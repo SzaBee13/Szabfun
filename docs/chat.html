@@ -1,0 +1,118 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Szabfun - Docs - Chat</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>📚 Docs</h2>
+            <a class="home-btn" href="index.html">🏠 Home</a>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="sus-link.html">🔗 Sus Link</a>
+                <div class="dropdown-content">
+                    <a href="#post-create">POST /create-custom-link</a>
+                    <a href="#get-custom">GET /get-custom</a>
+                    <a href="#search-link">GET /search</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="tic-tac-toe.html">🎮 Tic Tac Toe</a>
+                <div class="dropdown-content">
+                    <a href="tic-tac-toe.html#start">Start Game</a>
+                    <a href="tic-tac-toe.html#move">Send Move</a>
+                    <a href="tic-tac-toe.html#gameover">Game Over</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="chat.html">💬 Chat</a>
+                <div class="dropdown-content">
+                    <a href="chat.html#register">Register User</a>
+                    <a href="chat.html#send-message">Send Message</a>
+                    <a href="chat.html#online-count">Online Count</a>
+                </div>
+            </div>
+
+            <a class="home-btn" href="../index.html">🏠 Main Page</a>
+        </aside>
+
+        <main class="content">
+            <h1>🗨️ Chat Endpoints</h1>
+            <p><strong>WebSocket URL:</strong> <code>https://chat-szb.pagekite.me</code></p>
+            <p>WebSocket</p>
+
+            <section id="register">
+                <h2>Register User</h2>
+                <p><strong>Request:</strong></p>
+                <code>{
+  type: "register",
+  username: "coolkid"
+}</code>
+                <p><strong>Response:</strong></p>
+                <ul class="response-list">
+                    <li><span class="status success">200</span> - You have an account now 😏
+                        <code>{ type: "register", success: true, message: "Registration successful" }</code>
+                    </li>
+                    <li><span class="status client-error">400</span> - Taken username 💀
+                        <code>{ type: "register", success: false, message: "Username already taken" }</code>
+                    </li>
+                    <li><span class="status server-error">500</span> - The server is having a tantrum
+                        <code>{ type: "register", success: false, message: "DB error" }</code>
+                    </li>
+                </ul>
+
+            </section>
+
+            <section id="send-message">
+                <h2>Send Message</h2>
+                <p><strong>Request:</strong></p>
+                <code>{
+  type: "message",
+  username: "coolkid",
+  nickname: "COOL✨",
+  text: "yo wassup"
+}</code>
+                <p><strong>Response:</strong> (broadcasted to all clients)</p>
+                <ul class="response-list">
+                    <li><span class="status success">200</span> - Send your message to everyone ✨
+                        <code>{ type: "message", username: "coolkid", nickname: "COOL✨", text: "yo wassup" }</code>
+                    </li>
+                    <li><span class="status client-error">400</span> - You probably forgot to register 💀
+                        <code>{ type: "message", success: false, message: "You must register first" }</code>
+                    </li>
+                    <li><span class="status client-error">400</span> - You send an invalid message format 💀
+                        <code>{ type: "message", success: false, message: "Invalid message format" }</code>
+                    </li>
+                    <li><span class="status server-error">500</span> - The server is having a tantrum
+                        <code>{ type: "message", success: false, message: "DB error" }</code>
+                    </li>
+                </ul>
+            </section>
+
+            <section id="online-count">
+                <h2>👥 Online Count</h2>
+                <p><strong>Server Auto-Sends:</strong></p>
+                <ul class="response-list">
+                    <li><span class="status success">200</span> – Sent whenever someone joins/leaves
+                        <code>{
+  "type": "onlineCount",
+  "count": 4
+}</code>
+                    </li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

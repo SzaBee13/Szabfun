@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
+    <title>Szabfun - Docs</title>
+    <!-- Open Graph meta tag -->
+    <meta property="og:title" content="Szabfun">
+    <meta property="og:description" content="There is a place where is free to fun">
+    <meta property="og:url" content="https://szabfun.pages.dev/docs">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/logo.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="There is a place where is free to fun. Have fun with our games!">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, docs, documentation">
+</head>
+
+<body>
+    <div class="container">
+        <aside class="sidebar">
+            <h2>📚 Docs</h2>
+            <a class="home-btn" href="index.html">🏠 Home</a>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="sus-link.html">🔗 Sus Link</a>
+                <div class="dropdown-content">
+                    <a href="#post-create">POST /create-custom-link</a>
+                    <a href="#get-custom">GET /get-custom</a>
+                    <a href="#search-link">GET /search</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="tic-tac-toe.html">🎮 Tic Tac Toe</a>
+                <div class="dropdown-content">
+                    <a href="tic-tac-toe.html#start">Start Game</a>
+                    <a href="tic-tac-toe.html#move">Send Move</a>
+                    <a href="tic-tac-toe.html#gameover">Game Over</a>
+                </div>
+            </div>
+
+            <div class="dropdown">
+                <a class="dropbtn" href="chat.html">💬 Chat</a>
+                <div class="dropdown-content">
+                    <a href="chat.html#register">Register User</a>
+                    <a href="chat.html#send-message">Send Message</a>
+                    <a href="chat.html#online-count">Online Count</a>
+                </div>
+            </div>
+
+            <a class="home-btn" href="../index.html">🏠 Main Page</a>
+        </aside>
+        <main class="content">
+            <h1>Welcome to the Server Docs!</h1>
+            <p>This is your fancy-pants doc site for all API endpoints running at:</p>
+            <code>https://szb.pagekite.me</code>
+            <p>Pick an endpoint from the sidebar to explore the docs.</p>
+
+            <section class="responses">
+                <h2>Responses:</h2>
+                <ul class="response-list">
+                    <li><span class="status success">200 OK</span> – Everything worked!</li>
+                    <li><span class="status client-error">400 Bad Request</span> – You probably messed up the request
+                        body 💀</li>
+                    <li><span class="status not-found">404 Not Found</span> – Link or endpoint doesn't exist 😢</li>
+                    <li><span class="status server-error">500 Internal Server Error</span> – The server is having a
+                        tantrum</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

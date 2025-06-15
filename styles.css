@@ -69,22 +69,34 @@ button > a {
     left: 0;
     right: 0;
     background-color: #393e3e;
-    padding: 10px;
+    padding: 10px 30px;
     margin-top: auto;
     display: flex;
-    gap: 10px;
-    text-decoration: none;
+    justify-content: space-between; /* Separate left and right */
+    align-items: center;
     color: #fff;
 }
 
-#footer > p > a {
-    text-decoration: none;
-    color: rgb(0, 170, 170);
+#footer .left,
+#footer .right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
 }
 
-#footer > p > a:hover {
-    text-decoration: none;
-    color: rgb(0, 170, 170);
+#footer .right {
+    justify-content: flex-end;
+}
+
+#footer a {
+    color: #fff; /* Make links white */
+    text-decoration: underline;
+    transition: color 0.2s;
+}
+
+#footer a:hover {
+    color: #00aaaa; /* Accent color on hover */
+    text-decoration: underline;
 }
 
 .child {
