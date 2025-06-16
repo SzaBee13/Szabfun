@@ -57,7 +57,7 @@ function loadUpgrades() {
     upgrades.grandma = Number(upgrades.grandma) || 0;
     upgrades.macro = Number(upgrades.macro) || 0;
     upgrades.employee = Number(upgrades.employee) || 0;
-    upgrades.girlfriend = Number(upgrades.employee) || 0;
+    upgrades.girlfriend = Number(upgrades.girlfriend) || 0;
 }
 
 // Patch multiplier logic for great-grandma event

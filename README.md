@@ -119,7 +119,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - train [doc](./math/math.ai.txt)
 
 ## [Chaos Clicker](https://szabfun.pages.dev/shaking-hands)
-- 3 commits
+- 4 commits
 - 1 version
 - cookie clicker with events
 - offline progress
