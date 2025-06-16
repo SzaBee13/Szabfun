@@ -88,13 +88,14 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - Local Storage
 
 ## [Chat](https://szabfun.pages.dev/chat/)
-- 4 commits
+- 5 commits
 - 2 versions
 - backend
 - chat
 - Local Storage:
   - Author / Sender / Nickname
   - Username
+  - Recent Messages
 
 ## [Enter Password](https://szabfun.pages.dev/enter-password)
 - 1 commit

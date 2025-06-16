@@ -6,12 +6,19 @@ const usernameInput = document.getElementById("username");
 const answerDiv = document.getElementById("anwser");
 const lsUsername = localStorage.getItem("username");
 const lsNickname = localStorage.getItem("nickname");
+const lsRecentMessages = localStorage.getItem("recentMessages");
 
-// const socket = new WebSocket("http://192.168.126.1:3000");
+// const socket = new WebSocket("http://192.168.126.1:3100");
 const socket = new WebSocket("https://chat-szb.pagekite.me");
 
 let username;
 let nickname;
+
+let recentMessages = {
+    // format: {
+    //     "username": { messages: [], lastActive: Date.now() }
+    // }
+};
 
 socket.onmessage = event => {
     const data = JSON.parse(event.data);
@@ -21,9 +28,19 @@ socket.onmessage = event => {
         const messageDiv = document.createElement("div");
         messageDiv.classList.add("message");
 
+        // Update recent messages for the user
+        if (!recentMessages[data.username]) {
+            recentMessages[data.username] = { messages: [], lastActive: Date.now() };
+        } 
+
+        recentMessages[data.username].messages.push(data.text);
+        recentMessages[data.username].lastActive = Date.now();
+        localStorage.setItem("recentMessages", JSON.stringify(recentMessages));
+        console.log(recentMessages);
+
         const authorSpan = document.createElement("span");
         authorSpan.classList.add("author");
-        authorSpan.innerHTML = `<a href="./user/index.html?${data.username}">${data.nickname}</a>: `; // Only display the nickname
+        authorSpan.innerHTML = `<a href="./user.html?username=${data.username}&nickname=${data.nickname}">${data.nickname}</a>: `; // Only display the nickname
 
         const textSpan = document.createElement("span");
         textSpan.textContent = data.text;
@@ -96,6 +113,11 @@ const init = () => {
         nickname = lsNickname;
     } else {
         fullScreenDiv.style.display = "flex";
+    }
+
+    if (lsRecentMessages) {
+        recentMessages = JSON.parse(lsRecentMessages);
+        console.log("Recent messages loaded:", recentMessages);
     }
 };
 

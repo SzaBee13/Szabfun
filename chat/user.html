@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szabfun - Chat</title>
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/chat.png" type="image/x-icon">
+</head>
+
+<body>
+    <a href="./index.html" class="back">
+        <h1>Szabfun Chat</h1>
+    </a>
+    <div id="container">
+        <div id="header">
+            <h1 id="profile-title">User Profile</h1>
+            <p id="profile-username"></p>
+            <p id="profile-nickname"></p>
+        </div>
+        <div id="chat">
+            <h2>Recent Messages</h2>
+            <div id="user-messages">
+                <!-- User's messages will appear here -->
+            </div>
+        </div>
+    </div>
+    <script>
+        // Get current user info from localStorage
+        let username = localStorage.getItem("username");
+        let nickname = localStorage.getItem("nickname");
+
+        const params = new URLSearchParams(window.location.search);
+        let profileUsername = params.get('username');
+        let profileNickname = params.get('nickname');
+
+        document.getElementById('profile-username').textContent = "Username: " + (profileUsername || "Not set");
+        document.getElementById('profile-nickname').textContent = "Nickname: " + (profileNickname || "Not set");
+
+        const userMessagesDiv = document.getElementById('user-messages');
+
+        // Load recentMessages from localStorage
+        const recentMessages = JSON.parse(localStorage.getItem('recentMessages') || '{}');
+        const userRecent = recentMessages[profileUsername];
+
+        if (userRecent && userRecent.messages.length) {
+            userMessagesDiv.innerHTML = userRecent.messages
+                .slice(-10)
+                .map(msg => `<div class="message"><span class="messageContent">${msg}</span></div>`)
+                .join('');
+        } else {
+            userMessagesDiv.innerHTML = "<p>No recent messages to display.</p>";
+        }
+    </script>
+</body>
+
+</html>
