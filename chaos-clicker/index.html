@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/chaos-clicker.png" type="image/x-icon">
+    <title>Szabfun - Chaos Clicker</title>
+    <!-- Open Graph meta tag -->
+    <meta property="og:title" content="Szabfun">
+    <meta property="og:description" content="There is a place where is free to fun">
+    <meta property="og:url" content="https://szabfun.pages.dev/chaos-clicker/">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/chaos-clicker.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, chaos, clicker">
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <h1>Chaos Clicker</h1>
+        <p>Simple Cookie Clicker, with server events.</p>
+        <h2>Chaoses: <span id="cookies">0</span></h2>
+        <div>
+            <button id="cookie">
+                <img src="./assets/cookie.png" alt="Cookie">
+            </button>
+        </div>
+        <div id="event" class="event-notification" style="display:none;"></div>
+        <div class="upgrades">
+            <div id="macro" class="upgrade-card">
+                <h4>Mouse Macro</h4>
+                <img src="./assets/macro.png" alt="Mouse Macro">
+                <p>+1 click power per macro!</p>
+                <p>Owned: <span id="macro-owned">0</span></p>
+                <button id="buy-macro">Buy (100 cookies)</button>
+            </div>
+            <div id="grandma-wifi" class="upgrade-card">
+                <h4>Grandma’s Wi-Fi Boost</h4>
+                <img src="./assets/gradma-wifi.png" alt="Grandma">
+                <p>2x multiplier to time!</p>
+                <p>Owned: <span id="grandma-wifi-owned">0</span></p>
+                <button id="buy-grandma-wifi">Buy (20 cookies)</button>
+            </div>
+            <div id="employee" class="upgrade-card">
+                <h4>Employee</h4>
+                <img src="./assets/employee.png" alt="Employee">
+                <p>10x multiplier to time!</p>
+                <p>Owned: <span id="employee-owned">0</span></p>
+                <button id="buy-employee">Buy (150 cookies)</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://szb.pagekite.me/chaos-clicker/socket.io/socket.io.js"></script>
+    <!-- <script src="http://localhost:3000/chaos-clicker/socket.io/socket.io.js"></script> -->
+    <script src="./script.js"></script>
+</body>
+</html>

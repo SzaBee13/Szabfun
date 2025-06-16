@@ -184,6 +184,11 @@ button > a {
     margin: 5px;
 }
 
+.chaos-clicker > a > img {
+    width: 115px;
+    margin: 5px;
+}
+
 @media (max-width: 600px) {
     #footer {
         flex-direction: column;

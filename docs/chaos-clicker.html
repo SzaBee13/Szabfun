@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Szabfun - Docs - Sus Link</title>
+    <title>Szabfun - Docs - Chaos Clicker</title>
     <link rel="stylesheet" href="styles.css" />
     <link rel="icon" href="../img/logo.png" type="image/x-icon">
 </head>
@@ -70,76 +71,74 @@
         </aside>
 
         <main class="content">
-            <h1>🔗 Sus Link Endpoints</h1>
-            <p><strong>Base URL:</strong> <code>https://szb.pagekite.me/sus-link</code></p>
-            <p>This app use <a href="https://expressjs.com/">Express.js</a> for routing and handling requests.</p>
+            <h1>🍪 Chaos Clicker Multiplayer API</h1>
+            <p>
+                <strong>Base Socket.IO URL:</strong>
+                <code>https://szb.pagekite.me/chaos-clicker/socket.io</code>
+            </p>
+            <p>
+                This API uses <a href="https://socket.io/">Socket.IO</a> for real-time server-wide events in the Chaos
+                Clicker game.
+            </p>
 
-            <section id="post-create">
-                <h2>POST /create-custom-link</h2>
-                <p><strong>Request:</strong>
-                    <code>{ "name": "rickroll", "endpoint": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "author": "ur name" }</code>
+            <section id="connect">
+                <h2>Connect</h2>
+                <p>
+                    Connect to the Socket.IO server using the custom path:
                 </p>
-                <p><strong>Response:</strong></p>
-                <ul class="response-list">
+                <pre><code>const socket = io("https://szb.pagekite.me", { path: "/chaos-clicker/socket.io" });</code></pre>
+            </section>
+
+            <section id="events">
+                <h2>Server Events</h2>
+                <ul>
                     <li>
-                        <span class="status success">200 OK</span> – Link created!
-                        <code>{ "name": "rickroll", "endpoint": "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "author": "ur name", "randomShortVersion": "abc123" }</code>
-                    </li>
-                    <li>
-                        <span class="status client-error">400 Bad Request</span> – Missing endpoint, author or name 💀
-                        <code>{ "error": "Name, endpoint, and author are required." }</code>
-                    </li>
-                    <li>
-                        <span class="status server-error">500 Internal Server Error</span> – Something went wrong on the
-                        server 💀
-                        <code>{ "Error creating custom link:", error }</code>
+                        <strong>chaos-event</strong> <br>
+                        <em>Sent by server when a global event occurs. All connected clients receive this.</em>
+                        <pre><code>{
+  name: "Server Lag" | "Great-Grandma" | "Shaking Hands",
+  description: string,
+  type: "lag" | "great-grandma" | "shaking-hands"
+}</code></pre>
+                        <ul>
+                            <li><strong>Server Lag</strong>: Clicks and auto-cookies are reversed for 30 seconds.</li>
+                            <li><strong>Great-Grandma</strong>: 2x time multiplier for 60 seconds (stacks with Grandma).
+                            </li>
+                            <li><strong>Shaking Hands</strong>: 0.5x click multiplier for 60 seconds and screen shakes.
+                            </li>
+                        </ul>
                     </li>
                 </ul>
             </section>
 
-            <section id="get-custom">
-                <h2>GET /get-custom</h2>
-                <p><strong>Request:</strong> <code>{ }</code></p>
-                <p><strong>Response:</strong></p>
-                <ul class="response-list">
+            <section id="client-events">
+                <h2>Client Events</h2>
+                <ul>
                     <li>
-                        <span class="status success">200 OK</span> – All links are retrieved!
-                        <code>[ {
-                "randomShortVersion": "abc123",
-                "endpoint": "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
-                "name": "rickroll",
-                "author": "ur name",
-            }, ... ]</code>
-                    </li>
-                    <li>
-                        <span class="status server-error">500 Internal Server Error</span> – Something went wrong on
-                        server 💀
-                        <code>{ "Error retrieving custom links:", error }</code>
+                        <strong>No custom client events.</strong> <br>
+                        The client only listens for <code>chaos-event</code> and updates the UI/gameplay accordingly.
                     </li>
                 </ul>
             </section>
 
-            <section id="search-link">
-                <h2>GET /search</h2>
-                <p><strong>Request:</strong> <code>?l=abc123</code></p>
-                <p><strong>Response:</strong></p>
-                <ul class="response-list">
+            <section id="gameplay">
+                <h2>Gameplay & Event Effects</h2>
+                <ul>
                     <li>
-                        <span class="status success">200 OK</span> – Results found 😏
-                        <code>{ "url": "https://youtube.com/watch?v=dQw4w9WgXcQ" }</code>
+                        <strong>Server Lag:</strong> For 30 seconds, clicking or auto-cookies will <b>subtract</b>
+                        instead of add cookies.
                     </li>
                     <li>
-                        <span class="status client-error">400 Bad Request</span> – Missing query param 💀
-                        <code>{ "error": "Query parameter 'l' is required" }</code>
+                        <strong>Great-Grandma:</strong> For 60 seconds, your time multiplier is doubled (stacks with
+                        Grandma upgrades).
                     </li>
                     <li>
-                        <span class="status not-found">404 Not Found</span> – That ID ain't real 😢
-                        <code>{ "error": "Link not found." }</code>
+                        <strong>Shaking Hands:</strong> For 60 seconds, your click multiplier is halved (0.5x), and the
+                        screen shakes periodically.
                     </li>
                     <li>
-                        <span class="status server-error">500 Internal Server Error</span> – Something went wrong on
-                        server 💀
-                        <code>{ "error": "Failed to search for link." }</code>
+                        <strong>Event Notification:</strong> When an event occurs, a notification with a countdown
+                        appears, and <code>event.mp3</code> is played.
                     </li>
                 </ul>
             </section>

@@ -17,7 +17,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## [Api Docs](https://szabfun.pages.dev/docs/)
 - docs for backend
-- 6 commits
+- 7 commits
 - 2 versions
 
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
@@ -111,9 +111,15 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
   - Target
 - Custom Link with Backend
 
-## [Math](https://szabfun.pages.dev)
-- 2 commit
+## [Math](https://szabfun.pages.dev/math)
+- 2 commits
 - 1 version
 - ai trained by [Chatbase.co](https://chatbase.co)
 - not a right math ai
 - train [doc](./math/math.ai.txt)
+
+## [Chaos Clicker](https://szabfun.pages.dev/shaking-hands)
+- 1 commit
+- 1 version
+- cookie clicker with events
+- offline progress
