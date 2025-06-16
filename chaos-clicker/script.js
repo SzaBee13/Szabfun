@@ -15,6 +15,9 @@ const buyMacroBtn = document.getElementById("buy-macro");
 const employeeOwnedSpan = document.getElementById("employee-owned");
 const buyEmployeeBtn = document.getElementById("buy-employee");
 
+const girlfriendOwnedSpan = document.getElementById("girlfriend-owned");
+const buyGirlfriendBtn = document.getElementById("buy-girlfriend");
+
 // const socketUrl = "http://localhost:3000";
 const socketUrl = "https://szb.pagekite.me"
 
@@ -38,7 +41,8 @@ let clickMultiplier = 1;
 let upgrades = {
     grandma: 0,
     macro: 0,
-    employee: 0
+    employee: 0,
+    girlfriend: 0
 };
 
 function saveUpgrades() {
@@ -52,17 +56,29 @@ function loadUpgrades() {
     // Ensure both upgrades are always present and numbers
     upgrades.grandma = Number(upgrades.grandma) || 0;
     upgrades.macro = Number(upgrades.macro) || 0;
-    upgrades.employee = Number(upgrades.employee) || 0
+    upgrades.employee = Number(upgrades.employee) || 0;
+    upgrades.girlfriend = Number(upgrades.employee) || 0;
 }
 
 // Patch multiplier logic for great-grandma event
 function updateMultipliers() {
-    // Grandma: 0 owned = 1, 1 = 2, 2 = 4, 3 = 6, 4 = 8, ...
-    if (upgrades.grandma === 0) {
-        timeMultiplier = 1;
-    } else {
-        timeMultiplier = 2 * upgrades.grandma;
+    if (upgrades.grandma != 0) {
+        timeMultiplier += 2 * upgrades.grandma;
     }
+
+    if (upgrades.macro != 0) {
+        clickMultiplier += upgrades.macro;
+    }
+
+    if (upgrades.employee != 0) {
+        timeMultiplier = 10 * upgrades.employee;
+    }
+
+    if (upgrades.girlfriend != 0) {
+        clickMultiplier += 25 * upgrades.girlfriend;
+        timeMultiplier += 25 * upgrades.girlfriend;
+    }
+
     if (greatGrandmaActive) {
         timeMultiplier *= 2;
     }
@@ -85,17 +101,24 @@ function updateUpgradeUI() {
     employeeOwnedSpan.innerText = upgrades.employee;
     buyEmployeeBtn.innerText = `Buy (${getUpgradeCost("employee")} cookies)`;
     buyEmployeeBtn.disabled = cookies < getUpgradeCost("employee");
+
+    girlfriendOwnedSpan.innerText = upgrades.girlfriend;
+    buyGirlfriendBtn.innerText = `Buy (${getUpgradeCost("girlfriend")} cookies)`;
+    buyGirlfriendBtn.disabled = cookies < getUpgradeCost("girlfriend");
 }
 
 function getUpgradeCost(item) {
     if (item == "grandma") {
-        return 50 + (upgrades.grandma || 0) * 25;
+        return 100 + (upgrades.grandma || 0) * 50;
     }
     if (item == "macro") {
-        return 20 + (upgrades.macro || 0) * 10;
+        return 50 + (upgrades.macro || 0) * 25;
     }
     if (item == "employee") {
-        return 150 + (upgrades.employee || 0) * 75;
+        return 500 + (upgrades.employee || 0) * 250;
+    }
+    if (item == "girlfriend") {
+        return 2500 + (upgrades.girlfriend || 0) * 1250;
     }
     return 0;
 }
@@ -133,6 +156,8 @@ function addUpgrade(upgrade) {
         upgrades.macro += 1;
     } else if (upgrade == "employee") {
         upgrades.employee += 1;
+    } else if (upgrade == "girlfriend") {
+        upgrades.girlfriend += 1;
     }
 
     saveUpgrades();
@@ -254,6 +279,16 @@ buyEmployeeBtn.addEventListener("click", function () {
         animateBuy("employee");
     }
 });
+
+buyGirlfriendBtn.addEventListener("click", function () {
+    const cost = getUpgradeCost("girlfriend");
+    if (cookies >= cost) {
+        removeCookie(cost);
+        addUpgrade("girlfriend");
+        updateUpgradeUI();
+        animateBuy("girlfriend");
+    }
+})
 
 socket.on("chaos-event", (event) => {
     eventAudio.currentTime = 0;
