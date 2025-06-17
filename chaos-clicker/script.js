@@ -6,8 +6,8 @@ const lsLastTime = localStorage.getItem("lastTime");
 const eventDiv = document.getElementById("event");
 const eventAudio = new Audio("./assets/event.mp3");
 
-const grandmaOwnedSpan = document.getElementById("grandma-wifi-owned");
-const buyGrandmaBtn = document.getElementById("buy-grandma-wifi");
+const grandmaOwnedSpan = document.getElementById("grandma-owned");
+const buyGrandmaBtn = document.getElementById("buy-grandma");
 
 const macroOwnedSpan = document.getElementById("macro-owned");
 const buyMacroBtn = document.getElementById("buy-macro");
@@ -17,6 +17,12 @@ const buyEmployeeBtn = document.getElementById("buy-employee");
 
 const girlfriendOwnedSpan = document.getElementById("girlfriend-owned");
 const buyGirlfriendBtn = document.getElementById("buy-girlfriend");
+
+const putinOwnedSpan = document.getElementById("putin-owned");
+const buyPutinBtn = document.getElementById("buy-putin");
+
+const timeMachineSpan = document.getElementById("time-machine-owned");
+const buyTimeMachineBtn = document.getElementById("buy-time-machine")
 
 // const socketUrl = "http://localhost:3000";
 const socketUrl = "https://szb.pagekite.me"
@@ -42,7 +48,9 @@ let upgrades = {
     grandma: 0,
     macro: 0,
     employee: 0,
-    girlfriend: 0
+    girlfriend: 0,
+    putin: 0,
+    time_machine: 0
 };
 
 function saveUpgrades() {
@@ -58,6 +66,8 @@ function loadUpgrades() {
     upgrades.macro = Number(upgrades.macro) || 0;
     upgrades.employee = Number(upgrades.employee) || 0;
     upgrades.girlfriend = Number(upgrades.girlfriend) || 0;
+    upgrades.putin = Number(upgrades.putin) || 0;
+    upgrades.time_machine = Number(upgrades.time_machine) || 0;
 }
 
 // Patch multiplier logic for great-grandma event
@@ -79,6 +89,14 @@ function updateMultipliers() {
         timeMultiplier += 25 * upgrades.girlfriend;
     }
 
+    if (upgrades.putin != 0) {
+        clickMultiplier += 100 * upgrades.putin;
+    }
+
+    if (upgrades.time_machine != 0) {
+        timeMultiplier += 150 * upgrades.time_machine
+    }
+
     if (greatGrandmaActive) {
         timeMultiplier *= 2;
     }
@@ -91,20 +109,27 @@ function updateMultipliers() {
 
 function updateUpgradeUI() {
     grandmaOwnedSpan.innerText = upgrades.grandma;
-    buyGrandmaBtn.innerText = `Buy (${getUpgradeCost("grandma")} cookies)`;
+    buyGrandmaBtn.innerText = `Buy (${getUpgradeCost("grandma")} chaoses)`;
     buyGrandmaBtn.disabled = cookies < getUpgradeCost("grandma");
 
     macroOwnedSpan.innerText = upgrades.macro;
-    buyMacroBtn.innerText = `Buy (${getUpgradeCost("macro")} cookies)`;
+    buyMacroBtn.innerText = `Buy (${getUpgradeCost("macro")} chaoses)`;
     buyMacroBtn.disabled = cookies < getUpgradeCost("macro");
 
     employeeOwnedSpan.innerText = upgrades.employee;
-    buyEmployeeBtn.innerText = `Buy (${getUpgradeCost("employee")} cookies)`;
+    buyEmployeeBtn.innerText = `Buy (${getUpgradeCost("employee")} chaoses)`;
     buyEmployeeBtn.disabled = cookies < getUpgradeCost("employee");
 
     girlfriendOwnedSpan.innerText = upgrades.girlfriend;
-    buyGirlfriendBtn.innerText = `Buy (${getUpgradeCost("girlfriend")} cookies)`;
+    buyGirlfriendBtn.innerText = `Buy (${getUpgradeCost("girlfriend")} chaoses)`;
     buyGirlfriendBtn.disabled = cookies < getUpgradeCost("girlfriend");
+
+    putinOwnedSpan.innerText = upgrades.putin;
+    buyPutinBtn.innerText = `Buy (${getUpgradeCost("putin")} chaoses)`;
+    buyPutinBtn.disabled = cookies < getUpgradeCost("putin")
+
+    timeMachineSpan.innerText = upgrades.time_machine;
+    buyTimeMachineBtn.innerText = `BUy ${getUpgradeCost("time-machine")} chaoses`;
 }
 
 function getUpgradeCost(item) {
@@ -119,6 +144,12 @@ function getUpgradeCost(item) {
     }
     if (item == "girlfriend") {
         return 2500 + (upgrades.girlfriend || 0) * 1250;
+    }
+    if (item == "putin") {
+        return 10000 + (upgrades.putin || 0) * 5000;
+    }
+    if (item == "time-machine") {
+        return 25000 + (upgrades.time_machine || 0) * 12500
     }
     return 0;
 }
@@ -158,6 +189,10 @@ function addUpgrade(upgrade) {
         upgrades.employee += 1;
     } else if (upgrade == "girlfriend") {
         upgrades.girlfriend += 1;
+    } else if (upgrade == "putin") {
+        upgrades.putin += 1;
+    } else if (upgrade == "time-machine") {
+        upgrades.time_machine += 1;
     }
 
     saveUpgrades();
@@ -225,6 +260,16 @@ function animateBuy(cardId) {
     card.classList.add("buy-animate");
 }
 
+function buyUpgrade(upgrade) {
+    const cost = getUpgradeCost(upgrade)
+    if (cookies >= cost) {
+        removeCookie(cost)
+        addUpgrade(upgrade)
+        updateUpgradeUI()
+        animateBuy(upgrade)
+    }
+}
+
 function init() {
     if (lsCookies) {
         cookies = parseInt(lsCookies);
@@ -250,45 +295,17 @@ cookieButton.addEventListener("click", function () {
     }
 });
 
-buyGrandmaBtn.addEventListener("click", function () {
-    const cost = getUpgradeCost("grandma");
-    if (cookies >= cost) {
-        removeCookie(cost);
-        addUpgrade("grandma");
-        updateUpgradeUI();
-        animateBuy("grandma-wifi");
-    }
-});
+buyGrandmaBtn.addEventListener("click", function () { buyUpgrade("grandma") });
 
-buyMacroBtn.addEventListener("click", function () {
-    const cost = getUpgradeCost("macro");
-    if (cookies >= cost) {
-        removeCookie(cost);
-        addUpgrade("macro");
-        updateUpgradeUI();
-        animateBuy("macro");
-    }
-});
+buyMacroBtn.addEventListener("click", function () { buyUpgrade("macro") });
 
-buyEmployeeBtn.addEventListener("click", function () {
-    const cost = getUpgradeCost("employee");
-    if (cookies >= cost) {
-        removeCookie(cost);
-        addUpgrade("employee");
-        updateUpgradeUI();
-        animateBuy("employee");
-    }
-});
+buyEmployeeBtn.addEventListener("click", function () { buyUpgrade("employee") });
 
-buyGirlfriendBtn.addEventListener("click", function () {
-    const cost = getUpgradeCost("girlfriend");
-    if (cookies >= cost) {
-        removeCookie(cost);
-        addUpgrade("girlfriend");
-        updateUpgradeUI();
-        animateBuy("girlfriend");
-    }
-})
+buyGirlfriendBtn.addEventListener("click", function () { buyUpgrade("girlfriend") })
+
+buyPutinBtn.addEventListener("click", function () { buyUpgrade("putin") })
+
+buyTimeMachineBtn.addEventListener("click", function () { buyUpgrade("time-machine") })
 
 socket.on("chaos-event", (event) => {
     eventAudio.currentTime = 0;
