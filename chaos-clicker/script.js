@@ -95,7 +95,7 @@ function saveToDb(googleId, cookies, upgrades, lastTime) {
 function saveUpgrades() {
     localStorage.setItem("upgrades", JSON.stringify(upgrades));
     if (localStorage.getItem("google_id")) {
-        saveToDb(localStorage.getItem("google_id"), cookies, upgrades);
+        saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
     }
 }
 
@@ -328,17 +328,18 @@ function buyUpgrade(upgrade) {
 function init() {
     if (localStorage.getItem("google_id")) {
         loadFromDb(localStorage.getItem("google_id"))
-    }
-    if (lsCookies) {
-        cookies = parseInt(lsCookies);
-        cookieSpan.innerText = cookies;
-    }
-    if (lsLastTime) {
-        lastTime = lsLastTime;
-        loadUpgrades();
-        updateMultipliers();
-        grantOfflineProgress();
-        updateUpgradeUI();
+    } else {
+        if (lsCookies) {
+            cookies = parseInt(lsCookies);
+            cookieSpan.innerText = cookies;
+        }
+        if (lsLastTime) {
+            lastTime = lsLastTime;
+            loadUpgrades();
+            updateMultipliers();
+            grantOfflineProgress();
+            updateUpgradeUI();
+        }
     }
 }
 
@@ -349,7 +350,7 @@ setInterval(function () {
 }, 1000);
 
 setInterval(function () {
-    saveToDb(localStorage.getItem("google_id"), cookies, upgrades);
+    saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
 }, 25000)
 
 cookieButton.addEventListener("click", function () {
