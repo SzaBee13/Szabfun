@@ -8,9 +8,44 @@ const tryOpenDoor = new Audio('./assets/try-open-door.mp3');
 const safeOpen = new Audio('./assets/safe-open.mp3');
 const gunShoot = new Audio('./assets/gun-shoot.mp3');
 
+const apiUrl = "https://szb.pagekite.me"
+
 let loses = 0;
 let wins = 0;
 let inv = {};
+
+async function loadFromDb(googleId) {
+    const res = await fetch(`${apiUrl}/load/escape-game?google_id=${googleId}`);
+    const json = await res.json();
+    
+    if (json.data) {
+        const data = json.data;
+        loses = parseInt(data.loses);
+        wins = parseInt(data.wins);
+
+        winsElement.innerText = wins;
+        losesElement.innerText = loses;
+        // Set these back into game
+        console.log("Loaded:", data);
+    } else {
+        console.log("No saved data yet!");
+    }
+}
+
+
+function saveToDb(googleId, wins, loses) {
+    fetch(`${apiUrl}/save/escape-game`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            google_id: googleId,
+            data: {
+                wins,
+                loses
+            }
+        })
+    }).then(res => console.log("Saved Escape Game progress!" + res));
+}
 
 function start() {
     document.body.classList.add('black-background');
@@ -64,6 +99,9 @@ async function win() {
 
     wins++;
     localStorage.setItem('eg-wins', wins);
+    if (localStorage.getItem("google_id")) {
+        saveToDb(localStorage.getItem("google_id"), wins, loses)
+    }
     congratsYouEscaped.play();
     container.innerHTML = `
     <h1 class="type">Congratulations! You escaped!</h1>
@@ -95,6 +133,9 @@ async function lose() {
 
     loses++;
     localStorage.setItem('eg-loses', loses);
+    if (localStorage.getItem("google_id")) {
+        saveToDb(localStorage.getItem("google_id"), wins, loses)
+    }
     youLost.play();
     container.innerHTML = `
     <h1 class="type">You lost!</h1>
@@ -724,13 +765,17 @@ function newRoom() {
 }
 
 function init() {
-    if (lsWins) {
-        wins = parseInt(lsWins);
-        winsElement.innerText = wins;
-    }
-    if (lsLoses) {
-        loses = parseInt(lsLoses);
-        losesElement.innerText = loses;
+    if (localStorage.getItem("google_id")) {
+        loadFromDb(localStorage.getItem("google_id"))
+    } else {
+        if (lsWins) {
+            wins = parseInt(lsWins);
+            winsElement.innerText = wins;
+        }
+        if (lsLoses) {
+            loses = parseInt(lsLoses);
+            losesElement.innerText = loses;
+        }
     }
 }
 

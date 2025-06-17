@@ -8,6 +8,8 @@ const lsUsername = localStorage.getItem("username");
 const lsNickname = localStorage.getItem("nickname");
 const lsRecentMessages = localStorage.getItem("recentMessages");
 
+const apiUrl = "https://szb.pagekite.me"
+
 // const socket = new WebSocket("http://192.168.126.1:3100");
 const socket = new WebSocket("https://chat-szb.pagekite.me");
 
@@ -58,6 +60,7 @@ socket.onmessage = event => {
         if (data.success) {
             localStorage.setItem("username", username);
             localStorage.setItem("nickname", nickname);
+            saveToDb(username, nickname, localStorage.getItem("google_id"));
             fullScreenDiv.style.display = "none";
         } else {
             answerDiv.textContent = data.message;
@@ -106,8 +109,44 @@ usernameInput.addEventListener('keydown', function(event) {
     }
 });
 
+async function loadFromDb(googleId) {
+    const res = await fetch(`${apiUrl}/load/chat?google_id=${googleId}`);
+    const json = await res.json();
+    
+    if (json.data) {
+        const data = json.data;
+        username = data.username;
+        nickname = data.nickname;
+
+        if (username) {
+            fullScreenDiv.style.display = "none";
+        }
+        // Set these back into game
+        console.log("Loaded:", data);
+    } else {
+        console.log("No saved data yet!");
+    }
+}
+
+
+function saveToDb(username, nickname, googleId) {
+    fetch(`${apiUrl}/save/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            google_id: googleId,
+            data: {
+                username,
+                nickname
+            }
+        })
+    }).then(res => console.log("Saved Chat progress!" + res));
+}
+
 const init = () => {
-    if (lsUsername) {
+    if (localStorage.getItem("google_id")) {
+        loadFromDb(localStorage.getItem("google_id"))
+    } else if (lsUsername) {
         fullScreenDiv.style.display = "none";
         username = lsUsername;
         nickname = lsNickname;

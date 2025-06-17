@@ -3,6 +3,8 @@ const typeSel = document.getElementById("type");
 const lvlSel = document.getElementById("lvl");
 const resultDiv = document.getElementById("result");
 
+const apiUrl = "https://szb.pagekite.me"
+
 let api = {};
 
 async function loadJSON(file) {
@@ -140,9 +142,50 @@ function genWord() {
     resultDiv.innerHTML = `<strong>${randomItemListGen(result)}</strong>`
 }
 
+async function loadFromDb(googleId) {
+    const res = await fetch(`${apiUrl}/load/swear-word-generator?google_id=${googleId}`);
+    const json = await res.json();
+    
+    if (json.data) {
+        const data = json.data;
+        lvl = parseInt(data.lvl);
+        type = data.type;
+        lang = data.lang;
+
+        lvlSel.value = lvl;
+        typeSel.value = type;
+        langSel.value = lang;
+
+        // Set these back into game
+        console.log("Loaded:", data);
+    } else {
+        console.log("No saved data yet!");
+    }
+
+    applyURLParams()
+    updateURL()
+}
+
+
+function saveToDb(googleId, lvl, type, lang) {
+    fetch(`${apiUrl}/save/swear-word-generator`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            google_id: googleId,
+            data: {
+                lvl,
+                type,
+                lang
+            }
+        })
+    }).then(res => console.log("Saved Swear Word Generator progress!" + res));
+}
+
 // Mentés a localStorage-ba
-function saveSelectedValue(value, type) {
-    localStorage.setItem(type, value);
+function saveSelectedValue(value, type_type) {
+    localStorage.setItem(type_type, value);
+    saveToDb(localStorage.getItem("google_id"), lvl, type, lang)
 }
 
 // Betöltés a localStorage-ból
@@ -183,8 +226,7 @@ function inti() {
     loadSelectedValue("lvl")
     loadSelectedValue("type")
     loadSelectedValue("lang")
-    applyURLParams()
-    updateURL()
+    loadFromDb(localStorage.getItem("google_id"))
 }
 
 window.onload = inti()

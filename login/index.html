@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/logo.png" type="image/x-icon">
+    <title>Szabfun - Login</title>
+    <!-- Open Graph meta tag -->
+    <meta property="og:title" content="Szabfun - login">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://szabfun.pages.dev/login">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/logo.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, youtube">
+</head>
+<body>
+    <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="container">
+        <h2>Sign in</h2>
+        <div id="g_id_onload"
+            data-client_id="352957724606-g4rc31r3u3jh889pm87p1d172lv9im10.apps.googleusercontent.com"
+            data-callback="onGoogleSignIn"
+            data-auto_prompt="false">
+        </div>
+        <div id="login">
+            <div class="g_id_signin" data-type="standard"></div>
+        </div>
+        <div id="google-user-info" style="display:none; margin-top:1em;">
+            <h3 id="google-user-name"></h3>
+            <p>Email: <span id="google-email-info"></span></p>
+            <button onclick="googleSignOut()">Sign out</button>
+        </div>
+    </div>
+    <script src="https://accounts.google.com/gsi/client" async defer></script>
+    <script src="./script.js"></script>
+</body>
+</html>

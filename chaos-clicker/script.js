@@ -44,6 +44,8 @@ let cookies = 0;
 let timeMultiplier = 1;
 let clickMultiplier = 1;
 
+let lastTime;
+
 let upgrades = {
     grandma: 0,
     macro: 0,
@@ -53,8 +55,48 @@ let upgrades = {
     time_machine: 0
 };
 
+async function loadFromDb(googleId) {
+    const res = await fetch(`${socketUrl}/load/chaos-clicker?google_id=${googleId}`);
+    const json = await res.json();
+    
+    if (json.data) {
+        const data = json.data;
+        cookies = data.cookies;
+        upgrades = data.upgrades;
+        lastTime = data.lastTime
+        
+        updateMultipliers();
+        grantOfflineProgress();
+        updateUpgradeUI();
+
+        // Set these back into game
+        console.log("Loaded:", data);
+    } else {
+        console.log("No saved data yet!");
+    }
+}
+
+
+function saveToDb(googleId, cookies, upgrades, lastTime) {
+    fetch(`${socketUrl}/save/chaos-clicker`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            google_id: googleId,
+            data: {
+                cookies,
+                upgrades,
+                lastTime
+            }
+        })
+    }).then(res => console.log("Saved Chaos Clicker progress!" + res));
+}
+
 function saveUpgrades() {
     localStorage.setItem("upgrades", JSON.stringify(upgrades));
+    if (localStorage.getItem("google_id")) {
+        saveToDb(localStorage.getItem("google_id"), cookies, upgrades);
+    }
 }
 
 function loadUpgrades() {
@@ -68,6 +110,19 @@ function loadUpgrades() {
     upgrades.girlfriend = Number(upgrades.girlfriend) || 0;
     upgrades.putin = Number(upgrades.putin) || 0;
     upgrades.time_machine = Number(upgrades.time_machine) || 0;
+}
+
+async function loadChaosClicker(googleId) {
+    const res = await fetch(`http://localhost:3000/load/chaos-clicker?google_id=${googleId}`);
+    const json = await res.json();
+    
+    if (json.data) {
+        const { cookies, upgrades } = json.data;
+        // Set these back into game
+        console.log("Loaded:", cookies, upgrades);
+    } else {
+        console.log("No saved data yet!");
+    }
 }
 
 // Patch multiplier logic for great-grandma event
@@ -129,7 +184,8 @@ function updateUpgradeUI() {
     buyPutinBtn.disabled = cookies < getUpgradeCost("putin")
 
     timeMachineSpan.innerText = upgrades.time_machine;
-    buyTimeMachineBtn.innerText = `BUy ${getUpgradeCost("time-machine")} chaoses`;
+    buyTimeMachineBtn.innerText = `Buy ${getUpgradeCost("time-machine")} chaoses`;
+    buyTimeMachineBtn.disabled = cookies < getUpgradeCost("time-machine")
 }
 
 function getUpgradeCost(item) {
@@ -200,8 +256,7 @@ function addUpgrade(upgrade) {
 }
 
 function grantOfflineProgress() {
-    if (lsLastTime) {
-        const lastTime = parseInt(lsLastTime);
+    if (lastTime) {
         const now = Date.now();
         const secondsPassed = Math.floor((now - lastTime) / 1000);
         if (secondsPassed > 0) {
@@ -271,14 +326,20 @@ function buyUpgrade(upgrade) {
 }
 
 function init() {
+    if (localStorage.getItem("google_id")) {
+        loadFromDb(localStorage.getItem("google_id"))
+    }
     if (lsCookies) {
         cookies = parseInt(lsCookies);
         cookieSpan.innerText = cookies;
     }
-    loadUpgrades();
-    updateMultipliers();
-    grantOfflineProgress();
-    updateUpgradeUI();
+    if (lsLastTime) {
+        lastTime = lsLastTime;
+        loadUpgrades();
+        updateMultipliers();
+        grantOfflineProgress();
+        updateUpgradeUI();
+    }
 }
 
 init();
@@ -286,6 +347,10 @@ init();
 setInterval(function () {
     timeCookie(timeMultiplier);
 }, 1000);
+
+setInterval(function () {
+    saveToDb(localStorage.getItem("google_id"), cookies, upgrades);
+}, 25000)
 
 cookieButton.addEventListener("click", function () {
     if (lagActive) {
@@ -351,9 +416,4 @@ socket.on("chaos-event", (event) => {
             }
         }, 60000); // 60 seconds
     }
-});
-
-// Save last time on page unload
-window.addEventListener("beforeunload", function () {
-    localStorage.setItem("lastTime", Date.now());
 });

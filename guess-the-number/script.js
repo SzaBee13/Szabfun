@@ -9,6 +9,8 @@ const lsScore = localStorage.getItem("gtn-score")
 const lsMin = localStorage.getItem("gtn-min")
 const lsMax = localStorage.getItem("gtn-max")
 
+const apiUrl = "https://szb.pagekite.me"
+
 let randomNumber;
 let lPressCount = 0;
 let resetTimeout;
@@ -49,20 +51,58 @@ function checkGuess() {
     }
 }
 
+async function loadFromDb(googleId) {
+    const res = await fetch(`${apiUrl}/load/guess-the-number?google_id=${googleId}`);
+    const json = await res.json();
+    
+    if (json.data) {
+        const data = json.data;
+        score = data.score;
+        minNum = parseInt(data.min);
+        maxNum = parseInt(data.max);
+        // Set these back into game
+        console.log("Loaded:", data);
+        minNumSpan.value = minNum;
+        maxNumSpan.value = maxNum;
+    } else {
+        console.log("No saved data yet!");
+    }
+}
+
+
+function saveToDb(googleId, score, min, max) {
+    fetch(`${apiUrl}/save/guess-the-number`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            google_id: googleId,
+            data: {
+                score,
+                min,
+                max
+            }
+        })
+    }).then(res => console.log("Saved Guess The Number progress!" + res));
+}
+
 function addScore() {
     score++;
     localStorage.setItem("gtn-score", String(score));
     document.getElementById('score').innerHTML = score;
     console.log("score added");
+    saveToDb(localStorage.getItem("google_id"), score, minNum, maxNum);
 }
 
 function updateMinMax(type) {
     if (type === 'min') {
         minNum = parseInt(document.getElementById('min').value);
+        localStorage.setItem("gtn-min", minNum);
     } else if (type === 'max') {
         maxNum = parseInt(document.getElementById('max').value);
+        localStorage.setItem("gtn-max", maxNum);
     }
     updateURL();
+    saveToDb(localStorage.getItem("google_id"), score, minNum, maxNum)
     startGame();
 }
 
@@ -83,34 +123,38 @@ function applyURLParams() {
 }
 
 function init() {
-    if (lsScore) {
-        document.getElementById('score').innerHTML = lsScore;
-        score = parseInt(lsScore);
+    if (localStorage.getItem("google_id")) {
+        loadFromDb(localStorage.getItem("google_id"))
     } else {
-        score = 0;
-        localStorage.setItem("gtn-score", "0");
+        if (lsScore) {
+            document.getElementById('score').innerHTML = lsScore;
+            score = parseInt(lsScore);
+        } else {
+            score = 0;
+            localStorage.setItem("gtn-score", "0");
+        }
+
+        if (lsMax) {
+            maxNum = parseInt(lsMax);
+            maxNumSpan.value = maxNum;
+        } else {
+            maxNum = 100;
+            localStorage.setItem("gtn-max", String(maxNum));
+            maxNumSpan.value = maxNum;
+        }
+
+        if (lsMin) {
+            minNum = parseInt(lsMin);
+            minNumSpan.value = minNum;
+        } else {
+            minNum = 1;
+            localStorage.setItem("gtn-min", String(minNum));
+            minNumSpan.value = minNum;
+        }
+        applyURLParams();
+        updateURL();
     }
 
-    if (lsMax) {
-        maxNum = parseInt(lsMax);
-        maxNumSpan.value = maxNum;
-    } else {
-        maxNum = 100;
-        localStorage.setItem("gtn-max", String(maxNum));
-        maxNumSpan.value = maxNum;
-    }
-
-    if (lsMin) {
-        minNum = parseInt(lsMin);
-        minNumSpan.value = minNum;
-    } else {
-        minNum = 1;
-        localStorage.setItem("gtn-min", String(minNum));
-        minNumSpan.value = minNum;
-    }
-
-    applyURLParams();
-    updateURL();
     startGame();
 }
 

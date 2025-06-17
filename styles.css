@@ -189,6 +189,14 @@ button > a {
     margin: 5px;
 }
 
+.header-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
 @media (max-width: 600px) {
     #footer {
         flex-direction: column;
