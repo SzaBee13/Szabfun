@@ -22,10 +22,10 @@ const putinOwnedSpan = document.getElementById("putin-owned");
 const buyPutinBtn = document.getElementById("buy-putin");
 
 const timeMachineSpan = document.getElementById("time-machine-owned");
-const buyTimeMachineBtn = document.getElementById("buy-time-machine")
+const buyTimeMachineBtn = document.getElementById("buy-time-machine");
 
 // const socketUrl = "http://localhost:3000";
-const socketUrl = "https://szb.pagekite.me"
+const socketUrl = "https://szb.pagekite.me";
 
 const socket = io(socketUrl, {
     path: "/chaos-clicker/socket.io",
@@ -52,30 +52,43 @@ let upgrades = {
     employee: 0,
     girlfriend: 0,
     putin: 0,
-    time_machine: 0
+    time_machine: 0,
 };
 
 async function loadFromDb(googleId) {
-    const res = await fetch(`${socketUrl}/load/chaos-clicker?google_id=${googleId}`);
+    const res = await fetch(
+        `${socketUrl}/load/chaos-clicker?google_id=${googleId}`
+    );
     const json = await res.json();
-    
+
     if (json.data) {
         const data = json.data;
-        cookies = data.cookies;
-        upgrades = data.upgrades;
-        lastTime = data.lastTime
-        
+        if (data.cookies) {
+            cookies = data.cookies;
+            upgrades = data.upgrades;
+            lastTime = data.lastTime;
+            // Set these back into game
+            console.log("Loaded:", data);
+        } else {
+            if (lsCookies) {
+                cookies = parseInt(lsCookies);
+                cookieSpan.innerText = cookies;
+            }
+            if (lsLastTime) {
+                lastTime = lsLastTime;
+                loadUpgrades();
+            }
+            saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
+        }
+
         updateMultipliers();
         grantOfflineProgress();
         updateUpgradeUI();
 
-        // Set these back into game
-        console.log("Loaded:", data);
     } else {
         console.log("No saved data yet!");
     }
 }
-
 
 function saveToDb(googleId, cookies, upgrades, lastTime) {
     fetch(`${socketUrl}/save/chaos-clicker`, {
@@ -86,16 +99,21 @@ function saveToDb(googleId, cookies, upgrades, lastTime) {
             data: {
                 cookies,
                 upgrades,
-                lastTime
-            }
-        })
-    }).then(res => console.log("Saved Chaos Clicker progress!" + res));
+                lastTime,
+            },
+        }),
+    }).then((res) => console.log("Saved Chaos Clicker progress!" + res));
 }
 
 function saveUpgrades() {
     localStorage.setItem("upgrades", JSON.stringify(upgrades));
     if (localStorage.getItem("google_id")) {
-        saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
+        saveToDb(
+            localStorage.getItem("google_id"),
+            cookies,
+            upgrades,
+            lastTime
+        );
     }
 }
 
@@ -113,9 +131,11 @@ function loadUpgrades() {
 }
 
 async function loadChaosClicker(googleId) {
-    const res = await fetch(`http://localhost:3000/load/chaos-clicker?google_id=${googleId}`);
+    const res = await fetch(
+        `http://localhost:3000/load/chaos-clicker?google_id=${googleId}`
+    );
     const json = await res.json();
-    
+
     if (json.data) {
         const { cookies, upgrades } = json.data;
         // Set these back into game
@@ -149,7 +169,7 @@ function updateMultipliers() {
     }
 
     if (upgrades.time_machine != 0) {
-        timeMultiplier += 150 * upgrades.time_machine
+        timeMultiplier += 150 * upgrades.time_machine;
     }
 
     if (greatGrandmaActive) {
@@ -176,16 +196,20 @@ function updateUpgradeUI() {
     buyEmployeeBtn.disabled = cookies < getUpgradeCost("employee");
 
     girlfriendOwnedSpan.innerText = upgrades.girlfriend;
-    buyGirlfriendBtn.innerText = `Buy (${getUpgradeCost("girlfriend")} chaoses)`;
+    buyGirlfriendBtn.innerText = `Buy (${getUpgradeCost(
+        "girlfriend"
+    )} chaoses)`;
     buyGirlfriendBtn.disabled = cookies < getUpgradeCost("girlfriend");
 
     putinOwnedSpan.innerText = upgrades.putin;
     buyPutinBtn.innerText = `Buy (${getUpgradeCost("putin")} chaoses)`;
-    buyPutinBtn.disabled = cookies < getUpgradeCost("putin")
+    buyPutinBtn.disabled = cookies < getUpgradeCost("putin");
 
     timeMachineSpan.innerText = upgrades.time_machine;
-    buyTimeMachineBtn.innerText = `Buy ${getUpgradeCost("time-machine")} chaoses`;
-    buyTimeMachineBtn.disabled = cookies < getUpgradeCost("time-machine")
+    buyTimeMachineBtn.innerText = `Buy ${getUpgradeCost(
+        "time-machine"
+    )} chaoses`;
+    buyTimeMachineBtn.disabled = cookies < getUpgradeCost("time-machine");
 }
 
 function getUpgradeCost(item) {
@@ -205,7 +229,7 @@ function getUpgradeCost(item) {
         return 10000 + (upgrades.putin || 0) * 5000;
     }
     if (item == "time-machine") {
-        return 25000 + (upgrades.time_machine || 0) * 12500
+        return 25000 + (upgrades.time_machine || 0) * 12500;
     }
     return 0;
 }
@@ -316,18 +340,18 @@ function animateBuy(cardId) {
 }
 
 function buyUpgrade(upgrade) {
-    const cost = getUpgradeCost(upgrade)
+    const cost = getUpgradeCost(upgrade);
     if (cookies >= cost) {
-        removeCookie(cost)
-        addUpgrade(upgrade)
-        updateUpgradeUI()
-        animateBuy(upgrade)
+        removeCookie(cost);
+        addUpgrade(upgrade);
+        updateUpgradeUI();
+        animateBuy(upgrade);
     }
 }
 
 function init() {
     if (localStorage.getItem("google_id")) {
-        loadFromDb(localStorage.getItem("google_id"))
+        loadFromDb(localStorage.getItem("google_id"));
     } else {
         if (lsCookies) {
             cookies = parseInt(lsCookies);
@@ -351,7 +375,7 @@ setInterval(function () {
 
 setInterval(function () {
     saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
-}, 25000)
+}, 25000);
 
 cookieButton.addEventListener("click", function () {
     if (lagActive) {
@@ -361,17 +385,29 @@ cookieButton.addEventListener("click", function () {
     }
 });
 
-buyGrandmaBtn.addEventListener("click", function () { buyUpgrade("grandma") });
+buyGrandmaBtn.addEventListener("click", function () {
+    buyUpgrade("grandma");
+});
 
-buyMacroBtn.addEventListener("click", function () { buyUpgrade("macro") });
+buyMacroBtn.addEventListener("click", function () {
+    buyUpgrade("macro");
+});
 
-buyEmployeeBtn.addEventListener("click", function () { buyUpgrade("employee") });
+buyEmployeeBtn.addEventListener("click", function () {
+    buyUpgrade("employee");
+});
 
-buyGirlfriendBtn.addEventListener("click", function () { buyUpgrade("girlfriend") })
+buyGirlfriendBtn.addEventListener("click", function () {
+    buyUpgrade("girlfriend");
+});
 
-buyPutinBtn.addEventListener("click", function () { buyUpgrade("putin") })
+buyPutinBtn.addEventListener("click", function () {
+    buyUpgrade("putin");
+});
 
-buyTimeMachineBtn.addEventListener("click", function () { buyUpgrade("time-machine") })
+buyTimeMachineBtn.addEventListener("click", function () {
+    buyUpgrade("time-machine");
+});
 
 socket.on("chaos-event", (event) => {
     eventAudio.currentTime = 0;

@@ -34,20 +34,43 @@ const winningCombinations = [
 ];
 
 async function loadFromDb(googleId) {
-    const res = await fetch(`${socketUrl}/load/chaos-clicker?google_id=${googleId}`);
+    const res = await fetch(
+        `${socketUrl}/load/chaos-clicker?google_id=${googleId}`
+    );
     const json = await res.json();
-    
+
     if (json.data) {
         const data = json.data;
-        hardMode = data.hard;
-        aiMode = data.ai;
-        // Set these back into game
-        console.log("Loaded:", data);
+        if (data.hard || data.ai) {
+            hardMode = data.hard;
+            aiMode = data.ai;
+            // Set these back into game
+            console.log("Loaded:", data);
+        } else if (lsWins || lsHardMode) {
+            //AIMODE
+            if (lsAiMode == "true") {
+                aiMode = true;
+            } else {
+                aiMode = false;
+            }
+            modeButton.textContent = aiMode
+                ? "Switch to Player Mode"
+                : "Switch to AI Mode";
+
+            //HARDMODE
+            if (lsHardMode == "true") {
+                hardMode = true;
+            } else {
+                hardMode = false;
+            }
+        }
+        applyURLParams();
+        updateURL();
+        createBoard();
     } else {
         console.log("No saved data yet!");
     }
 }
-
 
 function saveToDb(googleId, hard, ai) {
     fetch(`${socketUrl}/save/chaos-clicker`, {
@@ -57,10 +80,10 @@ function saveToDb(googleId, hard, ai) {
             google_id: googleId,
             data: {
                 hard,
-                ai
-            }
-        })
-    }).then(res => console.log("Saved Tic Tac Toe progress!" + res));
+                ai,
+            },
+        }),
+    }).then((res) => console.log("Saved Tic Tac Toe progress!" + res));
 }
 
 function joinQueueWithCode(code) {
@@ -92,13 +115,13 @@ function joinQueueWithCode(code) {
         createBoard();
 
         // Count X and O
-        const xCount = board.filter(cell => cell === "X").length;
-        const oCount = board.filter(cell => cell === "O").length;
+        const xCount = board.filter((cell) => cell === "X").length;
+        const oCount = board.filter((cell) => cell === "O").length;
 
         if (multiplayerSymbol === "X") {
             myTurn = xCount === oCount; // X's turn if equal
         } else {
-            myTurn = xCount > oCount;   // O's turn if more X than O
+            myTurn = xCount > oCount; // O's turn if more X than O
         }
 
         winnerElement.textContent = myTurn
@@ -174,13 +197,13 @@ function joinQueue() {
         createBoard();
 
         // Count X and O
-        const xCount = board.filter(cell => cell === "X").length;
-        const oCount = board.filter(cell => cell === "O").length;
+        const xCount = board.filter((cell) => cell === "X").length;
+        const oCount = board.filter((cell) => cell === "O").length;
 
         if (multiplayerSymbol === "X") {
             myTurn = xCount === oCount; // X's turn if equal
         } else {
-            myTurn = xCount > oCount;   // O's turn if more X than O
+            myTurn = xCount > oCount; // O's turn if more X than O
         }
 
         winnerElement.textContent = myTurn
@@ -388,7 +411,7 @@ function toggleMode() {
         ? "Switch to Player Mode"
         : "Switch to AI Mode";
     resetGame();
-    saveToDb(localStorage.getItem("google_id"), hardMode, aiMode)
+    saveToDb(localStorage.getItem("google_id"), hardMode, aiMode);
     updateURL();
 }
 
@@ -402,16 +425,13 @@ function toggleDifficulty() {
     difficultyButton.style.color = "#fff";
     difficultyButton.style.borderColor = "#000";
     resetGame();
-    saveToDb(localStorage.getItem("google_id"), hardMode, aiMode)
+    saveToDb(localStorage.getItem("google_id"), hardMode, aiMode);
     updateURL();
 }
 
 function localStorageGet() {
     if (localStorage.getItem("google_id")) {
-        loadFromDb(localStorage.getItem("google_id"))
-        applyURLParams();
-        updateURL();
-        createBoard();
+        loadFromDb(localStorage.getItem("google_id"));
     } else {
         //AIMODE
         if (lsAiMode == "true") {
@@ -422,7 +442,7 @@ function localStorageGet() {
         modeButton.textContent = aiMode
             ? "Switch to Player Mode"
             : "Switch to AI Mode";
-    
+
         //HARDMODE
         if (lsHardMode == "true") {
             hardMode = true;
@@ -430,9 +450,9 @@ function localStorageGet() {
             hardMode = false;
         }
 
-            applyURLParams();
-            updateURL();
-            createBoard();
+        applyURLParams();
+        updateURL();
+        createBoard();
     }
     difficultyButton.textContent = hardMode
         ? "Switch to Easy Mode"

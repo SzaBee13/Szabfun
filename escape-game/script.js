@@ -20,13 +20,26 @@ async function loadFromDb(googleId) {
     
     if (json.data) {
         const data = json.data;
-        loses = parseInt(data.loses);
-        wins = parseInt(data.wins);
+        if (data.loses || data.wins) {
+            if (data.wins) {
+                wins = parseInt(data.wins);
+            }
+            if (data.loses) {
+                loses = parseInt(data.loses);
+            }
+            // Set these back into game
+            console.log("Loaded:", data);
+        } else {
+            if (lsWins) {
+                wins = parseInt(lsWins);
+            }
+            if (lsLoses) {
+                loses = parseInt(lsLoses);
+            }
+        }
 
         winsElement.innerText = wins;
         losesElement.innerText = loses;
-        // Set these back into game
-        console.log("Loaded:", data);
     } else {
         console.log("No saved data yet!");
     }

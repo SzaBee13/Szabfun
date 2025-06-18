@@ -115,14 +115,19 @@ async function loadFromDb(googleId) {
     
     if (json.data) {
         const data = json.data;
-        username = data.username;
-        nickname = data.nickname;
-
-        if (username) {
+        if (data.username) {
+            username = data.username;
+            nickname = data.nickname;
             fullScreenDiv.style.display = "none";
+            // Set these back into game
+            console.log("Loaded:", data);
+        } else if (lsUsername) {
+            username = lsUsername;
+            nickname = lsNickname;
+            fullScreenDiv.style.display = "none";
+        } else {
+            fullScreenDiv.style.display = "flex";
         }
-        // Set these back into game
-        console.log("Loaded:", data);
     } else {
         console.log("No saved data yet!");
     }

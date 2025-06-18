@@ -148,16 +148,21 @@ async function loadFromDb(googleId) {
     
     if (json.data) {
         const data = json.data;
-        lvl = parseInt(data.lvl);
-        type = data.type;
-        lang = data.lang;
+        if (data.lvl || data.type || data.lang) {
+            lvl = parseInt(data.lvl);
+            type = data.type;
+            lang = data.lang;
+            // Set these back into game
+            console.log("Loaded:", data);
+        } else {
+            loadSelectedValue("lvl")
+            loadSelectedValue("type")
+            loadSelectedValue("lang")
+        }
 
         lvlSel.value = lvl;
         typeSel.value = type;
         langSel.value = lang;
-
-        // Set these back into game
-        console.log("Loaded:", data);
     } else {
         console.log("No saved data yet!");
     }
@@ -196,7 +201,7 @@ function loadSelectedValue(item) {
         select.value = savedValue;
     }
     if (item == "lvl") {
-        lvl = savedValue
+        lvl = parseInt(savedValue)
     } else if (item == "type") {
         type = savedValue
     }
@@ -222,11 +227,17 @@ function applyURLParams() {
 }
 
 function inti() {
-    //loadSelectedValue
-    loadSelectedValue("lvl")
-    loadSelectedValue("type")
-    loadSelectedValue("lang")
-    loadFromDb(localStorage.getItem("google_id"))
+    if (localStorage.getItem("google_id")) {
+        loadFromDb(localStorage.getItem("google_id"))
+    } else {
+        //loadSelectedValue
+        loadSelectedValue("lvl")
+        loadSelectedValue("type")
+        loadSelectedValue("lang")
+    }
+
+    applyURLParams();
+    updateURL();
 }
 
 window.onload = inti()
