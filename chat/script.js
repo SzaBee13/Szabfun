@@ -8,10 +8,10 @@ const lsUsername = localStorage.getItem("username");
 const lsNickname = localStorage.getItem("nickname");
 const lsRecentMessages = localStorage.getItem("recentMessages");
 
-const apiUrl = "https://szb.pagekite.me"
+const apiUrl = "https://szabfun-backend.onrender.com"
 
 // const socket = new WebSocket("http://192.168.126.1:3100");
-const socket = new WebSocket("https://chat-szb.pagekite.me");
+const socket = new WebSocket("https://chat-szabfun.onrender.com");
 
 let username;
 let nickname;

@@ -8,7 +8,7 @@ const lsAiMode = localStorage.getItem("aiMode");
 const partyCodeInput = document.getElementById("partyCodeInput");
 const joinPartyButton = document.getElementById("joinPartyButton");
 
-const socketUrl = "https://szb.pagekite.me";
+const socketUrl = "https://szabfun-backend.onrender.com";
 // const socketUrl = "http://localhost:3000";
 
 let board = ["", "", "", "", "", "", "", "", ""];

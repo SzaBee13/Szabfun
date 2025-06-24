@@ -81,7 +81,7 @@ const linkList = {
     }
 };
 
-const apiUrl = "https://szb.pagekite.me/sus-link"; // Update this to your API URL if needed
+const apiUrl = "https://szabfun-backend.onrender.com/sus-link"; // Update this to your API URL if needed
 const tableBody = document.getElementById("table-body");
 const customLinkTableBody = document.getElementById("custom-link-table-body");
 const customLinkForm = document.getElementById("custom-link-form");
