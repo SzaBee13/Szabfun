@@ -5,21 +5,23 @@ body {
   font-family: "Segoe UI", Arial, sans-serif;
   margin: 0;
   min-height: 100vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
   padding: 0 20px;
   align-items: center;
-  justify-content: center;
 }
 
 .container {
   min-width: 300px;
   max-width: 700px;
-  margin: 40px auto;
+  margin: 60px auto 40px auto; /* increased top margin for spacing */
   background: #23272f;
   border-radius: 14px;
   box-shadow: 0 4px 24px #0002;
   padding: 32px 24px;
+  position: relative;
+  z-index: 1;
 }
 
 h1,
@@ -116,9 +118,59 @@ tr:last-child td {
   font-weight: bold;
 }
 
+/* Admins list styles */
+#admins-container ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px 0;
+}
+
+#admins-container li {
+  padding: 10px 0;
+  border-bottom: 1px solid #222;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 1.08em;
+}
+
+#admins-container li:last-child {
+  border-bottom: none;
+}
+
+.admin-email {
+  color: #00bfff;
+  text-decoration: underline dotted;
+  margin: 0 8px;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.admin-email:hover {
+  color: #28d17c;
+  text-decoration: underline solid;
+}
+
+.no-email {
+  color: #888;
+  font-style: italic;
+  margin: 0 8px;
+}
+
+.admin-id {
+  color: #888;
+  font-size: 0.95em;
+  margin-left: auto;
+  font-family: monospace;
+  background: #23272f;
+  padding: 2px 8px;
+  border-radius: 6px;
+}
+
 @media (max-width: 600px) {
-  #container {
+  .container {
     padding: 16px 4vw;
+    margin: 32px auto 16px auto; /* reduce margin for mobile */
   }
   table,
   th,
@@ -129,4 +181,14 @@ tr:last-child td {
   h1 {
     font-size: 1.5em;
   }
+  #admins-container li {
+    font-size: 1em;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+}
+
+.back {
+  z-index: 1000;
 }

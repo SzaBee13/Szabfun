@@ -37,6 +37,32 @@ async function isOwner() {
   }
 }
 
+async function loadAdmins() {
+  const googleId = localStorage.getItem("google_id");
+  if (!googleId) return;
+  try {
+    const res = await fetch(`${apiUrl}/admin/get-admins`, {
+      headers: {
+        Authorization: `Bearer ${googleId}`,
+      },
+    });
+    if (!res.ok) return;
+    const data = await res.json();
+    const admins = data.admins || [];
+    const adminsContainer = document.getElementById("admins-container");
+    if (!adminsContainer) return;
+    adminsContainer.style.display = "block";
+    let html = "<h2>Admins</h2><ul>";
+    for (const [id, email, name] of admins) {
+      html += `<li><b>${name || "(no name)"}</b> ${email ? `<a class="admin-email" href="mailto:${email}">${email}</a>` : '<span class="no-email">no email</span>'} <span class="admin-id">${id}</span></li>`;
+    }
+    html += "</ul>";
+    adminsContainer.innerHTML = html;
+  } catch (e) {
+    // Optionally show error
+  }
+}
+
 window.addEventListener("DOMContentLoaded", async () => {
   let admin = false,
     owner = false;
@@ -120,6 +146,11 @@ window.addEventListener("DOMContentLoaded", async () => {
           ? "Admin removed!"
           : "Failed to remove admin.";
       });
+  }
+
+  if (admin || owner) {
+    document.getElementById("admins-container").style.display = "block";
+    await loadAdmins();
   }
 });
 
