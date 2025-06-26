@@ -21,8 +21,8 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 - 2 versions
 
 ## [Login](https://szabfun.pages.dev/login/)
-- 4 commits
-- 1 version
+- 6 commits
+- 2 versions
 - google
 
 ## [Tic tac-toe](https://szabfun.pages.dev/tic-tac-toe/)
