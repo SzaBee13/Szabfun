@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../basicgamestile.css">
+  <link rel="stylesheet" href="./styles.css">
+  <link rel="icon" href="../img/logo.png" type="image/x-icon">
+  <title>Szabfun - Admin Panel</title>
+</head>
+
+<body>
+  <a href="../index.html" class="back">
+    <h1>Szabfun</h1>
+  </a>
+  <div class="container" id="admin-container" style="display:none;">
+    <h2>Admin Panel</h2>
+    <form id="email-form">
+      <h3>Email All Users</h3>
+      <input type="text" id="subject" placeholder="Subject" required><br>
+      <textarea id="message" placeholder="Message" required></textarea><br>
+      <button type="submit">Send Email to All Users</button>
+    </form>
+    <div id="status"></div>
+  </div>
+
+  <div class="container" id="owner-container" style="display:none;">
+    <h2>Owner Panel</h2>
+    <form id="add-admin-form">
+      <h3>Add Admin</h3>
+      <input type="text" id="new-admin-id" placeholder="Google ID of new admin" required><br>
+      <button type="submit">Add Admin</button>
+    </form>
+    <form id="remove-admin-form">
+      <h3>Remove Admin</h3>
+      <input type="text" id="remove-admin-id" placeholder="Google ID of admin to remove" required><br>
+      <button type="submit">Remove Admin</button>
+    </form>
+    <div id="owner-status"></div>
+  </div>
+
+  <div id="not-authorized" style="display:none;">
+    <p>You are not authorized to view this page.</p>
+  </div>
+  <div id="error" style="display:none;">
+    <p>Error checking admin/owner status. Please try again later.</p>
+  </div>
+  <script src="./script.js"></script>
+</body>
+
+</html>

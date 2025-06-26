@@ -1,3 +1,6 @@
+// const apiUrl = 'https://szabfun-backend.onrender.com';
+const apiUrl = 'http://localhost:3000';
+
 window.onGoogleSignIn = function(response) {
     const id_token = response.credential;
     const payload = JSON.parse(atob(id_token.split('.')[1]));
@@ -9,6 +12,16 @@ window.onGoogleSignIn = function(response) {
     localStorage.setItem('google_id', payload.sub);
     localStorage.setItem('google_name', payload.name);
     localStorage.setItem('google_email', payload.email || '');
+    // Register user in backend and send registration email
+    fetch(`${apiUrl}/register`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+            id: payload.sub,
+            name: payload.name,
+            email: payload.email
+        })
+    });
 };
 
 window.googleSignOut = function() {

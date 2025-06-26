@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -17,6 +18,7 @@
     <meta name="author" content="Szabfun">
     <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games">
 </head>
+
 <body>
     <div id="container">
         <div id="header">
@@ -108,5 +110,30 @@
             </div>
         </div>
     </div>
+
+    <script>
+        async function showAdminPanelLinkIfAdmin() {
+            const googleId = localStorage.getItem("google_id");
+            if (!googleId) return;
+            try {
+                const res = await fetch(`http://localhost:3000/admin/is-admin?userId=${googleId}`);
+                if (res.ok) {
+                    const data = await res.json();
+                    if (data.isAdmin) {
+                        const leftFooter = document.querySelector("#footer .left");
+                        if (leftFooter) {
+                            const adminLink = document.createElement("p");
+                            adminLink.innerHTML = `<a href="./admin/index.html">Admin Panel</a>`;
+                            leftFooter.appendChild(adminLink);
+                        }
+                    }
+                }
+            } catch (e) {
+                // Fail silently
+            }
+        }
+        showAdminPanelLinkIfAdmin();
+    </script>
 </body>
+
 </html>
