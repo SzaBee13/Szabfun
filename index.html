@@ -112,11 +112,14 @@
     </div>
 
     <script>
+        const apiUrl = 'https://szabfun-backend.onrender.com';
+        // const apiUrl = 'http://localhost:3000';
+
         async function showAdminPanelLinkIfAdmin() {
             const googleId = localStorage.getItem("google_id");
             if (!googleId) return;
             try {
-                const res = await fetch(`http://localhost:3000/admin/is-admin?userId=${googleId}`);
+                const res = await fetch(`${apiUrl}/admin/is-admin?userId=${googleId}`);
                 if (res.ok) {
                     const data = await res.json();
                     if (data.isAdmin) {

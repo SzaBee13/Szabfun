@@ -1,5 +1,5 @@
-// const apiUrl = 'https://szabfun-backend.onrender.com';
-const apiUrl = 'http://localhost:3000';
+const apiUrl = 'https://szabfun-backend.onrender.com';
+// const apiUrl = 'http://localhost:3000';
 
 window.onGoogleSignIn = function(response) {
     const id_token = response.credential;
