@@ -35,7 +35,7 @@ const winningCombinations = [
 
 async function loadFromDb(googleId) {
     const res = await fetch(
-        `${socketUrl}/load/chaos-clicker?google_id=${googleId}`
+        `${socketUrl}/load/tic-tac-toe?google_id=${googleId}`
     );
     const json = await res.json();
 
@@ -73,7 +73,7 @@ async function loadFromDb(googleId) {
 }
 
 function saveToDb(googleId, hard, ai) {
-    fetch(`${socketUrl}/save/chaos-clicker`, {
+    fetch(`${socketUrl}/save/tic-tac-toe`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -481,6 +481,7 @@ function applyURLParams() {
 }
 
 function init() {
+    resetGame();
     localStorageGet();
 }
 
