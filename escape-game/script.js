@@ -8,7 +8,7 @@ const tryOpenDoor = new Audio('./assets/try-open-door.mp3');
 const safeOpen = new Audio('./assets/safe-open.mp3');
 const gunShoot = new Audio('./assets/gun-shoot.mp3');
 
-const apiUrl = "https://szabfun-backend.onrender.com"
+const apiUrl = "https://inf-programmers-paris-tigers.trycloudflare.com"
 
 let loses = 0;
 let wins = 0;

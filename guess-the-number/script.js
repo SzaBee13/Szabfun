@@ -9,7 +9,7 @@ const lsScore = localStorage.getItem("gtn-score");
 const lsMin = localStorage.getItem("gtn-min");
 const lsMax = localStorage.getItem("gtn-max");
 
-const apiUrl = "https://szabfun-backend.onrender.com";
+const apiUrl = "https://inf-programmers-paris-tigers.trycloudflare.com";
 
 let randomNumber;
 let lPressCount = 0;

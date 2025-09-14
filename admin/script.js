@@ -1,6 +1,21 @@
-const apiUrl = "https://szabfun-backend.onrender.com";
+const apiUrl = "https://inf-programmers-paris-tigers.trycloudflare.com";
 // const apiUrl = "http://localhost:3000";
 let isError = false;
+
+if (!document.cookie.includes("G_AUTHUSER_H")) {
+  localStorage.removeItem("google_id");
+  localStorage.removeItem("google_name");
+  localStorage.removeItem("google_email");
+  document.cookie.split(";").forEach((cookie) => {
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
+    document.cookie =
+      name +
+      "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" +
+      window.location.hostname +
+      ";";
+  });
+}
 
 async function isAdmin() {
   const userId = localStorage.getItem("google_id");
@@ -54,7 +69,11 @@ async function loadAdmins() {
     adminsContainer.style.display = "block";
     let html = "<h2>Admins</h2><ul>";
     for (const [id, email, name] of admins) {
-      html += `<li><b>${name || "(no name)"}</b> ${email ? `<a class="admin-email" href="mailto:${email}">${email}</a>` : '<span class="no-email">no email</span>'} <span class="admin-id">${id}</span></li>`;
+      html += `<li><b>${name || "(no name)"}</b> ${
+        email
+          ? `<a class="admin-email" href="mailto:${email}">${email}</a>`
+          : '<span class="no-email">no email</span>'
+      } <span class="admin-id">${id}</span></li>`;
     }
     html += "</ul>";
     adminsContainer.innerHTML = html;
@@ -153,34 +172,3 @@ window.addEventListener("DOMContentLoaded", async () => {
     await loadAdmins();
   }
 });
-
-// app.post("/owner/remove-admin", saveLoadCors, (req, res) => {
-//   const authHeader = req.headers.authorization;
-//   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-//     return res
-//       .status(401)
-//       .json({ error: "Missing or invalid Authorization header" });
-//   }
-//   const googleId = authHeader.replace("Bearer ", "");
-
-//   // Check if the user is the owner
-//   if (googleId !== ownerId) {
-//     return res.status(403).json({ error: "Forbidden: Not owner" });
-//   }
-
-//   const { adminGoogleId } = req.body;
-//   if (!adminGoogleId) {
-//     return res.status(400).json({ error: "Missing adminGoogleId" });
-//   }
-
-//   adminsDb.run(
-//     "DELETE FROM admins WHERE google_id = ?",
-//     [adminGoogleId],
-//     function (err) {
-//       if (err) {
-//         return res.status(500).json({ error: "Failed to remove admin" });
-//       }
-//       res.json({ success: true, adminGoogleId });
-//     }
-//   );
-// });
