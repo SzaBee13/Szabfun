@@ -182,6 +182,7 @@ function joinQueue() {
 
     socket.on("startGame", (data) => {
         partyCodeDiv.innerHTML = ``;
+        showToast(`Game started! You are ${data.symbol}`, "success");
         multiplayerSymbol = data.symbol;
         room = data.room;
         myTurn = multiplayerSymbol === "X"; // <-- Add this line!

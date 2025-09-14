@@ -2,21 +2,6 @@ const apiUrl = "https://inf-programmers-paris-tigers.trycloudflare.com";
 // const apiUrl = "http://localhost:3000";
 let isError = false;
 
-if (!document.cookie.includes("G_AUTHUSER_H")) {
-  localStorage.removeItem("google_id");
-  localStorage.removeItem("google_name");
-  localStorage.removeItem("google_email");
-  document.cookie.split(";").forEach((cookie) => {
-    const eqPos = cookie.indexOf("=");
-    const name = eqPos > -1 ? cookie.substr(0, eqPos) : cookie;
-    document.cookie =
-      name +
-      "=;expires=Thu, 01 Jan 1970 00:00:00 GMT;path=/;domain=" +
-      window.location.hostname +
-      ";";
-  });
-}
-
 async function isAdmin() {
   const userId = localStorage.getItem("google_id");
   try {

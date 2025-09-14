@@ -20,6 +20,7 @@
 </head>
 <body>
     <a href="../index.html" class="back"><h1>Szabfun</h1></a>
+    <div id="toaster-container"></div>
     <div id="container">
         <div class="controls">
             <button onclick="toggleMode()" id="modeButton">Switch to Player Mode</button>
@@ -34,6 +35,8 @@
         <div id="partyCode"></div>
     </div>
 
+    <script src="../_helper_scripts/toast.js"></script>
+    <!-- Socket.io -->
     <script src="https://inf-programmers-paris-tigers.trycloudflare.com/tic-tac-toe/socket.io/socket.io.js"></script>
     <!-- <script src="http://localhost:3000/tic-tac-toe/socket.io/socket.io.js"></script> -->
     <script src="./script.js"></script>

@@ -191,14 +191,14 @@ customLinkForm.addEventListener("submit", async (event) => {
 
         const result = await response.json();
         if (response.ok) {
-            alert(`Custom link created successfully! Random Short Version: ${result.randomShortVersion}`);
+            showToast(`Custom link created! Random Short Version: ${result.randomShortVersion}`, "success");
             fetchCustomLinks(); // Refresh the custom links table
         } else {
-            alert(`Error: ${result.error}`);
+            showToast(`Error: ${result.error}`, "error");
         }
     } catch (error) {
         console.error("Error creating custom link:", error.message);
-        alert("Failed to create custom link. Please try again.");
+        showToast("Failed to create custom link. Please try again.", "error");
     }
 });
 

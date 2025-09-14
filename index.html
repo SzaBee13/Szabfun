@@ -120,7 +120,7 @@
             if (!googleId) return;
             try {
                 const res = await fetch(`${apiUrl}/admin/is-admin?userId=${googleId}`);
-                if (res.ok) {
+                if (res.ok || res.status === 200 || res.status === 304) {
                     const data = await res.json();
                     if (data.isAdmin) {
                         const leftFooter = document.querySelector("#footer .left");
