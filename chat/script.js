@@ -8,7 +8,7 @@ const lsUsername = localStorage.getItem("username");
 const lsNickname = localStorage.getItem("nickname");
 const lsRecentMessages = localStorage.getItem("recentMessages");
 
-const apiUrl = "https://inf-programmers-paris-tigers.trycloudflare.com"
+const apiUrl = "https://adventures-ellis-redeem-nominations.trycloudflare.com"
 
 // const socket = new WebSocket("http://192.168.126.1:3100");
 const socket = new WebSocket("https://chat-szabfun.onrender.com");

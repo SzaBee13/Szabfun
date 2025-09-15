@@ -206,7 +206,7 @@ document.addEventListener("keydown", (event) => {
         }
 
         if (lPressCount === 5) {
-            fullscreenDiv.style.display = "flex"; // Div megjelenítése
+            fullscreenDiv.style.display = "flex";
             lPressCount = 0;
         }
 

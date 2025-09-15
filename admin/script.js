@@ -1,4 +1,4 @@
-const apiUrl = "https://inf-programmers-paris-tigers.trycloudflare.com";
+const apiUrl = "https://adventures-ellis-redeem-nominations.trycloudflare.com";
 // const apiUrl = "http://localhost:3000";
 let isError = false;
 

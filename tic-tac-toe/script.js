@@ -8,7 +8,7 @@ const lsAiMode = localStorage.getItem("aiMode");
 const partyCodeInput = document.getElementById("partyCodeInput");
 const joinPartyButton = document.getElementById("joinPartyButton");
 
-const socketUrl = "https://inf-programmers-paris-tigers.trycloudflare.com";
+const socketUrl = "https://adventures-ellis-redeem-nominations.trycloudflare.com";
 // const socketUrl = "http://localhost:3000";
 
 let board = ["", "", "", "", "", "", "", "", ""];
