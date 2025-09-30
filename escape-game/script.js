@@ -8,7 +8,7 @@ const tryOpenDoor = new Audio('./assets/try-open-door.mp3');
 const safeOpen = new Audio('./assets/safe-open.mp3');
 const gunShoot = new Audio('./assets/gun-shoot.mp3');
 
-const apiUrl = "https://adventures-ellis-redeem-nominations.trycloudflare.com"
+const apiUrl = "https://olddell.wampus-enigmatic.ts.net"
 
 let loses = 0;
 let wins = 0;

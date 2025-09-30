@@ -81,7 +81,7 @@ const linkList = {
     }
 };
 
-const apiUrl = "https://adventures-ellis-redeem-nominations.trycloudflare.com/sus-link"; // Update this to your API URL if needed
+const apiUrl = "https://olddell.wampus-enigmatic.ts.net/sus-link"; // Update this to your API URL if needed
 const tableBody = document.getElementById("table-body");
 const customLinkTableBody = document.getElementById("custom-link-table-body");
 const customLinkForm = document.getElementById("custom-link-form");

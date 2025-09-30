@@ -1,4 +1,4 @@
-const apiUrl = 'https://adventures-ellis-redeem-nominations.trycloudflare.com';
+const apiUrl = 'https://olddell.wampus-enigmatic.ts.net';
 // const apiUrl = 'http://localhost:3000';
 
 window.onGoogleSignIn = function(response) {

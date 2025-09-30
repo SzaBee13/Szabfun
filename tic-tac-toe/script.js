@@ -8,7 +8,7 @@ const lsAiMode = localStorage.getItem("aiMode");
 const partyCodeInput = document.getElementById("partyCodeInput");
 const joinPartyButton = document.getElementById("joinPartyButton");
 
-const socketUrl = "https://adventures-ellis-redeem-nominations.trycloudflare.com";
+const socketUrl = "https://olddell.wampus-enigmatic.ts.net";
 // const socketUrl = "http://localhost:3000";
 
 let board = ["", "", "", "", "", "", "", "", ""];
