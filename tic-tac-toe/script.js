@@ -8,8 +8,8 @@ const lsAiMode = localStorage.getItem("aiMode");
 const partyCodeInput = document.getElementById("partyCodeInput");
 const joinPartyButton = document.getElementById("joinPartyButton");
 
-// const socketUrl = "https://olddell.wampus-enigmatic.ts.net";
-const socketUrl = "http://localhost:3000";
+const socketUrl = "https://olddell.wampus-enigmatic.ts.net";
+// const socketUrl = "http://localhost:3000";
 
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";

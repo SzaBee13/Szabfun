@@ -113,6 +113,11 @@
             <em>Sent by server when the game ends.</em>
             <pre><code>{ winner: "X" | "O" | null }</code></pre>
           </li>
+          <li>
+            <strong>playAgainRequested</strong> <br>
+            <em>Sent by server when the opponent requests a rematch.</em>
+            <pre><code>{ count: 1 | 2 }</code></pre>
+          </li>
         </ul>
       </section>
 
@@ -133,6 +138,11 @@
             <strong>gameOver</strong> <br>
             <em>Notify server that the game is over:</em>
             <pre><code>socket.emit("gameOver", { room: "room-id", winner: "X" });</code></pre>
+          </li>
+          <li>
+            <strong>playAgain</strong> <br>
+            <em>Request a rematch:</em>
+            <pre><code>socket.emit("playAgain", { room: "room-id" });</code></pre>
           </li>
         </ul>
       </section>
