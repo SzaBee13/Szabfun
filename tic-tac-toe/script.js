@@ -8,8 +8,8 @@ const lsAiMode = localStorage.getItem("aiMode");
 const partyCodeInput = document.getElementById("partyCodeInput");
 const joinPartyButton = document.getElementById("joinPartyButton");
 
-const socketUrl = "https://olddell.wampus-enigmatic.ts.net";
-// const socketUrl = "http://localhost:3000";
+// const socketUrl = "https://olddell.wampus-enigmatic.ts.net";
+const socketUrl = "http://localhost:3000";
 
 let board = ["", "", "", "", "", "", "", "", ""];
 let currentPlayer = "X";
@@ -21,6 +21,7 @@ let room;
 let multiplayerMode = false;
 let multiplayerSymbol;
 let myTurn = false;
+let playAgain = false;
 
 const winningCombinations = [
     [0, 1, 2],
@@ -86,6 +87,56 @@ function saveToDb(googleId, hard, ai) {
     }).then((res) => console.log("Saved Tic Tac Toe progress!" + res));
 }
 
+function showPlayAgainButton(waiting = false, count = 0) {
+    let btn = document.getElementById("playAgainBtn");
+    if (!btn) {
+        btn = document.createElement("button");
+        btn.id = "playAgainBtn";
+        btn.style.marginTop = "10px";
+        winnerElement.appendChild(btn);
+    }
+    btn.textContent = waiting
+        ? `Play Again? (${count}/2)`
+        : "Play Again";
+    btn.onclick = () => {
+        if (multiplayerMode && socket) {
+            socket.emit("playAgain", { room });
+            playAgain = true;
+            btn.disabled = true;
+            btn.textContent = "Play Again? (1/2)";
+            showToast("Waiting for opponent to accept rematch...", "info");
+        } else {
+            resetGame();
+            btn.remove();
+        }
+    };
+}
+
+// Multiplayer: Listen for playAgain events and handle rematch logic
+function setupPlayAgainMultiplayer() {
+    if (!socket) return;
+
+    // Remove previous listeners to avoid duplicates if called multiple times
+    socket.off("playAgainRequested");
+    socket.off("playAgain");
+
+    if (!playAgain) {
+        socket.on("playAgainRequested", ({ count }) => {
+            showPlayAgainButton(true, count);
+            if (count === 1) {
+                showToast("Opponent wants to play again!", "info");
+            }
+        });   
+    }
+
+    socket.on("playAgain", () => {
+        resetGame();
+        const btn = document.getElementById("playAgainBtn");
+        if (btn) btn.remove();
+        showToast("Rematch started!", "success");
+    });
+}
+
 function joinQueueWithCode(code) {
     aiMode = false;
     multiplayerMode = true;
@@ -102,7 +153,7 @@ function joinQueueWithCode(code) {
         partyCodeDiv.innerHTML = ``;
         multiplayerSymbol = data.symbol;
         room = data.room;
-        myTurn = multiplayerSymbol === "X"; // <-- Always X starts!
+        myTurn = multiplayerSymbol === "X";
         winnerElement.textContent = myTurn
             ? "Your turn!"
             : "Opponent's turn...";
@@ -110,18 +161,17 @@ function joinQueueWithCode(code) {
         createBoard();
     });
 
-    socket.on("updateBoard", (updatedBoard) => {
-        board = updatedBoard;
+    socket.on("updateBoard", (data) => {
+        board = data.board;
         createBoard();
 
-        // Count X and O
         const xCount = board.filter((cell) => cell === "X").length;
         const oCount = board.filter((cell) => cell === "O").length;
 
         if (multiplayerSymbol === "X") {
-            myTurn = xCount === oCount; // X's turn if equal
+            myTurn = xCount === oCount;
         } else {
-            myTurn = xCount > oCount; // O's turn if more X than O
+            myTurn = xCount > oCount;
         }
 
         winnerElement.textContent = myTurn
@@ -136,9 +186,11 @@ function joinQueueWithCode(code) {
         } else {
             winnerElement.textContent = "It's a draw!";
         }
+        showPlayAgainButton();
     });
 
-    // ...other socket event handlers...
+    // Play again handshake logic
+    setupPlayAgainMultiplayer();
 }
 
 function generateRoomCode() {
@@ -185,7 +237,7 @@ function joinQueue() {
         showToast(`Game started! You are ${data.symbol}`, "success");
         multiplayerSymbol = data.symbol;
         room = data.room;
-        myTurn = multiplayerSymbol === "X"; // <-- Add this line!
+        myTurn = multiplayerSymbol === "X";
         winnerElement.textContent = myTurn
             ? "Your turn!"
             : "Opponent's turn...";
@@ -193,18 +245,17 @@ function joinQueue() {
         createBoard();
     });
 
-    socket.on("updateBoard", (updatedBoard) => {
-        board = updatedBoard;
+    socket.on("updateBoard", (data) => {
+        board = data.board;
         createBoard();
 
-        // Count X and O
         const xCount = board.filter((cell) => cell === "X").length;
         const oCount = board.filter((cell) => cell === "O").length;
 
         if (multiplayerSymbol === "X") {
-            myTurn = xCount === oCount; // X's turn if equal
+            myTurn = xCount === oCount;
         } else {
-            myTurn = xCount > oCount; // O's turn if more X than O
+            myTurn = xCount > oCount;
         }
 
         winnerElement.textContent = myTurn
@@ -219,7 +270,11 @@ function joinQueue() {
         } else {
             winnerElement.textContent = "It's a draw!";
         }
+        showPlayAgainButton();
     });
+
+    // Play again handshake logic
+    setupPlayAgainMultiplayer();
 }
 
 function updateURL() {
@@ -260,11 +315,11 @@ function handleCellClick(event) {
         socket.emit("move", { room, board });
         createBoard();
 
-        // Check for winner after move
         if (checkWinner(multiplayerSymbol)) {
             winnerElement.innerHTML = `<span class="${multiplayerSymbol.toLowerCase()}"><strong>${multiplayerSymbol}</strong></span> wins!`;
             gameActive = false;
             socket.emit("gameOver", { room, winner: multiplayerSymbol });
+            showPlayAgainButton();
             return;
         }
         // ...draw check if needed...
