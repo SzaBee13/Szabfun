@@ -43,7 +43,7 @@
           </div>
           <div style="display:flex;gap:8px;align-items:center;">
             <div class="small muted">Speed</div>
-            <input id="speedRange" type="number" min="0.2" max="100" step="0.05" value="1">
+            <input id="speedRange" type="number" min="0.2" max="1000" step="0.05" value="1">
             <div class="quick-buttons">
               <button class="secondary" id="speed-0.5">0.5x</button>
               <button class="secondary" id="speed-1">1x</button>
@@ -100,27 +100,31 @@
           <div style="display:flex;flex-direction:column;gap:8px;margin-top:6px">
             <label class="small">Initial counts (R / P / S)</label>
             <div style="display:flex;gap:6px">
-              <input id="inputR" type="number" min="0" max="400" value="30"
+              <input id="inputR" type="number" value="30"
                 style="width:72px;padding:6px;border-radius:6px;background:#071424;border:1px solid rgba(255,255,255,0.03);color:#e6eef6">
-              <input id="inputP" type="number" min="0" max="400" value="30"
+              <input id="inputP" type="number" value="30"
                 style="width:72px;padding:6px;border-radius:6px;background:#071424;border:1px solid rgba(255,255,255,0.03);color:#e6eef6">
-              <input id="inputS" type="number" min="0" max="400" value="30"
+              <input id="inputS" type="number" value="30"
                 style="width:72px;padding:6px;border-radius:6px;background:#071424;border:1px solid rgba(255,255,255,0.03);color:#e6eef6">
             </div>
   
-            <label class="small">Elastic bounce on hit</label>
+            <label class="small">Elastic bounce (recommended)</label>
             <input type="checkbox" id="elastic" checked>
   
             <label class="small">Show velocities</label>
             <input type="checkbox" id="showVel">
+
+            <label class="small">Slow trails (on elastic bounce by 0.005)</label>
+            <input type="checkbox" id="slowTrails" checked>
   
           </div>
         </div>
   
         <div class="footer">
-          <div class="muted small">Rules: collisions are resolved R > S, S > P, P > R. When different types collide, the
-            losing bead converts into the winner's type and continues moving.</div>
-          <h1>Epilepsy warning: rapid color changes may occur. We're not responsible for any seizures.</h1>
+            <h3 style="margin: 5px;">Rules:</h3> Collisions are resolved R > S, S > P, P > R. When different types collide, the
+            losing bead converts into the winner's type and continues moving.
+            We don't have a input limit on the number of beads, use it wisely. (recommended: 30 each type, max: 400)
+            <h3 style="margin: 5px;">Epilepsy warning:</h3> Rapid color changes may occur. We're not responsible for any seizures.
         </div>
       </aside>
     </div>

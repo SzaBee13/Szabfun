@@ -29,6 +29,7 @@
   const inputS = document.getElementById("inputS");
   const elasticCheckbox = document.getElementById("elastic");
   const showVelCheckbox = document.getElementById("showVel");
+  const slowTrailsCheckbox = document.getElementById("slowTrails");
 
   // --- LocalStorage helpers ---
   function saveSettings() {
@@ -38,6 +39,8 @@
     localStorage.setItem("rps_inputR", inputR.value);
     localStorage.setItem("rps_inputP", inputP.value);
     localStorage.setItem("rps_inputS", inputS.value);
+    localStorage.setItem("rps_slowTrails", slowTrailsCheckbox.checked ? "1" : "0");
+    // If logged in, also save to server:
     if (localStorage.getItem("google_id")) {
       saveSettingsToDb(localStorage.getItem("google_id"));
     }
@@ -58,6 +61,10 @@
     if (localStorage.getItem("google_id")) {
       loadSettingsFromDb(localStorage.getItem("google_id"));
     }
+    if (localStorage.getItem("rps_slowTrails")) {
+      slowTrailsCheckbox.checked =
+        localStorage.getItem("rps_slowTrails") === "1";
+    }
   }
 
   // --- Server sync helpers (optional, for logged-in users) ---
@@ -74,6 +81,12 @@
         elasticCheckbox.checked = !!json.data.elastic;
       if (json.data.showVel !== undefined)
         showVelCheckbox.checked = !!json.data.showVel;
+      if (json.data.slowTrails !== undefined)
+        slowTrailsCheckbox.checked = !!json.data.slowTrails;
+      if (json.data.inputR !== undefined) inputR.value = json.data.inputR;
+      if (json.data.inputP !== undefined) inputP.value = json.data.inputP;
+      if (json.data.inputS !== undefined) inputS.value = json.data.inputS;
+      resetBtn.click(); // re-seed simulation
       saveSettings(); // update localStorage
       speedMultiplier = parseFloat(speedRange.value);
     }
@@ -88,6 +101,10 @@
           speed: speedRange.value,
           elastic: elasticCheckbox.checked,
           showVel: showVelCheckbox.checked,
+          slowTrails: slowTrailsCheckbox.checked,
+          inputR: inputR.value,
+          inputP: inputP.value,
+          inputS: inputS.value,
         },
       }),
     }).then((res) => console.log("Saved RPS settings!", res));
@@ -196,9 +213,11 @@
 
   // Initialize beads based on inputs
   function seedFromInputs() {
-    const r = Math.max(0, Math.min(400, parseInt(inputR.value) || 0));
-    const p = Math.max(0, Math.min(400, parseInt(inputP.value) || 0));
-    const s = Math.max(0, Math.min(400, parseInt(inputS.value) || 0));
+    // No min max checks, user is responsible
+    // only min is 1 so there is something to see
+    const r = parseInt(inputR.value) || 0;
+    const p = parseInt(inputP.value) || 0;
+    const s = parseInt(inputS.value) || 0;
     init(r, p, s);
   }
 
@@ -317,11 +336,17 @@
       b.x += nx * sep;
       b.y += ny * sep;
     }
-    // small friction
-    a.vx *= 0.995;
-    a.vy *= 0.995;
-    b.vx *= 0.995;
-    b.vy *= 0.995;
+    if (slowTrailsCheckbox.checked) {
+      a.vx *= 0.995;
+      a.vy *= 0.995;
+      b.vx *= 0.995;
+      b.vy *= 0.995;
+    } else {
+      a.vx *= 1;
+      a.vy *= 1;
+      b.vx *= 1;
+      b.vy *= 1;
+    }
   }
 
   function simpleBounce(a, b) {
@@ -517,6 +542,14 @@
   resetBtn.addEventListener("click", () => {
     startBtn.textContent = "Start";
     startBtn.disabled = false;
+  });
+
+  slowTrailsCheckbox.addEventListener("change", () => {
+    localStorage.setItem(
+      "rps_slowTrails",
+      slowTrailsCheckbox.checked ? "1" : "0"
+    );
+    saveSettings();
   });
 
   // keyboard: space to pause
