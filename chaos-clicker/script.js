@@ -291,6 +291,12 @@ function grantOfflineProgress() {
         }
     }
     localStorage.setItem("lastTime", Date.now());
+    saveToDb(
+        localStorage.getItem("google_id"),
+        cookies,
+        upgrades,
+        lastTime
+    );
 }
 
 // Show notification
@@ -373,9 +379,15 @@ setInterval(function () {
     timeCookie(timeMultiplier);
 }, 1000);
 
-setInterval(function () {
-    saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
-}, 25000);
+document.getElementById("back-button").addEventListener("click", () => {
+    saveToDb(
+        localStorage.getItem("google_id"),
+        cookies,
+        upgrades,
+        lastTime
+    );
+    window.location.href = "../index.html";
+});
 
 cookieButton.addEventListener("click", function () {
     if (lagActive) {

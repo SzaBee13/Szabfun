@@ -112,8 +112,13 @@ button.secondary {
   gap: 8px;
   align-items: center;
 }
-input[type="range"] {
-  width: 100%;
+input {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--accent);
+  padding: 6px 8px;
+  border-radius: 6px;
+  width: 60px;
 }
 label.small {
   font-size: 12px;
