@@ -189,6 +189,11 @@ button > a {
     margin: 5px;
 }
 
+.rock-paper-scissors > a > img {
+    width: 115px;
+    margin: 5px;
+}
+
 .header-content {
     display: flex;
     flex-direction: column;
