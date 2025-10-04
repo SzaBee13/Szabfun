@@ -304,7 +304,7 @@
       const winnerType = nonZeroTypes[0][0];
       // Show winner message (replace this with your preferred UI)
       setTimeout(() => {
-        showToast(`🏆 ${winnerType.charAt(0).toUpperCase() + winnerType.slice(1)} wins! 🏆`, 5000);
+        showToast(`🏆 ${winnerType.charAt(0).toUpperCase() + winnerType.slice(1)} wins! 🏆`, "success");
       }, 100);
       pauseBtn.textContent = 'Pause';
       pauseBtn.classList.add('secondary');

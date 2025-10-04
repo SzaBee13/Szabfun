@@ -29,6 +29,9 @@ It is built with a modular Node.js backend and a static frontend.
 ## Frontend Structure
 
 - **index.html** — Main landing page
+- **style.css** — Main CSS styles
+- **basicgamestiles.css** — Game tile styles
+- **_helper_scripts/** — Common JS functions
 - **admin/** — Admin panel
 - **chaos-clicker/** — Chaos Clicker game
 - **chat/** — Real-time chat
@@ -44,6 +47,7 @@ It is built with a modular Node.js backend and a static frontend.
 - **swear-word-generator/** — Swear word generator
 - **tic-tac-toe/** — Tic-Tac-Toe game
 - **watch-some-youtube/** — Random YouTube video generator
+- **rock-paper-scissors/** — Rock Paper Scissors game
 
 ---
 

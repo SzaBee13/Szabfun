@@ -14,6 +14,8 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 6. Escape game.
 7. Chat
 8. Sus link is a link, but you don't know where you end.
-
+9. Math
+11. Chaos Clicker
+10. Rock Paper Scissors
 ## Wiki
 - Wiki available <a href="./WIKI.md">here</a>
