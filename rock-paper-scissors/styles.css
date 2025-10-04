@@ -143,7 +143,7 @@ label.small {
     box-shadow: 0 2px 8px rgba(2, 6, 23, 0.5);
   }
   canvas {
-    height: 320px;
+    height: 500px;
     width: 100%;
     border-radius: 4px;
   }
@@ -175,6 +175,10 @@ label.small {
   input[type="range"] {
     width: 100%;
   }
+
+  .canvas-wrap .row {
+    display: none;
+  }
 }
 
 @media (max-width: 420px) {
@@ -189,7 +193,7 @@ label.small {
     padding: 5px;
   }
   canvas {
-    height: 180px;
+    height: 600px;
   }
   h1 {
     font-size: 14px;
