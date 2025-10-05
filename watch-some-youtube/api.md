@@ -2,7 +2,6 @@
 | --- | --- |
 | 9bZkp7q19f0 | PSY - Gangnam Style |
 | 60ItHLz5WEA | Alan Walker - Faded |
-| F6va6tg62qg | Musical World Map |
 | 7e0-puVc3Qw | H*tler - Gangnam Style (강남스타일) Parody | 
 | n6R38pxcfdE | Los Pingüinos x Last Christmas |
 | dpKAnAO6vqw | Last Rizzmas Official Lyric Video |
@@ -16,11 +15,10 @@
 | ekr2nIex040 | ROSÉ & Bruno Mars - APT. (Official Music Video) |
 | Iyd4ewDKDx8 | LAVINIA, Ely Oaks, Betsy, Мария Янковская - Sigma Boy |
 | frAhxXbLetk | Betsy, Мария Янковская - Сигма Бой (official Audio) |
-| QURWqh0nt_A | \[YTP\] KSI - THICK OF IT BUT IT'S ACTUALLY GOOD |
 | 2ApG8TOJOl0 | KSI - Thick Of It (british version) |
-| zDjEw_VULDM | Ein, zwei, Polizei rave mix Hitler |
 | 0sLEmLVRB4c | APT - ROSÉ & Bruno Mars Cover by Donald Trump |
 | RHCLycZ4huk | Мария Янковская, POLI - Sigma Girl (Official music video) |
+| xlrj36cAzj4 | The Dead Dance (Lady Gaga) with Enid and Agnes \| Wednesday: Season 2 \| Netflix | 
 | --- | --- |
 | 3JZ_D3ELwOQ | Flexin' On Ya (2014) |
 | hY7m5jjJ9mM | CATS will make you LAUGH YOUR HEAD OFF - Funny CAT compilation |
@@ -65,6 +63,7 @@
 | aS7qiu8T-4Q | I can say the alphabet in 1 second 😳 |
 | 90O5JJgzu6E | When You Delete Duolingo... |
 | MnIRAGodAXA | Nuts \[YTP\] | A Moana parody |
+| L7ejl_Hj3A8 | 67 Kid |
 | --- | --- |
 | lL9LcfSlPfA | Top 5 Adolf Hitler |
 | mCh6VpxLubc | top 5 scariest jumpscares |

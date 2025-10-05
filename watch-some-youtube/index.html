@@ -17,6 +17,9 @@
     <meta name="description" content="Give you a random youtube video">
     <meta name="author" content="Szabfun">
     <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, youtube">
+    <!-- Script -->
+    <script src="../_helper_scripts/suggestion.js"></script>
+    <script src="../_helper_scripts/toast.js"></script>
 </head>
 <body>
     <a href="../index.html" class="back"><h1>Szabfun</h1></a>
@@ -29,8 +32,16 @@
             <h3 id="meme" onclick="selectOption('meme')">Meme</h3>
             <h3 id="top5" onclick="selectOption('top5')">Top5</h3>
         </div>
-    </div>
 
+        <div id="suggestions">
+            <h2>Suggestions:</h2>
+            <form id="suggestion-form">
+                <input type="text" placeholder="Suggest a video" required id="suggestion-input">
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <script src="./handleSuggestions.js"></script>
     <script src="./script.js"></script>
 </body>
 </html>
