@@ -9,7 +9,7 @@ const lsScore = localStorage.getItem("gtn-score");
 const lsMin = localStorage.getItem("gtn-min");
 const lsMax = localStorage.getItem("gtn-max");
 
-const apiUrl = "https://olddell.wampus-enigmatic.ts.net/szabfun";
+const apiUrl = "https://olddell.wampus-enigmatic.ts.net";
 
 let randomNumber;
 let lPressCount = 0;
