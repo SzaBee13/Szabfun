@@ -25,7 +25,7 @@ const timeMachineSpan = document.getElementById("time-machine-owned");
 const buyTimeMachineBtn = document.getElementById("buy-time-machine");
 
 // const socketUrl = "http://localhost:3000";
-const socketUrl = "https://olddell.wampus-enigmatic.ts.net/szabfun";
+const socketUrl = "https://olddell.wampus-enigmatic.ts.net";
 
 const socket = io(socketUrl, {
     path: "/chaos-clicker/socket.io",
