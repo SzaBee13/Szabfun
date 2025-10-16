@@ -3,7 +3,7 @@ const typeSel = document.getElementById("type");
 const lvlSel = document.getElementById("lvl");
 const resultDiv = document.getElementById("result");
 
-const apiUrl = "https://olddell.wampus-enigmatic.ts.net"
+const apiUrl = "https://olddell.wampus-enigmatic.ts.net/szabfun"
 
 let api = {};
 
