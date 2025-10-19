@@ -57,7 +57,7 @@ let upgrades = {
 
 async function loadFromDb(googleId) {
     const res = await fetch(
-        `${socketUrl}/load/chaos-clicker?google_id=${googleId}`
+        `${socketUrl}/chaos-clicker/load/chaos-clicker?google_id=${googleId}`
     );
     const json = await res.json();
 
@@ -91,7 +91,7 @@ async function loadFromDb(googleId) {
 }
 
 function saveToDb(googleId, cookies, upgrades, lastTime) {
-    fetch(`${socketUrl}/save/chaos-clicker`, {
+    fetch(`${socketUrl}/chaos-clicker/save/chaos-clicker`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
