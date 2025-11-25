@@ -27,8 +27,8 @@ const buyTimeMachineBtn = document.getElementById("buy-time-machine");
 // const socketUrl = "http://localhost:3000";
 const socketUrl = "https://olddell.wampus-enigmatic.ts.net/szabfun";
 
-const socket = io(socketUrl, {
-    path: "/chaos-clicker/socket.io",
+const socket = io("https://olddell.wampus-enigmatic.ts.net", {
+    path: "/szabfun/chaos-clicker/socket.io",
 });
 let lagActive = false;
 let greatGrandmaTimeout = null;
@@ -57,7 +57,7 @@ let upgrades = {
 
 async function loadFromDb(googleId) {
     const res = await fetch(
-        `${socketUrl}/chaos-clicker/load/chaos-clicker?google_id=${googleId}`
+        `${socketUrl}/load/chaos-clicker?google_id=${googleId}`
     );
     const json = await res.json();
 
@@ -91,7 +91,7 @@ async function loadFromDb(googleId) {
 }
 
 function saveToDb(googleId, cookies, upgrades, lastTime) {
-    fetch(`${socketUrl}/chaos-clicker/save/chaos-clicker`, {
+    fetch(`${socketUrl}/save/chaos-clicker`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
