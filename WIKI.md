@@ -48,6 +48,7 @@ It is built with a modular Node.js backend and a static frontend.
 - **tic-tac-toe/** — Tic-Tac-Toe game
 - **watch-some-youtube/** — Random YouTube video generator
 - **rock-paper-scissors/** — Rock Paper Scissors game
+- **timer-challenge/** — Timer Challenge game
 
 ---
 
@@ -73,12 +74,13 @@ It is built with a modular Node.js backend and a static frontend.
 - **Chat:** Real-time chat with WebSocket
 - **Swear Word Generator:** Generate random swear words
 - **Guess the Number, Math, Escape Game, etc.:** Fun mini-games
+- **Timer Challenge:** Test your timing skills
 
 ---
 
 ## API Endpoints
 
-See [docs/index.html](https://szabfun.pages.dev/docs) in the frontend for full API documentation.
+See [docs/index.html](https://fun.szabee.me/docs) in the frontend for full API documentation.
 
 **Examples:**
 - `POST /register` — Register a user
@@ -120,7 +122,7 @@ In that december i was created a commit like every day. I like creating new stuf
 
 ## Credits
 
-- Created by [SzaBee13](https://szabee13.pages.dev)
+- Created by [SzaBee13](https://szabee.me)
 - Frontend powered by Cloudflare and pages.dev
 - Backend powered by Node.js, Express, Socket.IO, and SQLite
 - Frontend hosted on Cloudflare Pages

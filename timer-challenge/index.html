@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="../basicgamestile.css">
+    <link rel="icon" href="../img/timer-challenge.png" type="image/x-icon">
+    <title>Timer Challenge</title>
+    <!-- Open Graph meta tag -->
+    <meta property="og:title" content="Szabfun - Timer Challenge">
+    <meta property="og:description" content="">
+    <meta property="og:url" content="https://szabfun.pages.dev/timer-challenge">
+    <meta property="og:image" content="https://szabfun.pages.dev/img/timer-challenge.png">
+    <meta property="og:type" content="website">
+    <!--Google-->
+    <meta name="description" content="">
+    <meta name="author" content="Szabfun">
+    <meta name="keywords" content="szabfun, SzaBee13, WizardGuruYT, games, timer, challenge">
+</head>
+
+<body>
+    <a href="../index.html" class="back">
+        <h1>Szabfun</h1>
+    </a>
+    <div class="container" id="container">
+        <h1>⏱️ Timer Challenge</h1>
+
+        <div class="setup">
+            <label for="targetTime">Target Time (seconds):</label>
+            <input type="number" id="targetTime" value="10" min="1" max="60">
+        </div>
+
+        <div class="timer-display">
+            <div class="time" id="timerDisplay">0.00</div>
+        </div>
+
+        <div class="buttons">
+            <button class="start-btn" id="startBtn">Start</button>
+            <button class="stop-btn" id="stopBtn" disabled>Stop</button>
+        </div>
+
+        <div class="result" id="result">
+            <h3>Result</h3>
+            <p>Target: <span id="resultTarget"></span>s</p>
+            <p>Your Time: <span id="resultTime"></span>s</p>
+            <div class="accuracy" id="resultAccuracy"></div>
+        </div>
+
+        <div class="stats">
+            <h3>📊 Statistics</h3>
+            <div class="stat-item">
+                <span>Games Played:</span>
+                <span class="stat-value" id="gamesPlayed">0</span>
+            </div>
+            <div class="stat-item">
+                <span>Best Accuracy:</span>
+                <span class="stat-value" id="bestAccuracy">-</span>
+            </div>
+            <div class="stat-item">
+                <span>Average Accuracy:</span>
+                <span class="stat-value" id="avgAccuracy">-</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="./script.js"></script>
+</body>
+
+</html>

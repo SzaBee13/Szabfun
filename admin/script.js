@@ -1,4 +1,4 @@
-const apiUrl = "https://olddell.wampus-enigmatic.ts.net/szabfun";
+const apiUrl = "https://api-fun.szabee.me";
 // const apiUrl = "http://localhost:3000";
 let isError = false;
 
