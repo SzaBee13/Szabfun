@@ -133,8 +133,8 @@ Object.entries(linkList).forEach(([key, { url, randomName, title }]) => {
         <td>${key}</td>
         <td><a href=${url} target="_blank">${title}</a></td>
         <td class="link-cell">
-            <button class="copy-link" data-link="https://szabfun.pages.dev/sus-link?l=${key}">Copy Normal</button>
-            <button class="copy-link" data-link="https://szabfun.pages.dev/sus-link?l=${randomName}">Copy Random</button>
+            <button class="copy-link" data-link="https://fun.szabee.me/sus-link?l=${key}">Copy Normal</button>
+            <button class="copy-link" data-link="https://fun.szabee.me/sus-link?l=${randomName}">Copy Random</button>
         </td>
     `;
     if (tableBody) {
@@ -168,7 +168,7 @@ function populateCustomTable(customLinks) {
             <td>${randomShortVersion}</td>
             <td>${author}</td>
             <td class="link-cell">
-                <button class="copy-link" data-link="https://szabfun.pages.dev/sus-link?l=${randomShortVersion}">Copy Short</button>
+                <button class="copy-link" data-link="https://fun.szabee.me/sus-link?l=${randomShortVersion}">Copy Short</button>
             </td>
         `;
         customLinkTableBody.appendChild(row);
