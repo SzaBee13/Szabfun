@@ -1,0 +1,22 @@
+/* Szabfun - Game Platform */
+
+Team:
+    Name: Szabfun Team
+    Website: https://fun.szabee.me
+    Email: 
+    
+Thanks:
+    - SzaBee13
+    - WizardGuruYT
+    - Contributors to the Szabfun project
+
+Site:
+    Last Update: 2026-02-21
+    Language: English
+    Modules: Games, Chat, Admin Panel
+    CMS: Static HTML/JavaScript
+
+Standards:
+    HTML: HTML5
+    CSS: CSS3
+    JS: Vanilla JavaScript

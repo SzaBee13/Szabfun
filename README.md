@@ -23,4 +23,4 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 
 ## Wiki
 
-- Wiki available <a href="./WIKI.md">here</a>
+- Wiki available [here](./WIKI.md)
