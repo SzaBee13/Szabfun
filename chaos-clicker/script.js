@@ -66,7 +66,7 @@ async function loadFromDb(googleId) {
         if (data.cookies) {
             cookies = data.cookies;
             upgrades = data.upgrades;
-            lastTime = data.lastTime;
+            lastTime = parseInt(data.lastTime) || Date.now();
             // Set these back into game
             console.log("Loaded:", data);
         } else {
@@ -147,6 +147,10 @@ async function loadChaosClicker(googleId) {
 
 // Patch multiplier logic for great-grandma event
 function updateMultipliers() {
+    // Reset multipliers
+    timeMultiplier = 1;
+    clickMultiplier = 1;
+    
     if (upgrades.grandma != 0) {
         timeMultiplier += 2 * upgrades.grandma;
     }
@@ -245,19 +249,31 @@ function setCookies(val) {
 // Patch addCookie/removeCookie/timeCookie to use setCookies
 function addCookie(multiplier) {
     setCookies(cookies + 1 * multiplier);
-    localStorage.setItem("lastTime", Date.now());
+    lastTime = Date.now();
+    localStorage.setItem("lastTime", lastTime);
+    if (localStorage.getItem("google_id")) {
+        saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
+    }
 }
 
 function removeCookie(amount) {
     setCookies(cookies - amount);
-    localStorage.setItem("lastTime", Date.now());
+    lastTime = Date.now();
+    localStorage.setItem("lastTime", lastTime);
+    if (localStorage.getItem("google_id")) {
+        saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
+    }
 }
 
 function timeCookie(multiplier) {
     if (!lagActive) {
         setCookies(cookies + 1 * multiplier);
     }
-    localStorage.setItem("lastTime", Date.now());
+    lastTime = Date.now();
+    localStorage.setItem("lastTime", lastTime);
+    if (localStorage.getItem("google_id")) {
+        saveToDb(localStorage.getItem("google_id"), cookies, upgrades, lastTime);
+    }
 }
 
 function addUpgrade(upgrade) {
@@ -290,12 +306,14 @@ function grantOfflineProgress() {
             localStorage.setItem("cookies", cookies);
         }
     }
-    localStorage.setItem("lastTime", Date.now());
+    const now = Date.now();
+    lastTime = now;
+    localStorage.setItem("lastTime", now);
     saveToDb(
         localStorage.getItem("google_id"),
         cookies,
         upgrades,
-        lastTime
+        now
     );
 }
 
@@ -364,10 +382,15 @@ function init() {
             cookieSpan.innerText = cookies;
         }
         if (lsLastTime) {
-            lastTime = lsLastTime;
+            lastTime = parseInt(lsLastTime) || Date.now();
             loadUpgrades();
             updateMultipliers();
             grantOfflineProgress();
+            updateUpgradeUI();
+        } else {
+            lastTime = Date.now();
+            loadUpgrades();
+            updateMultipliers();
             updateUpgradeUI();
         }
     }

@@ -39,7 +39,11 @@
   <div id="container">
     <div id="suggestions">
       <h2>Suggestions:</h2>
-      <form id="suggestion-form">
+      <div id="login-required" style="display: none; text-align: center; padding: 20px;">
+        <p>You must be logged in to submit a suggestion.</p>
+        <a href="./login/index.html" class="btn">Log In</a>
+      </div>
+      <form id="suggestion-form" style="display: none;">
         <input type="text" placeholder="Suggest something" required id="suggestion-input">
         <select id="game-select" required>
           <option value="" disabled selected>Select a game</option>
@@ -62,17 +66,33 @@
     </div>
   </div>
   <script>
+    // Check if user is logged in
+    function checkLoginStatus() {
+      const googleId = localStorage.getItem('google_id');
+      const form = document.getElementById("suggestion-form");
+      const loginRequired = document.getElementById("login-required");
+      
+      if (googleId) {
+        form.style.display = "block";
+        loginRequired.style.display = "none";
+      } else {
+        form.style.display = "none";
+        loginRequired.style.display = "block";
+      }
+    }
+
+    // Check login status on page load
+    window.addEventListener('load', checkLoginStatus);
+
+    // Also check periodically in case user logs in
+    setInterval(checkLoginStatus, 1000);
+
     const form = document.getElementById("suggestion-form");
     form.addEventListener("submit", (event) => {
       event.preventDefault();
       const input = document.getElementById("suggestion-input").value;
       const game = document.getElementById("game-select").value;
-      if (localStorage.getItem('google_name')) {
-        author = localStorage.getItem('google_name').split(" ")[0] // ONLY FIRST NAME
-      } else {
-        author = "Anonymous"
-      }
-      sendSuggestion(game, author, input);
+      sendSuggestion(game, input);
     });
   </script>
 </body>

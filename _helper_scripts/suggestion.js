@@ -1,25 +1,26 @@
 // import the toast function from toast.js
 
-function sendSuggestion(game, author, message) {
-  if (game === "watch-some-youtube") {
-    const payload = {
-      content: `New video suggestion for **${game.replace(/-/g, " ")}** by **${author}**:\n${message}`,
-    };
-    sendToDiscord(payload);
-  } else {
-    const payload = {
-      content: `New suggestion for **${game.replace(/-/g, " ")}** by **${author}**:\n${message}`,
-    };
-    sendToDiscord(payload);
+function sendSuggestion(game, message) {
+  const googleId = localStorage.getItem('google_id');
+  
+  if (!googleId) {
+    showToast("You must be logged in to send a suggestion.", "error");
+    return;
   }
-}
 
-function sendToDiscord(payload) {
-  const webhookUrl = "https://discord.com/api/webhooks/1424282769978167328/b5oBH8n9zYgTIC9CFiuY0-0gaM9ErY3F2vrjXUD5RpvrjOZufHMtD0L0th7eWELFdFX5";
-  fetch(webhookUrl, {
+  const payload = {
+    game: game,
+    message: message
+  };
+
+  const apiUrl = "https://fun.szabee.me/suggestions/create";
+  // For local testing, use: const apiUrl = "http://localhost:3000/suggestions/create";
+
+  fetch(apiUrl, {
     method: "POST",
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": `Bearer ${googleId}`
     },
     body: JSON.stringify(payload)
   })
@@ -30,7 +31,11 @@ function sendToDiscord(payload) {
     return response.json();
   })
   .then(data => {
-    console.log("Success:", data);
+    console.log("Suggestion saved successfully:", data);
+    showToast("Thank you for your suggestion!", "success");
+    // Clear the form
+    document.getElementById("suggestion-input").value = "";
+    document.getElementById("game-select").value = "";
   })
   .catch((error) => {
     console.error("Error:", error);
