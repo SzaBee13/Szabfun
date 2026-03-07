@@ -5,40 +5,52 @@ Allow: /
 # Specific rules for search engines
 User-agent: Googlebot
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: Bingbot
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: Slurp
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: DuckDuckBot
 Allow: /
+Disallow: /cdn-cgi/
 
 # AI Search Bots
 User-agent: GPTBot
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: ChatGPT-User
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: CCBot
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: anthropic-ai
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: Claude-Web
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: facebookexternalhit
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: Twitterbot
 Allow: /
+Disallow: /cdn-cgi/
 
 User-agent: LinkedInBot
 Allow: /
+Disallow: /cdn-cgi/
 
 # Sitemap location
 Sitemap: https://fun.szabee.me/sitemap.xml

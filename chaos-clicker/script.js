@@ -27,8 +27,8 @@ const buyTimeMachineBtn = document.getElementById("buy-time-machine");
 // const socketUrl = "http://localhost:3000";
 const socketUrl = "https://api-fun.szabee.me";
 
-const socket = io("https://olddell.wampus-enigmatic.ts.net", {
-    path: "/szabfun/chaos-clicker/socket.io",
+const socket = io(socketUrl, {
+    path: "/chaos-clicker/socket.io",
 });
 let lagActive = false;
 let greatGrandmaTimeout = null;
