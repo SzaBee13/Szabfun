@@ -81,8 +81,8 @@ const linkList = {
     }
 };
 
-// const apiUrl = "https://api-fun.szabee.me/sus-link"; // Update this to your API URL if needed
-const apiUrl = "http://localhost:3000"; // For local development, change to your backend URL if different
+const apiUrl = "https://api-fun.szabee.me/sus-link"; // Update this to your API URL if needed
+// const apiUrl = "http://localhost:3000"; // For local development, change to your backend URL if different
 const tableBody = document.getElementById("table-body");
 const customLinkTableBody = document.getElementById("custom-link-table-body");
 const customLinkForm = document.getElementById("custom-link-form");
