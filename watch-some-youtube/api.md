@@ -64,6 +64,7 @@
 | 90O5JJgzu6E | When You Delete Duolingo... |
 | MnIRAGodAXA | Nuts \[YTP\] | A Moana parody |
 | L7ejl_Hj3A8 | 67 Kid |
+| T14DQkV0fEQ | get distracted, stick bugged & rick rolled lol |
 | --- | --- |
 | lL9LcfSlPfA | Top 5 Adolf Hitler |
 | mCh6VpxLubc | top 5 scariest jumpscares |

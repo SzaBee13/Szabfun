@@ -81,7 +81,8 @@ const linkList = {
     }
 };
 
-const apiUrl = "https://api-fun.szabee.me/sus-link"; // Update this to your API URL if needed
+// const apiUrl = "https://api-fun.szabee.me/sus-link"; // Update this to your API URL if needed
+const apiUrl = "http://localhost:3000"; // For local development, change to your backend URL if different
 const tableBody = document.getElementById("table-body");
 const customLinkTableBody = document.getElementById("custom-link-table-body");
 const customLinkForm = document.getElementById("custom-link-form");
@@ -124,17 +125,60 @@ async function handleLinkRedirection() {
         }
     }
 
+    // Fallback to backend search so private/generated short codes also resolve.
+    try {
+        const response = await fetch(`${apiUrl}/search?l=${encodeURIComponent(linkKey)}`);
+        if (response.ok) {
+            const result = await response.json();
+            if (result.url) {
+                window.open(result.url, target);
+                return;
+            }
+        }
+    } catch (error) {
+        console.error("Error searching link by short code:", error.message);
+    }
+
     console.error("Link not found for the provided key.");
 }
+
+async function createRandomShort(endpoint) {
+    const response = await fetch(`${apiUrl}/create-random-short`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ endpoint }),
+    });
+
+    if (!response.ok) {
+        throw new Error("Failed to create random short link.");
+    }
+
+    return response.json();
+}
+
+function copyToClipboard(text) {
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        return navigator.clipboard.writeText(text);
+    }
+
+    const tempInput = document.createElement("textarea");
+    tempInput.value = text;
+    document.body.appendChild(tempInput);
+    tempInput.select();
+    document.execCommand("copy");
+    document.body.removeChild(tempInput);
+    return Promise.resolve();
+}
+
 // Populate the table with predefined links
-Object.entries(linkList).forEach(([key, { url, randomName, title }]) => {
+Object.entries(linkList).forEach(([key, { url, title }]) => {
     const row = document.createElement("tr");
     row.innerHTML = `
         <td>${key}</td>
         <td><a href=${url} target="_blank">${title}</a></td>
         <td class="link-cell">
             <button class="copy-link" data-link="https://fun.szabee.me/sus-link?l=${key}">Copy Normal</button>
-            <button class="copy-link" data-link="https://fun.szabee.me/sus-link?l=${randomName}">Copy Random</button>
+            <button class="generate-random-link" data-endpoint="${url}">Generate Random</button>
         </td>
     `;
     if (tableBody) {
@@ -206,26 +250,37 @@ customLinkForm.addEventListener("submit", async (event) => {
 document.addEventListener("click", (event) => {
     if (event.target.classList.contains("copy-link")) {
         const link = event.target.getAttribute("data-link");
-        console.log(`Copying link: ${link}`); // Debugging log
+        copyToClipboard(link).catch((err) => {
+            console.error("Failed to copy link:", err);
+            showToast("Failed to copy link.", "error");
+        });
+    }
+});
 
-        if (navigator.clipboard && navigator.clipboard.writeText) {
-            // Use Clipboard API if available
-            navigator.clipboard.writeText(link).catch((err) => {
-                console.error("Failed to copy text: ", err);
-            });
-        } else {
-            // Fallback: Use a temporary <textarea> element
-            const tempInput = document.createElement("textarea");
-            tempInput.value = link;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            try {
-                document.execCommand("copy");
-            } catch (err) {
-                console.error("Fallback copy failed: ", err);
-            }
-            document.body.removeChild(tempInput);
-        }
+document.addEventListener("click", async (event) => {
+    if (!event.target.classList.contains("generate-random-link")) return;
+
+    const endpoint = event.target.getAttribute("data-endpoint");
+    if (!endpoint) {
+        showToast("Missing endpoint for random link generation.", "error");
+        return;
+    }
+
+    event.target.disabled = true;
+    const originalText = event.target.textContent;
+    event.target.textContent = "Generating...";
+
+    try {
+        const result = await createRandomShort(endpoint);
+        const generatedLink = `https://fun.szabee.me/sus-link?l=${result.randomShortVersion}`;
+        await copyToClipboard(generatedLink);
+        showToast(`Generated and copied: ${result.randomShortVersion}`, "success");
+    } catch (error) {
+        console.error("Error generating random short link:", error.message);
+        showToast("Failed to generate random short link.", "error");
+    } finally {
+        event.target.disabled = false;
+        event.target.textContent = originalText;
     }
 });
 
