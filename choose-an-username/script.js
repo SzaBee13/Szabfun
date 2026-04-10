@@ -21,7 +21,7 @@ function checkUsername() {
     resultDiv.innerHTML = '';
 
     if (!username) {
-        resultDiv.innerHTML = "Please, type an username!";
+        resultDiv.innerHTML = "Please, type a username!";
     } else {
         resultDiv.innerHTML = ""
         platforms.forEach(platform => {

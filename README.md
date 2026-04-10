@@ -9,7 +9,7 @@ This is a webside "There is a place where is free to fun" called [Szabfun](https
 ## Games
 
 1. The first game is the tic-tac-toe. It's a very simple game with some AI inside.
-2. I want to get a username so I created this website, called choose an username.
+2. I want to get a username so I created this website, called choose a username.
 3. If you want be swear this is the perfect site for you.
 4. Guess the number that's all.
 5. It generate a youtube video from my api.
