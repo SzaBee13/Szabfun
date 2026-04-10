@@ -35,7 +35,7 @@ It is built with a modular Node.js backend and a static frontend.
 - **admin/** — Admin panel
 - **chaos-clicker/** — Chaos Clicker game
 - **chat/** — Real-time chat
-- **choose-an-username/** — Username checker
+- **choose-a-username/** — Username checker
 - **docs/** — API and feature documentation
 - **enter-password/** — Password game
 - **escape-game/** — Escape game
